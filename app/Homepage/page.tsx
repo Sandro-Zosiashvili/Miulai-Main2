@@ -1,16 +1,12 @@
 'use client';
-import { CardHeader } from '@mui/material';
-import MusicCard from '../components/ MusicCard/ MusicCard';
-import Card from '../components/Card/Card';
-import CardsHeader from '../components/CardsHeader/CardsHeader';
-import Header from '../components/Header/Header';
 import News from '../components/News/News';
 import ChartsSection from './ChartsSection/ChartsSection';
 import HitsSection from './HitsSection/HitsSection';
 import styles from './page.module.scss';
 import ArtistSection from './ArtistSection/ArtistSection';
 import AlbumSection from './AlbumSection/AlbumSection';
-import IndexPage from '../components/MusicPlayer/IndexPage';
+import CardsHeader from '../components/CardsHeader/CardsHeader';
+import Header from '../components/Header/Header';
 
 const hitsData = [
     {
