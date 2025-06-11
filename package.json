@@ -13,7 +13,7 @@
     "@mui/material": "^5.16.0",
     "antd": "^5.20.1",
     "axios": "^1.7.7",
-    "cookie": "^0.6.0",
+    "cookie": "^1.0.2",
     "cors": "^2.8.5",
     "crypto-js": "^4.2.0",
     "express": "^4.21.1",
@@ -30,14 +30,14 @@
     "yarn": "^1.22.22"
   },
   "devDependencies": {
-    "@studiometa/prettier-config": "^4.1.0",
+    "@studiometa/prettier-config": "^3.0.0",
     "@types/crypto-js": "^4.2.2",
     "@types/js-cookie": "^3.0.6",
     "@types/node": "^20",
     "@types/react": "^18.3.5",
     "@types/react-dom": "^18",
     "eslint": "^8",
-    "eslint-config-next": "14.2.4",
+    "eslint-config-next": "^15.3.3",
     "prettier": "^3.3.2",
     "typescript": "^5"
   },

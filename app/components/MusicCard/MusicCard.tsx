@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import HeartShapeBtn from '../heatShapeIcon/HeartShapeIcn';
 import Icon from '../Icon/Icon';
 import Image from 'next/image';
-import styles from './ MusicCard.module.scss'
+import styles from './MusicCard.module.scss'
 import Playlist from '../Playlist/Playlist';
 import axios from 'axios';
 import { useRecoilState } from 'recoil';

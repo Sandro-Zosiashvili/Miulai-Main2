@@ -1,5 +1,5 @@
 // ChartsSection.tsx
-import MusicCard from '@/app/components/ MusicCard/ MusicCard';
+import MusicCard from '@/app/components/MusicCard/MusicCard';
 import styles from './ChartsSection.module.scss';
 
 const ChartsSection = () => {
