@@ -1,0 +1,113 @@
+@import '../colors/colors.scss';
+
+.container {
+    padding: 16px;
+    width: 255px;
+    height: 295px;
+    // width: 266px;
+    // height: 309px;
+    border-radius: 8px;
+    padding: 8px;
+    background: $darkVoid;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.font {
+    color: $shadyLady;
+    font-size: 14px;
+    font-weight: 600;
+    margin-left: 2px;
+    align-self: flex-start;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+.buttons {
+    position: absolute;
+    display: none;
+    margin-bottom: 16px;
+    gap: 8px;
+}
+
+.cellEdit {
+    background-color: $white;
+    width: 32px;
+    height: 32px;
+    border-radius: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cellDelete {
+    background-color: $white;
+    width: 32px;
+    height: 32px;
+    border-radius: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hoveredImage {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.container:hover .buttons {
+    display: flex;
+
+}
+
+.container:hover .hoveredImage .cellImage {
+    opacity: 0.6;
+}
+
+@media screen and (min-width: 750px) and (max-width: 1024px) {
+    .container {
+        width: 149px;
+        height: 184px;
+        display: flex;
+        padding: 8px;
+        gap: 8px;
+        align-items: center;
+        flex-direction: column;
+        
+    }
+
+    .cellImage {
+        width: 142px;
+        height: 142px;
+    }
+
+    .font {
+        align-self: flex-start;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .container {
+        width: 152px;
+        height: 180px;
+        // gap: 3px;
+        align-items: center;
+        padding: 8px;
+    }
+
+    .cellImage {
+        width: 142px;
+        height: 142px;
+    }
+    .font {
+        margin-left: 3px;
+        align-self: flex-start;
+    }
+}

@@ -1,0 +1,293 @@
+.container {
+    background:
+        url('/icon/signin-img.svg') no-repeat right bottom / contain,
+        url('/image/backgroundImage-auth.png') no-repeat center / cover;
+        min-height: 100vh; 
+}
+
+
+.header {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    margin-top: 70px;
+    font-family: var('--font-Plus-Jakarta-sans');
+}
+
+.button {
+    max-width: 100%;
+    width: 100%;
+    padding: 16px;
+    border-radius: 8px;
+    background: var(--Gradient-apolo, linear-gradient(90deg, #F903D0 0%, #9A16F2 100%));
+    color: white;
+    border: none;
+    margin-top: 40px;
+}
+
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px; // Adjust as necessary
+    width: 350px;
+
+}
+
+.white:first-child {
+    color: #fff;
+    font-size: 62px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.white:last-child {
+    color: #fff;
+    font-size: 72px;
+    font-weight: 400;
+    text-transform: uppercase;
+}
+
+.white {
+    display: flex;
+    gap: 20px;
+}
+
+.gradients {
+    background: linear-gradient(90deg, #F903D0 0%, #9A16F2 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: var('--font-Plus-Jakarta-sans');
+    font-size: 62px;
+    font-weight: 700;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+
+}
+
+.subtitle {
+    color: #C5B0C9;
+    font-family: var('--font-Plus-Jakarta-sans');
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.wrapper {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    max-width: 750px;
+    width: 100%;
+    align-items: center;
+    padding-top: 40px;
+}
+
+.formsWrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.inputWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 32px;
+}
+
+.input {
+    max-width: 340px;
+    width: 100%;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    height: 48px;
+    padding-left: 16px;
+    color: #C5B0C9;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.input::placeholder {
+    color: #C5B0C9;
+    font-family: var('--font-Plus-Jakarta-sans');
+}
+
+.remember {
+    color: #FFF;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.forgot {
+    color: #B1B1B1;
+    font-size: 14px;
+    font-weight: 400;
+    text-decoration-line: underline;
+    cursor: pointer;
+}
+
+.checkboxContainer {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.checkboxWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 335px;
+    margin-top: 12px;
+    margin-bottom: 24px;
+}
+
+.signup {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 24px;
+}
+
+.signup span:first-child {
+    color: #FFF;
+    font-size: 16px;
+    font-weight: 400;
+    font-family: var('--font-Plus-Jakarta-sans');
+}
+
+.signup span:last-child {
+    color: #F903D0;
+    font-size: 16px;
+    font-weight: 400;
+    font-family: var('--font-Plus-Jakarta-sans');
+}
+
+.signInTitle {
+    color: #C5B0C9;
+    text-align: center;
+    font-family: var('--font-Plus-Jakarta-sans');
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    display: none;
+}
+
+.passwordImg {
+    cursor: pointer;
+}
+
+.passwordWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 340px;
+    width: 100%;
+    border-radius: 8px;
+    background-color: #fff;
+    height: 48px;
+    padding-left: 16px;
+    padding-right: 16px;
+    font-weight: 500;
+    color: #C5B0C9;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.inputPassword {
+    all: unset;
+    width: 100%;
+    height: 48px;
+    font-family: var('--font-Plus-Jakarta-sans');
+}
+
+.inputPassword::placeholder {
+    color: #C5B0C9;
+}
+
+@media screen and (min-width: 300px) and (max-width: 767px) {
+
+    .header,
+    .subtitle {
+        display: none;
+    }
+
+    .container {
+        background:
+            url('/image/backgroundImage-auth.png') no-repeat center / cover;
+    }
+
+    .signInTitle {
+        display: block;
+        margin-top: 20px;
+        margin-bottom: 30px;
+    }
+
+    .signup {
+        display: flex;
+        justify-content: center;
+    }
+
+    .logoWrapper {
+        position: absolute;
+        left: 25px;
+        top: 20px;
+    }
+
+    .wrapper {
+        padding-top: 120px;
+        margin: 0 auto;
+    }   
+
+    .input, .inputWrapper {
+        width: 300px;
+        margin: 0 auto;
+    }
+
+    .checkboxWrapper {
+        justify-content: space-around;
+        margin-left: 10px;
+    }
+    
+}
+
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+
+    .header,
+    .subtitle {
+        display: none;
+    }
+
+    .container {
+        background:
+            url('/image/backgroundImage-auth.png') no-repeat center / cover;
+    }
+
+    .signInTitle {
+        display: block;
+        margin-top: 20px;
+    }
+
+    .signup {
+        display: flex;
+        justify-content: center;
+    }
+
+    .logoWrapper {
+        position: absolute;
+        left: 25px;
+        top: 20px;
+    }
+
+    .wrapper {
+        padding-top: 120px;
+        margin: 0 auto;
+    }
+}

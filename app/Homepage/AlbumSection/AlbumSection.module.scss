@@ -1,0 +1,37 @@
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 185px;
+    right: 15px;
+}
+
+.album {
+    max-width: 1350px;
+    width: 100%;
+    display: flex;
+    gap: 20px;
+    overflow-x: scroll;
+    scrollbar-width: none; 
+    -ms-overflow-style: none;
+}
+
+.album::-webkit-scrollbar {
+    display: none; 
+}
+
+
+
+
+
+
+@media screen and (max-width: 1555px) {
+    .album {
+        overflow-x: scroll;
+        padding: 57px 0;
+    }
+
+    .album::-webkit-scrollbar {
+        display: none;
+    }
+}

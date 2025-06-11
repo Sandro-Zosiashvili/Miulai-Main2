@@ -1,0 +1,26 @@
+.container {
+    display: flex;
+    align-items: center;
+    max-width: 1350px;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 20px;
+    padding-bottom: 22px;
+}
+
+.firstChild {
+    color: #fff;
+    font-size: 20px;
+}
+
+.seeAll {
+    color: #818385;
+    font-size: 15px;
+    font-family: var('--font-Plus-Jakarta-sans');
+    border: none;
+    background: none;
+    font-weight: 500;
+    cursor: pointer;
+}
