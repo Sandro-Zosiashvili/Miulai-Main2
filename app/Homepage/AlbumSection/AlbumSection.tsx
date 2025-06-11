@@ -23,8 +23,6 @@ const AlbumSection = () => {
   useEffect(() => {
     axios.get("https://backend.miulai.ge/album").then((r) => {
       setCardData(r.data);
-      // console.log(r.data[0].musics)
-      console.log(r.data);
     });
   }, [clickFetch]);
 
