@@ -39,7 +39,7 @@ const Homepage = () => {
     return (
         <div className={styles.container}>
             <Header />
-            <News title={'Top Hit Of The Week'} image={'/image/testImg.jpg'} />
+            <News title={'Top Hit Of The Week'} image={'./image/3.png'} />
             <CardsHeader title={'Top Hits'} subtitle={''} />
             <HitsSection />
             <CardsHeader title={'Top Charts'} subtitle={''} />

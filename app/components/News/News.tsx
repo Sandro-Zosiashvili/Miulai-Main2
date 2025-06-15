@@ -42,7 +42,7 @@ const News = (props: Props) => {
     backgroundImage: `url(${props.image})`,
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
-    backgroundPosition: "left",
+    backgroundPosition: "center",
   };
 
   return (
