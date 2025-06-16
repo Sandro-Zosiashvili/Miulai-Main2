@@ -27,7 +27,7 @@ const Registracion = () => {
         const password = watch('password')
         const currentpassword = watch('currentPassword')
         if (password === currentpassword) {
-            axios.post('https://backend.miulai.ge/user', values).
+            axios.post('http://localhost:3002/user', values).
                 then(r => {
                     router.push('/signin')
                 }).catch(() => {
@@ -125,7 +125,6 @@ const Registracion = () => {
                             <div>*at least one Capital letter</div>
                             <div>*at least one Number</div>
                             <div>*at least one Symbol</div>
-
                         </div>
 
                         <div className={styles.passwordInput}>
