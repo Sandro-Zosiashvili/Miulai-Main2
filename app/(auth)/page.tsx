@@ -47,7 +47,7 @@ export default function Home() {
   useEffect(() => {
     axios
       .get(
-        `https://backend.miulai.ge/music`,{
+        `http://localhost:3004/music`,{
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -65,8 +65,7 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <Header />
-      {/* <News title={'Top Hit Of The Week'} image={topHit?.albumCover} plays={topHit?.listenerCount} /> */}
-      <News title={'Top Hit Of The Week'} image={'./image/firstPageImage.jpg'} plays={topHit?.listenerCount} />
+       <News title={'Top Hit Of The Week'} image={topHit?.album?.albumImage} plays={topHit?.listenerCount} />
       <CardsHeader  title={'Top Hits'} subtitle={'See all'} addRoute='hits' />
       <HitsSection />
       <CardsHeader  title={'Top Charts'} subtitle={'See all'} addRoute='charts' />

@@ -52,13 +52,13 @@ const TabbedNav = (props: Props) => {
 
   useEffect(() => {
     axios
-      .get(`https://backend.miulai.ge/author/${param.id}`)
+      .get(`http://localhost:3004/author/${param.id}`)
       .then((r: any) => {
-        setBiography(r.data.biography);
-        setImage(r.data?.files[0]?.url);
-        setArtistPhoto(r.data.files[0].url);
+        setBiography(r.data.artistBiography);
+        setImage(r.data?.artistPhoto);
+        setArtistPhoto(r.data.artistPhoto);
         setAlbumData(r.data.albums);
-        setArtistName(r.data.firstName);
+        setArtistName(r.data.artistName);
         const albumNames = r.data.albums.map((album: any) => album.albumName);
         setGlobalAlbum(albumNames);
 
@@ -96,13 +96,13 @@ const TabbedNav = (props: Props) => {
       </div>
 
       <div className={styles.tabContent}>
-        {activeTab === "topSongs" && <ArtistTable />}
+        {activeTab === "topSongs" && <ArtistTable authorID={`${param.id}`} />}
 
         {activeTab === "albums" && (
           <div className={styles.cards}>
             {albumData?.map((item: any, i) => (
               <div key={item.id} onClick={() => router.push(`../album/${item.id}`)}>
-                <ArtistCard image={item.file?.url}
+                <ArtistCard image={item?.albumImage}
                   title={item.albumName}
                   imageStyle={"normal"}
                 />
@@ -113,7 +113,7 @@ const TabbedNav = (props: Props) => {
 
         {activeTab === "biography" && (
           <div className={styles.bio}>
-            <img
+            <Image
               src={`${image}`}
               alt="image"
               width={250}

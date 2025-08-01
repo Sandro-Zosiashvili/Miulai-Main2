@@ -22,7 +22,7 @@ const Album = () => {
     const [artists, setArtists] = useState([]);
 
     useEffect(() => {
-        axios.get(`https://backend.miulai.ge/album`)
+        axios.get(`http://localhost:3004/album`)
             .then((r) => {
                 setArtists(r.data);
             })
@@ -47,7 +47,7 @@ const Album = () => {
                                 }}
                             >
                                 <Card
-                                    image={item?.file?.url}
+                                    image={item?.albumImage}
                                     title={item.albumName}
                                     imageStyle={'round'}
                                 />

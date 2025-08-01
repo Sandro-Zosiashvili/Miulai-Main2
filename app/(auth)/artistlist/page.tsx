@@ -30,7 +30,7 @@ const ArtistsList = () => {
     const [artists, setArtists] = useState([]);
 
     useEffect(() => {
-        axios.get(`https://backend.miulai.ge/author`)
+        axios.get(`http://localhost:3004/author`)
             .then((r) => {
                 setArtists(r.data);
             })
@@ -55,8 +55,8 @@ const ArtistsList = () => {
                                 }} 
                             >
                                 <Card
-                                    image={item?.files[0]?.url}
-                                    title={item.firstName}
+                                    image={item?.artistPhoto}
+                                    title={item.artistName}
                                     imageStyle={'round'}
                                 />
                             </div>

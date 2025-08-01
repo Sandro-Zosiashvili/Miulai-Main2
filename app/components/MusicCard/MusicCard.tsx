@@ -32,7 +32,7 @@ const MusicCard = () => {
 
   // Fetching all music data
   useEffect(() => {
-    axios.get("https://backend.miulai.ge/music", {
+    axios.get("http://localhost:3004/music", {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -66,7 +66,7 @@ const MusicCard = () => {
             <div>
               <Image
                 className={styles.img}
-                src={item.albumCover}
+                src={item.album.albumImage}
                 alt={"album cover"}
                 width={72}
                 height={72}

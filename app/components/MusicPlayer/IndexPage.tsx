@@ -28,16 +28,17 @@ const IndexPage: React.FC = () => {
 
   // Fetch music data
   useEffect(() => {
-    if (musicID && token) {
+    if (musicID) {
       axios
-        .get(`https://backend.miulai.ge/music/${musicID}`, {
+        .get(`http://localhost:3004/music/${musicID}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         })
         .then((r) => {
-          setFetchMusic(r.data.file.url);
+          setFetchMusic(r.data.music);
           setPlayerDisplay(r.data);
+          console.log(r.data, '====yy>>>')
         })
         .catch((error) => {
           console.error("Error fetching music details:", error);
@@ -219,7 +220,7 @@ const IndexPage: React.FC = () => {
 
         <audio
           ref={audioRef}
-          src={fetchMusic} 
+          src={fetchMusic}
           onError={() => console.error("Audio failed to load")}
         />
       </div>

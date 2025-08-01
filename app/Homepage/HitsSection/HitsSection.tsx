@@ -32,13 +32,14 @@ const HitsSection = () => {
 
 
     useEffect(() => {
-        axios.get(`https://backend.miulai.ge/music`, {
+        axios.get(`http://localhost:3004/music`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
         })
             .then((r) => {
                 setMusics(r.data)
+                console.log(r.data, "====>>")
             })
     }, [clickFetch])
 
@@ -56,12 +57,13 @@ const HitsSection = () => {
                             setAlbumIDData(item.albumId)
                             setAlbumId(item.authorId)
                             setMusicId(item.id)
+                            console.log(item.id, 'musikis aidii')
                             setGlobalMusic(item.id)
                             forAlbumId(item.albumId)
                             setMusicArrayTwo(musics)
                         }}
                         >
-                            <Card image={item?.albumCover} subtitle={item.artistName} title={item.name} imageStyle={'normal'} />
+                            <Card image={item?.album.albumImage} subtitle={item.artistName} title={item.name} imageStyle={'normal'} />
                         </div>
                     ))
                 }

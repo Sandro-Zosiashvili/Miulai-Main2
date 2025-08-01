@@ -18,7 +18,7 @@ const Charts = () => {
     useEffect(() => {
         axios
             .get(
-                `https://backend.miulai.ge/music`
+                `http://localhost:3004/music`
             )
             .then(async (r) => {
                 setTopHIt(r.data[0])
@@ -28,7 +28,7 @@ const Charts = () => {
     return(
         <div className={styles.container}>
             <ReusableHeader />
-            <News title={'Top Hit Of The Week'} image={topHit?.albumCover} plays={topHit?.listenerCount} />
+            <News title={'Top Hit Of The Week'} image={topHit?.album.albumImage} plays={topHit?.listenerCount} />
             <ChartTable />
 
         </div>

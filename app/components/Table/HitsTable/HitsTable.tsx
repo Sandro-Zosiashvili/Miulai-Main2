@@ -24,7 +24,7 @@ const HitsTable = () => {
     const [musicCover,setMusicCover] = useState<any>()
   
   useEffect(() => {
-    axios.get(`https://backend.miulai.ge/music`)
+    axios.get(`http://localhost:3004/music`)
     .then((r) => {
       setMusicCover(r.data)
     
@@ -61,7 +61,7 @@ const HitsTable = () => {
       width: "30%",
       render: (text: any, item: any, record: any) => (
         <div className={styles.cellSongname}>
-          <Image className={styles.img} src={item.albumCover} width={48} height={48} alt={text} />
+          <Image className={styles.img} src={item.album.albumImage} width={48} height={48} alt={text} />
           <div className={styles.fontGap}>
             <div className={styles.songTitle}>{item.name}</div>
             <div className={styles.songArtist}>{item.artistName}</div>
@@ -76,7 +76,7 @@ const HitsTable = () => {
           key: "album",
           width: "25%",
           render: (text: any, item: any) => (
-            <div className={styles.cellAlbumName}>{item.albumName}</div>
+            <div className={styles.cellAlbumName}>{item.album.albumName}</div>
           ),
         }
       : {

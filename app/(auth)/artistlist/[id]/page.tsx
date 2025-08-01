@@ -23,11 +23,11 @@ const Artist = () => {
 
     useEffect(() => {
 
-        axios.get(`https://backend.miulai.ge/author/${id}`)
+        axios.get(`http://localhost:3004/author/${id}`)
             .then((response) => {
                 const artistData = response.data;
-                setArtistPhoto(artistData?.files[0]?.url || '');
-                setArtistName(artistData.firstName);
+                setArtistPhoto(artistData?.artistPhoto || '');
+                setArtistName(artistData.artistName);
             })
             .catch((error) => {
             });
