@@ -1,10 +1,6 @@
 'use client'
 import {Table} from "antd";
-import HeartShapeBtn from "../heatShapeIcon/HeartShapeIcn";
-import type {DividerClassKey} from "@mui/material";
 import styles from './Table.module.scss'
-import {render} from "sass";
-import {text} from "stream/consumers";
 import Image from "next/image";
 import {useWindowSize} from "react-use";
 import {useRecoilState} from "recoil";

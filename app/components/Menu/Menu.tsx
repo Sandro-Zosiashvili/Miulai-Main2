@@ -13,7 +13,7 @@ const Menu = () => {
         <div className={styles.container}>
             <div className={styles.container_menu}>
                 <div className={styles.cursorLogo} onClick={() => router.push('/')}>
-                    <img src={'./icon/miulailogo.svg'} alt='logo' width={98} height={83} />
+                    <Image src={'./icon/miulailogo.svg'} alt='logo' width={98} height={83} />
                 </div>
                 <MenuItem />
             </div>

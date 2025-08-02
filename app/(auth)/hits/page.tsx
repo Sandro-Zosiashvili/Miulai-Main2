@@ -6,32 +6,28 @@ import News from '../../components/News/News';
 import ReusableHeader from '../../components/ReusableHeader/ReusableHeader';
 import Table from '../../components/Table/Table';
 import styles from './page.module.scss';
-import { useEffect, useState } from 'react';
+import {useEffect, useState} from 'react';
 import axios from 'axios';
 
 
 const Hits = () => {
-
     const [topHit, setTopHIt] = useState<any>()
+
     useEffect(() => {
-        axios
-            .get(
-                `https://backend.miulai.ge/music`
-            )
-            .then(async (r) => {
+        axios.get("http://localhost:3004/music"
+        )
+            .then((r) => {
                 setTopHIt(r.data[0])
             });
     }, []);
-    <News title={'Top Hit Of The Week'} image={topHit?.albumCover} plays={topHit?.listenerCount} />
-
 
 
     return (
         <div className={styles.container}>
-            <ReusableHeader />
-            <News title={'Top Hit Of The Week'} image={topHit?.albumCover} plays={topHit?.listenerCount} />
+            <ReusableHeader/>
+            <News album={false} title={topHit?.name} image={topHit?.author?.artistCover} plays={topHit?.playCount}/>
             {/* <Input /> */}
-            <HitsTable />
+            <HitsTable/>
         </div>
     )
 }

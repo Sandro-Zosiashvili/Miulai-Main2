@@ -26,7 +26,7 @@ const Artist = () => {
         axios.get(`http://localhost:3004/author/${id}`)
             .then((response) => {
                 const artistData = response.data;
-                setArtistPhoto(artistData?.artistPhoto || '');
+                setArtistPhoto(artistData?.artistCover || '');
                 setArtistName(artistData.artistName);
             })
             .catch((error) => {

@@ -56,7 +56,6 @@ export default function Home() {
       .then(async (r) => {
         // setSearchItems(r.data.authors);
         setTopHIt(r.data[0])
-        setTopHitMusic(r.data[0])
         // setMusicId(r.data[0].id)
       });
   }, []);
@@ -65,7 +64,7 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <Header />
-       <News title={'Top Hit Of The Week'} image={topHit?.album?.albumImage} plays={topHit?.listenerCount} />
+       <News title={'Top Hit Of The Week'} image={topHit?.author?.artistCover} plays={topHit?.playCount} />
       <CardsHeader  title={'Top Hits'} subtitle={'See all'} addRoute='hits' />
       <HitsSection />
       <CardsHeader  title={'Top Charts'} subtitle={'See all'} addRoute='charts' />

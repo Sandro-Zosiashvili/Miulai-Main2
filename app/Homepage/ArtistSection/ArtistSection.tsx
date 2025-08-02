@@ -22,7 +22,7 @@ const ArtistSection = () => {
 
 
   useEffect(() => {
-    axios.get(`https://backend.miulai.ge/author`).then((r) => {
+    axios.get(`http://localhost:3004/author`).then((r) => {
       setArtist(r.data);
     });
   }, [clickFetch]);
@@ -43,8 +43,8 @@ const ArtistSection = () => {
             <ArtistCard 
               header={""}
               key={item.id}
-              image={item.files[0]?.url}
-              title={item.firstName}
+              image={item.artistPhoto}
+              title={item.artistName}
               imageStyle={"round"}
              />
           </div>

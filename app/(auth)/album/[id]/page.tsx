@@ -46,7 +46,7 @@ const AlbumID = () => {
             <div className={styles.headerContainer}>
                 <Header/>
                 <div className={styles.bodyContainer}>
-                    <News title={albumName || 'Loading...'} image={`${albumCover}`}/>
+                    <News album={true} title={albumName || 'Loading...'} image={`${albumCover}`}/>
                     <Table
                         albumName={albumName || ''}
                         albumImage={albumCover || ''}

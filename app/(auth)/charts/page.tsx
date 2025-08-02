@@ -5,13 +5,15 @@ import News from '@/app/components/News/News';
 import Input from '@/app/components/Input/Input';
 import Tables from '@/app/components/Table/Table';
 import Header from '@/app/components/Header/Header';
-import { useEffect, useState } from 'react';
+import {useEffect, useState} from 'react';
 import axios from 'axios';
 import ChartTable from '../../components/ChartTable/ChartTable';
+import {useRecoilState} from "recoil";
+import {oneArrayMusicState} from "@/app/state";
 
 
-   
 const Charts = () => {
+    const [musicArrayTwo, setMusicArrayTwo] = useRecoilState<any>(oneArrayMusicState);
 
 
     const [topHit, setTopHIt] = useState<any>()
@@ -22,14 +24,15 @@ const Charts = () => {
             )
             .then(async (r) => {
                 setTopHIt(r.data[0])
+                setMusicArrayTwo(r.data)
             });
     }, []);
 
-    return(
+    return (
         <div className={styles.container}>
-            <ReusableHeader />
-            <News title={'Top Hit Of The Week'} image={topHit?.album.albumImage} plays={topHit?.listenerCount} />
-            <ChartTable />
+            <ReusableHeader/>
+            <News title={'Top Hit Of The Week'} image={topHit?.album.albumImage} plays={topHit?.listenerCount}/>
+            <ChartTable/>
 
         </div>
     )

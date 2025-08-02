@@ -21,7 +21,7 @@ const AlbumSection = () => {
 
 
   useEffect(() => {
-    axios.get("https://backend.miulai.ge/album").then((r) => {
+    axios.get("http://localhost:3004/album").then((r) => {
       setCardData(r.data);
     });
   }, [clickFetch]);
@@ -35,18 +35,10 @@ const AlbumSection = () => {
             router.push(`/album/${item.id}`);
             
           }}>
-            {/* <Card
-              header={""}
-              key={item.id}
-              image={item.file?.url}
-              title={item.albumName}
-              subtitle={item.artistName}
-              imageStyle={"normal"}
-            /> */}
             <ArtistCard 
               header={""}
               key={item.id}
-              image={item.file?.url}
+              image={item.albumImage}
               title={item.albumName}
               subtitle={item.artistName}
               imageStyle={"normal"}
