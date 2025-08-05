@@ -14,6 +14,8 @@ interface Props {
 const Card = (props: Props) => {
     const radius = [styles.image];
     if (props.imageStyle === 'round') radius.push(styles.imageRounded)
+    if (props.imageStyle === 'normal') radius.push(styles.imageNormal)
+
 
 
 

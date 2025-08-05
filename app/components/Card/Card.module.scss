@@ -71,6 +71,12 @@
 .imageRounded {
     border-radius: 50%;
 }
+.imageNormal {
+    border-radius: 8px;
+    box-shadow:
+            0 5px 25px rgba(0, 0, 0, 0.4),
+            0 0 15px rgba(0, 0, 0, 0.2);
+}
 
 .union {
     position: absolute;
