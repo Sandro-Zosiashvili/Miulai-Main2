@@ -66,7 +66,7 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <Header />
-       <News title={'Top Hit Of The Week'} image={topHit?.author?.artistCover} plays={topHit?.playCount} />
+       <News title={'Top Hit Of The Week'} image={topHit?.author?.artistCover} plays={topHit?.playCount || "Loading..."} />
       <CardsHeader  title={'Top Hits'} subtitle={'See all'} addRoute='hits' />
       <HitsSection />
       <CardsHeader  title={'Top Charts'} subtitle={'See all'} addRoute='charts' />

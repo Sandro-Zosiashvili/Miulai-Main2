@@ -1,13 +1,20 @@
 import Card from '@/app/components/Card/Card';
 import styles from './HitsSection.module.scss';
-import { useEffect, useState } from 'react';
+import {useEffect, useState} from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { useRecoilState } from 'recoil';
-import { clickFetchState, globalMusicState, formusicFetchState, albumidState, albumIdState, mudicIDState, oneArrayMusicState, albumRouterState } from '@/app/state';
-import { useRouter } from "next/navigation";
-
-
+import {useRecoilState} from 'recoil';
+import {
+    clickFetchState,
+    globalMusicState,
+    formusicFetchState,
+    albumidState,
+    albumIdState,
+    mudicIDState,
+    oneArrayMusicState,
+    albumRouterState
+} from '@/app/state';
+import {useRouter} from "next/navigation";
 
 
 const HitsSection = () => {
@@ -24,11 +31,7 @@ const HitsSection = () => {
     const [musicArrayTwo, setMusicArrayTwo] = useRecoilState<any>(oneArrayMusicState);
 
 
-
-
     const [globalMusic, setGlobalMusic] = useRecoilState(globalMusicState)
-
-
 
 
     useEffect(() => {
@@ -39,7 +42,6 @@ const HitsSection = () => {
         })
             .then((r) => {
                 setMusics(r.data)
-                console.log(r.data, "====>>")
             })
     }, [clickFetch])
 
@@ -57,13 +59,13 @@ const HitsSection = () => {
                             setAlbumIDData(item.albumId)
                             setAlbumId(item.authorId)
                             setMusicId(item.id)
-                            console.log(item.id, 'musikis aidii')
                             setGlobalMusic(item.id)
                             forAlbumId(item.albumId)
                             setMusicArrayTwo(musics)
                         }}
                         >
-                            <Card image={item?.album.albumImage} subtitle={item.artistName} title={item.name} imageStyle={'normal'} />
+                            <Card image={item?.album.albumImage} subtitle={item.artistName} title={item.name}
+                                  imageStyle={'normal'}/>
                         </div>
                     ))
                 }

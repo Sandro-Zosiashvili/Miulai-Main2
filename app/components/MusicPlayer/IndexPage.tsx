@@ -38,7 +38,6 @@ const IndexPage: React.FC = () => {
         .then((r) => {
           setFetchMusic(r.data.music);
           setPlayerDisplay(r.data);
-          console.log(r.data, '====yy>>>')
         })
         .catch((error) => {
           console.error("Error fetching music details:", error);

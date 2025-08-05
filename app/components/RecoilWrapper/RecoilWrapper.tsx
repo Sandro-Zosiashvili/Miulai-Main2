@@ -1,14 +1,14 @@
 'use client'
-import { RecoilRoot } from "recoil";
+import {RecoilRoot, useRecoilState} from "recoil";
+
 
 interface Props {
-  children: React.ReactNode
+    children: React.ReactNode
 }
 
 
 const RecoilWrapper = (props: Props) => {
-
-    return(
+    return (
         <RecoilRoot>
             {props.children}
         </RecoilRoot>

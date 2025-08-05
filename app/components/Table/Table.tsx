@@ -25,6 +25,7 @@ const Tables = (props: albumData) => {
     const [musicID, setMusicId] = useRecoilState(mudicIDState)
 
 
+
     const {width, height} = useWindowSize();
     const isMobile = width > 767
 
