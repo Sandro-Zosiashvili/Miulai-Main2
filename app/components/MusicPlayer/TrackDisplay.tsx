@@ -30,7 +30,7 @@ const TrackDisplay: React.FC<TrackDisplayProps> = ({ currentTrack, onAlbumArtCli
         <div className={style.container} onClick={onAlbumArtClick} >
             <div className={style.albumArt} > {/* Clickable area */}
                 <img
-                    src={playerDisplay?.album?.albumImage || '/defaultAlbumArt.jpg'} // Fallback if albumArt is missing
+                    src={playerDisplay?.album?.albumImage || 'Loading...'} // Fallback if albumArt is missing
                     alt="AlbumArt"
                     width={80}
                     height={80}
@@ -46,8 +46,8 @@ const TrackDisplay: React.FC<TrackDisplayProps> = ({ currentTrack, onAlbumArtCli
                             onClick={() => { }}
                         /> */}
                     </div>-
-                        <span className={style.title}>{playerDisplay.name || 'Unknown Title'}</span> {/* Fallback for title */}
-                        <span className={style.artist}>{playerDisplay.artistName || 'Unknown Artist'}</span> {/* Fallback for artist */}
+                        <span className={style.title}>{playerDisplay.name || 'Loading...'}</span> {/* Fallback for title */}
+                        <span className={style.artist}>{playerDisplay.artistName || 'Loading...'}</span> {/* Fallback for artist */}
                 </div>
             </div>
         </div>
