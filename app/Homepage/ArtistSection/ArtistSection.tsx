@@ -22,7 +22,7 @@ const ArtistSection = () => {
 
 
   useEffect(() => {
-    axios.get(`http://localhost:3004/author`).then((r) => {
+    axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/author`).then((r) => {
       setArtist(r.data);
     });
   }, [clickFetch]);

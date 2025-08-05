@@ -1,53 +1,48 @@
 import Card from "@/app/components/Card/Card";
 import styles from "./AlbumSection.module.scss";
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import axios from "axios";
-import { useRecoilState } from "recoil";
-import { albumIdState, clickFetchState } from "@/app/state";
-import { useRouter } from "next/navigation";
+import {useRecoilState} from "recoil";
+import {albumIdState, clickFetchState} from "@/app/state";
+import {useRouter} from "next/navigation";
 import ArtistCard from "../../components/ArtistCard/ArtistCard";
 
 
-
-
 const AlbumSection = () => {
-  const [cardData, setCardData] = useState<any>([]);
-  const [clickFetch, setClickFetch] = useRecoilState(clickFetchState);
-  // const [albumIDData, setAlbumIDData] = useRecoilState(albumIdState)
-  const router = useRouter();
+    const [cardData, setCardData] = useState<any>([]);
+    const [clickFetch, setClickFetch] = useRecoilState(clickFetchState);
+    // const [albumIDData, setAlbumIDData] = useRecoilState(albumIdState)
+    const router = useRouter();
 
 
+    useEffect(() => {
+        axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/album`).then((r) => {
+            setCardData(r.data);
+        });
+    }, [clickFetch]);
 
+    return (
+        <div className={styles.container}>
 
+            <div className={styles.album}>
+                {cardData.map((item: any) => (
+                    <div className={styles.box} key={item.id} onClick={() => {
+                        router.push(`/album/${item.id}`);
 
-  useEffect(() => {
-    axios.get("http://localhost:3004/album").then((r) => {
-      setCardData(r.data);
-    });
-  }, [clickFetch]);
-
-  return (
-    <div className={styles.container}>
-
-      <div className={styles.album}>
-        {cardData.map((item: any) => (
-          <div className={styles.box} key={item.id} onClick={() =>   {
-            router.push(`/album/${item.id}`);
-            
-          }}>
-            <ArtistCard 
-              header={""}
-              key={item.id}
-              image={item.albumImage}
-              title={item.albumName}
-              subtitle={item.artistName}
-              imageStyle={"normal"}
-            />
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+                    }}>
+                        <ArtistCard
+                            header={""}
+                            key={item.id}
+                            image={item.albumImage}
+                            title={item.albumName}
+                            subtitle={item.artistName}
+                            imageStyle={"normal"}
+                        />
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
 };
 
 export default AlbumSection;

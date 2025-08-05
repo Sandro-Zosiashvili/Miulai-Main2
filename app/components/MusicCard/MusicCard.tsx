@@ -32,7 +32,7 @@ const MusicCard = () => {
 
   // Fetching all music data
   useEffect(() => {
-    axios.get("http://localhost:3004/music", {
+    axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/music`, {
       headers: {
         Authorization: `Bearer ${token}`
       }

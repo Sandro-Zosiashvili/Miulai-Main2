@@ -34,7 +34,7 @@ const ArtistTable = (props: Props) => {
 
 
     useEffect(() => {
-        axios.get(`http://localhost:3004/author/${props.authorID}/top-songs`)
+        axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/author/${props.authorID}/top-songs`)
             .then((r) => {
                 setMusicData(r.data)
 

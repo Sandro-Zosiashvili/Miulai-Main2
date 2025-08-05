@@ -22,7 +22,7 @@ const Album = () => {
     const [artists, setArtists] = useState([]);
 
     useEffect(() => {
-        axios.get(`http://localhost:3004/album`)
+        axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/album`)
             .then((r) => {
                 setArtists(r.data);
             })

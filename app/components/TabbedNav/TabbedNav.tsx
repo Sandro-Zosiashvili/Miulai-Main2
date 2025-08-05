@@ -52,7 +52,7 @@ const TabbedNav = (props: Props) => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3004/author/${param.id}`)
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/author/${param.id}`)
       .then((r: any) => {
         setBiography(r.data.artistBiography);
         setImage(r.data?.artistPhoto);

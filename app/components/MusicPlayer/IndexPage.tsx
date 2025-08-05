@@ -30,7 +30,7 @@ const IndexPage: React.FC = () => {
   useEffect(() => {
     if (musicID) {
       axios
-        .get(`http://localhost:3004/music/${musicID}`, {
+        .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/music/${musicID}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

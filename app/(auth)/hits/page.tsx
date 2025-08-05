@@ -14,7 +14,7 @@ const Hits = () => {
     const [topHit, setTopHIt] = useState<any>()
 
     useEffect(() => {
-        axios.get("http://localhost:3004/music"
+        axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/music`
         )
             .then((r) => {
                 setTopHIt(r.data[0])

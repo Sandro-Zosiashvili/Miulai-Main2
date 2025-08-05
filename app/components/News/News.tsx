@@ -11,6 +11,7 @@ interface Props {
     image: string;
     plays?: string;
     album?: boolean;
+    artistPage?: boolean | false;
 }
 
 const News = (props: Props) => {
@@ -64,7 +65,7 @@ const News = (props: Props) => {
 
 
     useEffect(() => {
-        axios.get("http://localhost:3004/music").then((r) => {
+        axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/music`).then((r) => {
             setForMusic(r.data[0]?.id);
         });
     }, []);
@@ -111,45 +112,60 @@ const News = (props: Props) => {
             <div className={styles.container_news}>
                 <div className={styles.container_title}>
                     <div className={styles.font_style_news}>{props.title}</div>
-                    <div className={styles.font_style_plays}><div>Plays</div> <div>{props.plays}</div></div>
+                    <div className={styles.font_style_plays}>
+                        {
+                            !props.artistPage &&
+                            <>
+                                <div>Plays</div>
+                                <div>{props.plays}</div>
+                            </>
+                        }
+                    </div>
                 </div>
 
-                <div className={styles.mainButton}>
-                    <Button
-                        title={"Listen Now"}
-                        mode={"reusable button"}
-                        padding="12px 24px 12px 20px"
-                        borderRadius="8px"
-                        gap="4px"
-                        width="153px"
-                        fontSize="16px"
-                        fontWeight="500"
-                        imageSrc="clip.svg"
-                        imageWidth={20}
-                        imageHeight={20}
-                        onClick={() => setMusicId(forMusic)}
-                    />
-                </div>
+                {
+                    !props.artistPage &&
+                    <div className={styles.mainButton}>
+                        <Button
+                            title={"Listen Now"}
+                            mode={"reusable button"}
+                            padding="12px 24px 12px 20px"
+                            borderRadius="8px"
+                            gap="4px"
+                            width="153px"
+                            fontSize="16px"
+                            fontWeight="500"
+                            imageSrc="clip.svg"
+                            imageWidth={20}
+                            imageHeight={20}
+                            onClick={() => setMusicId(forMusic)}
+                        />
+                    </div>
+                }
 
-                <div className={styles.mobileButton}>
-                    <Button
-                        title={"Listen Now"}
-                        mode={"reusable button"}
-                        padding="8px 12px 8px 8px"
-                        borderRadius="4px"
-                        gap="4px"
-                        width="114px"
-                        fontSize="14px"
-                        fontWeight="500"
-                        imageSrc="clip.svg"
-                        imageWidth={16}
-                        imageHeight={16}
-                        onClick={() => setMusicId(forMusic)}
-                    />
-                </div>
+                {
+                    !props.artistPage &&
+                    <div className={styles.mobileButton}>
+                        <Button
+                            title={"Listen Now"}
+                            mode={"reusable button"}
+                            padding="8px 12px 8px 8px"
+                            borderRadius="4px"
+                            gap="4px"
+                            width="114px"
+                            fontSize="14px"
+                            fontWeight="500"
+                            imageSrc="clip.svg"
+                            imageWidth={16}
+                            imageHeight={16}
+                            onClick={() => setMusicId(forMusic)}
+                        />
+                    </div>
+                }
             </div>
         </div>
-    );
+    )
+        ;
 };
 
 export default News;

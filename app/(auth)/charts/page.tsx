@@ -20,14 +20,13 @@ const Charts = () => {
     useEffect(() => {
         axios
             .get(
-                `http://localhost:3004/music`
+                `${process.env.NEXT_PUBLIC_BACKEND_URL}/music`
             )
             .then(async (r) => {
                 setTopHIt(r.data[0])
                 setMusicArrayTwo(r.data)
             });
-    }, []);
-
+    }, [setMusicArrayTwo]);
     return (
         <div className={styles.container}>
             <ReusableHeader/>

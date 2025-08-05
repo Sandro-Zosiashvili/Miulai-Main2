@@ -27,7 +27,7 @@ const ChartTable = () => {
     const [musicCover, setMusicCover] = useState<any>()
 
     useEffect(() => {
-        axios.get(`http://localhost:3004/music?limit=${5}`, {
+        axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/music?limit=${5}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

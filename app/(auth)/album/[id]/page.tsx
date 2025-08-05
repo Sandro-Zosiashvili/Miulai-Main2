@@ -14,17 +14,18 @@ import {useParams} from 'next/navigation'
 
 
 const AlbumID = () => {
-    const [albumIDData, setAlbumIDData] = useRecoilState(albumIdState)
-    const [albumCover, setAlbumCover] = useState<string>()
-    const [albumName, setAlbumName] = useState<string>()
+    const [albumCover, setAlbumCover] = useState<string>('')
+    const [albumName, setAlbumName] = useState<string>('')
     const [albumPage, setAlbumPage] = useRecoilState(albumMusicFromArtistState)
     const [musicArrayTwo, setMusicArrayTwo] = useRecoilState(oneArrayMusicState)
     const token = Cookies.get("token");
-    const {id} = useParams();
+    const params = useParams();
+    const id = params?.id;
+
 
 
     useEffect(() => {
-        axios.get(`http://localhost:3004/album/${id}`, {
+        axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/album/${id}`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
@@ -34,19 +35,18 @@ const AlbumID = () => {
                 setAlbumCover(r.data.albumImage)
                 setAlbumName(r.data.albumName)
                 setMusicArrayTwo(r.data.musics)
-                // setMusicArrayTwo(r.data.musics)
 
             })
             .catch(error => {
             })
-    }, [id])
+    }, [id, setAlbumPage, setMusicArrayTwo, token])
 
     return (
         <div className={styles.container}>
             <div className={styles.headerContainer}>
                 <Header/>
                 <div className={styles.bodyContainer}>
-                    <News album={true} title={albumName || 'Loading...'} image={`${albumCover}`}/>
+                    <News  album={true} title={albumName || 'Loading...'} image={`${albumCover}`}/>
                     <Table
                         albumName={albumName || ''}
                         albumImage={albumCover || ''}

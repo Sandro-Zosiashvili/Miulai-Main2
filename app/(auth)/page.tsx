@@ -25,7 +25,9 @@ export default function Home() {
   const [musicID, setMusicId] = useRecoilState(mudicIDState)
   const [userID, setUserId] = useRecoilState(userIDState)
   const token = Cookies.get("token");
-  useEffect(() => {
+    const API_BASE_URL = process.env.REACT_APP_BACKEND_URL;
+
+    useEffect(() => {
     axios.get(`https://backend.miulai.ge/user/me`, {
       headers: {
         Authorization: `Bearer ${token}`
@@ -47,7 +49,7 @@ export default function Home() {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:3004/music`,{
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/music`,{
           headers: {
             Authorization: `Bearer ${token}`,
           },

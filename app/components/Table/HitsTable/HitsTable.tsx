@@ -24,7 +24,7 @@ const HitsTable = () => {
     const [musicCover,setMusicCover] = useState<any>()
   
   useEffect(() => {
-    axios.get(`http://localhost:3004/music/top-songs?limit=${5}`)
+    axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/music/top-songs?limit=${5}`)
     .then((r) => {
       setMusicCover(r.data)
     

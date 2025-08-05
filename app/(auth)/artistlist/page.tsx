@@ -17,9 +17,9 @@ const ArtistsList = () => {
 
 
 
-    useEffect(() => {
-            router.push(`/artistlist`);
-    }, []);
+    // useEffect(() => {
+    //         router.push(`/artistlist`);
+    // }, [router]);
 
 
 
@@ -30,7 +30,7 @@ const ArtistsList = () => {
     const [artists, setArtists] = useState([]);
 
     useEffect(() => {
-        axios.get(`http://localhost:3004/author`)
+        axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/author`)
             .then((r) => {
                 setArtists(r.data);
             })
