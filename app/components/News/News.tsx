@@ -109,7 +109,7 @@ const News = (props: Props) => {
 
     return (
         <div className={styles.container} style={backImage}>
-            <div className={styles.container_news}>
+            <div className={!props.artistPage ? styles.container_news : styles.artistNews}>
                 <div className={styles.container_title}>
                     <div className={styles.font_style_news}>{props.title}</div>
                     <div className={styles.font_style_plays}>
