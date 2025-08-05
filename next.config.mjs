@@ -1,4 +1,3 @@
-// next.config.mjs
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
@@ -8,17 +7,18 @@ const nextConfig = {
                 hostname: 'miulai-music.s3.eu-north-1.amazonaws.com',
                 pathname: '/**',
             },
-
             {
                 protocol: 'http',
                 hostname: 'localhost',
-                port: '3004', // თქვენი NestJS პორტი
+                port: '3004',
             }
         ],
-        minimumCacheTTL: 60, // კეშირების დრო წამებში
+        minimumCacheTTL: 60,
+    },
 
+    env: {
+        NEXT_PUBLIC_BACKEND_URL: process.env.NEXT_PUBLIC_BACKEND_URL
     }
-
 };
 
 export default nextConfig;
