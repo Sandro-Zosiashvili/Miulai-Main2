@@ -18,7 +18,26 @@ const nextConfig = {
 
     env: {
         NEXT_PUBLIC_BACKEND_URL: process.env.NEXT_PUBLIC_BACKEND_URL
-    }
-};
+    },
 
-export default nextConfig;
+    // Add these new configurations:
+    reactStrictMode: true,
+    swcMinify: true,
+    compress: true,
+
+    // Memory optimization for Render
+    generateBuildId: () => 'build-id',
+
+    // Webpack optimizations
+    webpack: (config, { isServer }) => {
+        if (!isServer) {
+            config.optimization.splitChunks = {
+                chunks: 'all',
+                maxSize: 244 * 1024, // 244KB
+            }
+        }
+        return config
+    }
+}
+
+export default nextConfig
