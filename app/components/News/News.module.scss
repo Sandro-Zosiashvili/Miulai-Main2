@@ -85,6 +85,20 @@
 
 
 @media screen and (min-width: 375px) and (max-width: 744px) {
+  .albumNews {
+    padding: 20px !important;
+    padding-top: 30px !important;
+  }
+
+  .albumNewsContent {
+    flex-direction: column;
+  }
+
+  .fontForTitle {
+    font-size: 20px;
+    //text-transform: lowercase !important; /* ყველაფერი პატარა ასოებით */
+
+  }
   .font_style_news {
     font-size: 48px;
   }
@@ -116,6 +130,19 @@
 
 
 @media screen and (max-width: 375px) {
+  .albumNews {
+    padding: 20px !important;
+    padding-top: 30px !important;
+  }
+
+  .albumNewsContent {
+    flex-direction: column;
+
+  }
+  .fontForTitle {
+    font-size: 18px;
+
+  }
   .artistNews {
     margin-top: 100px;
   }

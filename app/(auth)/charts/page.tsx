@@ -30,7 +30,7 @@ const Charts = () => {
     return (
         <div className={styles.container}>
             <ReusableHeader/>
-            <News title={'Top Hit Of The Week'} image={topHit?.album.albumImage} plays={topHit?.listenerCount}/>
+            <News title={'Top Hit Of The Week'} image={topHit?.author.artistCover} plays={topHit?.listenerCount}/>
             <ChartTable/>
 
         </div>
