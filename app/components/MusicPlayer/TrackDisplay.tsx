@@ -11,10 +11,9 @@ interface TrackDisplayProps {
         artist: string;
         albumArt: string;
     };
-    onAlbumArtClick: () => void; // Added the onAlbumArtClick prop
 }
 
-const TrackDisplay: React.FC<TrackDisplayProps> = ({ currentTrack, onAlbumArtClick }) => {
+const TrackDisplay: React.FC<TrackDisplayProps> = ({ currentTrack}) => {
     const [playerDisplay, setPlayerDisplay] = useRecoilState<any>(playerDisplayState)
 
     if (!currentTrack) {
@@ -27,8 +26,8 @@ const TrackDisplay: React.FC<TrackDisplayProps> = ({ currentTrack, onAlbumArtCli
     }
 
     return (
-        <div className={style.container} onClick={onAlbumArtClick} >
-            <div className={style.albumArt} > {/* Clickable area */}
+        <div className={style.container}>
+            <div className={style.albumArt} >
                 <img
                     src={playerDisplay?.album?.albumImage || 'Loading...'} // Fallback if albumArt is missing
                     alt="AlbumArt"
@@ -45,7 +44,7 @@ const TrackDisplay: React.FC<TrackDisplayProps> = ({ currentTrack, onAlbumArtCli
                             isDisabled={false}
                             onClick={() => { }}
                         /> */}
-                    </div>-
+                    </div>
                         <span className={style.title}>{playerDisplay.name || 'Loading...'}</span> {/* Fallback for title */}
                         <span className={style.artist}>{playerDisplay.artistName || 'Loading...'}</span> {/* Fallback for artist */}
                 </div>

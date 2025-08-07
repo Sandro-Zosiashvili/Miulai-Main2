@@ -176,7 +176,7 @@ const IndexPage: React.FC = () => {
   };
 
   return (
-    <div className={style.main}>
+    <div className={style.main} onClick={() => setIsModalOpen(!isModalOpen)} >
       <SliderMobile
         isPlaying={isPlaying}
         onPlayPause={playPause}
