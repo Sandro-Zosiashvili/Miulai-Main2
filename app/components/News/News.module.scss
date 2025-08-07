@@ -85,9 +85,15 @@
 
 
 @media screen and (min-width: 375px) and (max-width: 744px) {
+  .albumNewsContent {
+    gap: 5px !important;
+  }
+  .flexColumn {
+    width: 100%;
+  }
   .albumNews {
     padding: 20px !important;
-    padding-top: 30px !important;
+    padding-top: 25px !important;
   }
 
   .albumNewsContent {
@@ -96,8 +102,6 @@
 
   .fontForTitle {
     font-size: 20px;
-    //text-transform: lowercase !important; /* ყველაფერი პატარა ასოებით */
-
   }
   .font_style_news {
     font-size: 48px;
@@ -125,14 +129,18 @@
     margin-top: 100px;
   }
 
-
 }
 
-
 @media screen and (max-width: 375px) {
+  .albumNewsContent {
+    gap: 5px !important;
+  }
+  .flexColumn {
+    width: 100%;
+  }
   .albumNews {
     padding: 20px !important;
-    padding-top: 30px !important;
+    padding-top: 25px !important;
   }
 
   .albumNewsContent {
