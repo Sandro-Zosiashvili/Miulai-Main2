@@ -32,6 +32,11 @@ const Controls = (props: propsinterFace) => {
         const newTime = parseFloat(e.target.value);
         props.onTimeChange(newTime);
     };
+    const favoriteClick = (e) => {
+        e.stopPropagation(); // აჩერებს ივენთის bubbling-ს
+        console.log('add to favorites')
+
+    }
 
     const currentTimeInPrcnt = (props.currentTime / props.duration) * 100;
 
@@ -63,7 +68,7 @@ const Controls = (props: propsinterFace) => {
                     </button>
 
                     <div className={style.likeplaybtn}>
-                        <div className={style.likeSet}>
+                        <div className={style.likeSet} onClick={favoriteClick}>
                             <HeartShapeBtn isActive={true} isDisabled={false} onClick={() => console.log('Button clicked!')} />
                         </div>
                         <button onClick={props.onPlayPause} className={`${style.btn} ${style.circle}`}>
