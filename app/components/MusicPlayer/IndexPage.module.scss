@@ -1,27 +1,27 @@
 .main {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #141414;
-    padding: 20px 10px 20px 10px;
-    //background-color: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #141414;
+  padding: 20px 10px 20px 10px;
 
 }
 
 .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1500px;
-    width: 100%;
-    flex-wrap: wrap;
-}
-
-
-
-@media (max-width: 767px) {
-    .main {
-
-    }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1500px;
+  width: 100%;
+  flex-wrap: wrap;
 
 }
+.changer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.forIndex {
+  z-index: 1000;
+}
+

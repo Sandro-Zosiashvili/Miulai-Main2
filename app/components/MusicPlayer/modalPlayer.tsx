@@ -16,7 +16,7 @@ interface ModalPlayerProps {
   onPlayPause: () => void;
   onNext: () => void;
   onPrevious: () => void;
-  onClose: () => void; // Function to close the modal
+  onClose: () => void;
   currentTime: number;
   duration: number;
   volume: number;
