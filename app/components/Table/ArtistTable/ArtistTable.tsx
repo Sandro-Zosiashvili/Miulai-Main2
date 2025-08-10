@@ -26,18 +26,16 @@ type Props = {
 
 const ArtistTable = (props: Props) => {
     const [musicArray, setMusicArray] = useRecoilState(musicState);
-    const [globalalbum, setGlobalAlbum] = useRecoilState(globalAlbumDataState);
     const [musicID, setMusicId] = useRecoilState(mudicIDState)
     const [musicData, setMusicData] = useState<any[]>([])
-
     const [musicArrayTwo, setMusicArrayTwo] = useRecoilState<any>(oneArrayMusicState);
-
 
     useEffect(() => {
         axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/author/${props.authorID}/top-songs`)
             .then((r) => {
+                setMusicArray(r.data)
                 setMusicData(r.data)
-
+                setMusicArrayTwo(r.data)
             })
     }, []);
 
@@ -129,7 +127,6 @@ const ArtistTable = (props: Props) => {
                 pagination={false}
                 onRow={(record: any) => ({
                     onClick: () => {
-                        setMusicArrayTwo(musicArray)
                         setMusicId(record.id);
                     },
                 })}

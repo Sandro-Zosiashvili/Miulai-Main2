@@ -174,8 +174,10 @@ const IndexPage: React.FC = () => {
     // };
 
     const handleAlbumArtClick = () => {
-        setIsModalOpen(true);
-        console.log('aqac eWireba da magito')
+        if (window.innerWidth < 767) { // მხოლოდ დესკტოპზე
+            setIsModalOpen(true);
+            console.log('Modal opened on desktop');
+        }
     };
     const handleCloseModal = (e) => {
         e.stopPropagation(); // აქ ვაჩერებთ event bubbling-ს
@@ -241,17 +243,17 @@ const IndexPage: React.FC = () => {
 
             {/* Modal player for larger view */}
             {isModalOpen && (
-                    <ModalPlayer
-                        currentTrack={playerDisplay}
-                        isPlaying={isPlaying}
-                        onClose={handleCloseModal}
-                        onPlayPause={playPause}
-                        onNext={playNextTrack}
-                        onPrevious={playPreviousTrack}
-                        currentTime={currentTime}
-                        duration={duration}
-                        volume={volume}
-                    />
+                <ModalPlayer
+                    currentTrack={playerDisplay}
+                    isPlaying={isPlaying}
+                    onClose={handleCloseModal}
+                    onPlayPause={playPause}
+                    onNext={playNextTrack}
+                    onPrevious={playPreviousTrack}
+                    currentTime={currentTime}
+                    duration={duration}
+                    volume={volume}
+                />
             )}
         </div>
     );

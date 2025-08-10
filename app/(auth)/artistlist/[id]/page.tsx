@@ -8,7 +8,7 @@ import TabbedNav from "@/app/components/TabbedNav/TabbedNav";
 import styles from "./page.module.scss";
 import axios from 'axios';
 import {useRecoilState} from 'recoil';
-import {albumidState, formusicFetchState} from '@/app/state';
+import {albumidState, formusicFetchState, oneArrayMusicState} from '@/app/state';
 
 const Artist = () => {
     const router = useRouter();
@@ -21,13 +21,16 @@ const Artist = () => {
     const [artistPhoto, setArtistPhoto] = useState('');
     const [artistName, setArtistName] = useState('');
 
+
+
     useEffect(() => {
 
         axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/author/${id}`)
-            .then((response) => {
-                const artistData = response.data;
+            .then((r) => {
+                const artistData = r.data;
                 setArtistPhoto(artistData?.artistCover || '');
                 setArtistName(artistData.artistName);
+
             })
             .catch((error) => {
             });
