@@ -6,6 +6,9 @@ import propsinterFace from './helperProp/prop';
 import Icon from '../Icon/Icon';
 import HeartShapeBtn from '../heatShapeIcon/HeartShapeIcn';
 
+
+
+
 const Controls = (props: propsinterFace) => {
     const [isMuted, setIsMuted] = useState(false);
 

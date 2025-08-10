@@ -3,7 +3,7 @@ interface propsinterFace {
     name: any;
     isActive: any;
     isPlaying: boolean;
-    onPlayPause: () => void;
+    onPlayPause: (e: any) => void;
     onPrevious: () => void;
     onNext: () => void;
     onVolumeChange: (volume: number) => void;

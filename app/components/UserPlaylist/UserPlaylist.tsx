@@ -2,11 +2,11 @@
 
 import styles from "./UserPlaylist.module.scss";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import {useEffect, useState} from "react";
+import {useRouter} from "next/navigation";
 import axios from "axios";
-import { useRecoilState } from "recoil";
-import { clickFetchState, globalPLaylistState, userIDState } from "@/app/state";
+import {useRecoilState} from "recoil";
+import {clickFetchState, globalPLaylistState, userIDState} from "@/app/state";
 import Cookies from "js-cookie";
 import AlbumEditModal from "../AlbumEditModal/AlbumEditModal";
 
@@ -21,19 +21,16 @@ const UserPlaylist = () => {
     const [userID, setUserId] = useRecoilState(userIDState)
 
 
-    // useEffect(() => {
-    //     axios.get(`https://backend.miulai.ge/user/me`, {
-    //         headers: {
-    //             Authorization: `Bearer ${token}`
-    //         }
-    //     }).
-    //         then((r) => {
-    //             setUserId(r.data.id)
-            
-    //         })
+    useEffect(() => {
+        axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/me`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then((r) => {
+            setUserId(r.data.id)
+        })
 
-    // }, [])
-
+    }, [])
 
 
     const open = (id: number) => {
@@ -46,7 +43,7 @@ const UserPlaylist = () => {
     };
 
     useEffect(() => {
-        axios.get(`https://backend.miulai.ge/user/me`, {
+        axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/me`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
@@ -121,7 +118,7 @@ const UserPlaylist = () => {
                                     alt="edit button"
                                 />
                                 {openModal && modalId === item.id && (
-                                    <div style={{ position: "relative" }}>
+                                    <div style={{position: "relative"}}>
                                         <AlbumEditModal
                                             id={item.id}
                                             closeModal={close} // Properly closes the modal

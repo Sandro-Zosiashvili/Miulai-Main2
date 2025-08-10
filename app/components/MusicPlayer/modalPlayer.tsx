@@ -13,10 +13,10 @@ interface ModalPlayerProps {
     albumArt: string;
   };
   isPlaying: boolean;
-  onPlayPause: () => void;
+  onPlayPause: (e: any) => void;
   onNext: () => void;
   onPrevious: () => void;
-  onClose: () => void;
+  onClose: (e: any) => void;
   currentTime: number;
   duration: number;
   volume: number;

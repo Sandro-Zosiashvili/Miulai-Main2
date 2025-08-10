@@ -6,6 +6,7 @@ import {useRecoilState} from "recoil";
 import {albumIdState, clickFetchState} from "@/app/state";
 import {useRouter} from "next/navigation";
 import ArtistCard from "../../components/ArtistCard/ArtistCard";
+import Cookies from "js-cookie";
 
 
 const AlbumSection = () => {
@@ -13,10 +14,14 @@ const AlbumSection = () => {
     const [clickFetch, setClickFetch] = useRecoilState(clickFetchState);
     // const [albumIDData, setAlbumIDData] = useRecoilState(albumIdState)
     const router = useRouter();
-
+    const token = Cookies.get("token");
 
     useEffect(() => {
-        axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/album`).then((r) => {
+        axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/album`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then((r) => {
             setCardData(r.data);
         });
     }, [clickFetch]);

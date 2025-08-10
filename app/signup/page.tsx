@@ -3,37 +3,39 @@ import axios from 'axios';
 import Button from '../components/Button/Button'
 import styles from './page.module.scss'
 import Image from 'next/image'
-import { useForm } from "react-hook-form";
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-
-
+import {useForm} from "react-hook-form";
+import {useEffect, useState} from 'react';
+import {useRouter} from 'next/navigation';
+import {Spin} from "antd";
 
 
 interface RegisterForm {
     name: string,
     email: string,
     password: string,
-    currentPassword: string,
+    RepeatPassword: string,
 }
 
 
 const Registracion = () => {
     const router = useRouter()
     const [passwordHide, setPasswordHide] = useState<string>('password')
-    const { register, handleSubmit, watch, formState: { errors } } = useForm<RegisterForm>();
+    const {register, handleSubmit, watch, formState: {errors}} = useForm<RegisterForm>();
+    const [loading, setLoading] = useState<boolean>(false);
+
 
     const onSubmit = (values: RegisterForm) => {
+        setLoading(true);
         const password = watch('password')
-        const currentpassword = watch('currentPassword')
+        const currentpassword = watch('RepeatPassword')
         if (password === currentpassword) {
-            axios.post('http://localhost:3002/user', values).
-                then(r => {
-                    router.push('/signin')
-                }).catch(() => {
-                    console.log('ver gadis registracias veraaaa')
+            axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user`, values).then(r => {
+                router.push('/signin')
+                setLoading(false);
+            }).catch(() => {
+                setLoading(false);
 
-                })
+            })
 
         }
 
@@ -43,11 +45,11 @@ const Registracion = () => {
     return (
         <div className={styles.container}>
             <div className={styles.logoTablet}>
-                <Image src={'/icon/logo.svg'} alt='image' width={97} height={83} />
+                <Image src={'/icon/logo.svg'} alt='image' width={97} height={83}/>
             </div>
             <div className={styles.cellStructure}>
                 <div className={styles.logoDesktop}>
-                    <Image src={'/icon/logo.svg'} alt='image' width={97} height={83} />
+                    <Image src={'/icon/logo.svg'} alt='image' width={97} height={83}/>
                 </div>
 
                 <div className={styles.subtitle}>
@@ -82,25 +84,25 @@ const Registracion = () => {
                         }
 
                         <input className={styles.input}
-                            type='email'
-                            placeholder='Email'
-                            {...register('email', {
-                                required: {
-                                    value: true,
-                                    message: 'Email is required'
-                                },
-                                pattern: {
-                                    value: /\S+@\S+\.\S+/,
-                                    message: "Enter correct Email"
-                                }
-                            })}
+                               type='email'
+                               placeholder='Email'
+                               {...register('email', {
+                                   required: {
+                                       value: true,
+                                       message: 'Email is required'
+                                   },
+                                   pattern: {
+                                       value: /\S+@\S+\.\S+/,
+                                       message: "Enter correct Email"
+                                   }
+                               })}
                         />
                         {
                             errors.email &&
                             <div className={styles.errorMassage}>{errors.email.message}</div>
                         }
 
-                        <div className={styles.passwordInput} >
+                        <div className={styles.passwordInput}>
                             <input
                                 className={styles.inputPassword}
                                 type={passwordHide}
@@ -112,8 +114,9 @@ const Registracion = () => {
                                 })}
                             />
 
-                            <div className={styles.cursor} onClick={() => passwordHide === 'text' ? setPasswordHide('password') : setPasswordHide('text')}>
-                                <Image src={'./icon/hide.svg'} width={16} height={16} alt='hide' />
+                            <div className={styles.cursor}
+                                 onClick={() => passwordHide === 'text' ? setPasswordHide('password') : setPasswordHide('text')}>
+                                <Image src={'./icon/hide.svg'} width={16} height={16} alt='hide'/>
                             </div>
 
                         </div>
@@ -122,50 +125,55 @@ const Registracion = () => {
                         <div className={styles.registrationErors}>
                             <div>Password must Contain:</div>
                             <div>*8 or more Characters</div>
-                            <div>*at least one Capital letter</div>
-                            <div>*at least one Number</div>
-                            <div>*at least one Symbol</div>
                         </div>
 
                         <div className={styles.passwordInput}>
                             <input className={styles.inputPassword}
-                                type={passwordHide}
-                                placeholder='current Password'
-                                {...register('currentPassword', {
-                                    required: {
-                                        value: true,
-                                        message: 'This is required'
-                                    },
+                                   type={passwordHide}
+                                   placeholder='current Password'
+                                   {...register('RepeatPassword', {
+                                       required: {
+                                           value: true,
+                                           message: 'Current Password is required'
+                                       },
 
-                                })}
+                                   })}
                             />
-                            <div className={styles.cursor} onClick={() => passwordHide === 'text' ? setPasswordHide('password') : setPasswordHide('text')}>
-                                <Image src={'./icon/hide.svg'} width={16} height={16} alt='hide' />
+                            <div className={styles.cursor}
+                                 onClick={() => passwordHide === 'text' ? setPasswordHide('password') : setPasswordHide('text')}>
+                                <Image src={'./icon/hide.svg'} width={16} height={16} alt='hide'/>
                             </div>
                         </div>
 
                         {
-                            errors.currentPassword && <span className={styles.errorMassage}>{errors.currentPassword.message}</span>
+                            errors.RepeatPassword &&
+                            <span className={styles.errorMassage}>{errors.RepeatPassword.message}</span>
                         }
                         <div className={styles.button}>
-                            <Button title={'SIGN UP'}
-                                mode={'reusable button'}
-                                onClick={() => console.log('button clicked')}
-                                width='350px'
-                                padding='12px'
-                                borderRadius='8px'
-                                fontSize='16px'
-                            />
+                            {loading ? (
+                                <div className={styles.loading}>
+                                    <Spin tip="Submitting..." size="large"/>
+                                </div>
+                            ) : (
+                                <Button
+                                    title={"SIGN IN"}
+                                    mode={"reusable button"}
+                                    onClick={() => console.log("button clicked")}
+                                    width="340px"
+                                    padding="12px"
+                                    borderRadius="8px"
+                                    fontSize="16px"
+                                />
+                            )}
                         </div>
                         <div className={styles.haveAnAccount}>
-                            <div>Already have  an account?</div>
+                            <div>Already have an account?</div>
                             <div onClick={() => router.push('/signin')} className={styles.signInButton}>Sign in</div>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
-
 
 
     )

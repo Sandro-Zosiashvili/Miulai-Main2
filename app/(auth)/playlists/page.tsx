@@ -34,18 +34,9 @@ const Playlists = () => {
         <div className={styles.container}>
             <div className={styles.miniContainer}>
                 <div className={styles.cellheader}>
-                    {/* <div>
-                        <div onClick={() => router.push('/')}>
-                            <Image className={styles.cursor} src={'./icon/isari.svg'} width={32} height={32} alt='image' />
-                        </div>
-                    </div>
-                    <Image src={'./icon/profile-icon.svg'} width={56} height={56} alt='profile image' /> */}
                     <ReusableHeader />
                 </div>
                 <div className={styles.cellFont}>
-                    {/* <Link href={'/'}>
-                        <Image className={styles.tabletCursos} src={'./icon/isari.svg'} width={32} height={32} alt='image' />
-                    </Link> */}
                     <div className={styles.mobileGap}>
                         <div className={styles.cellMyPlaylist}>
                             My Playlists
@@ -79,8 +70,6 @@ const Playlists = () => {
                         </div>
                     </div>
                 </div>
-                {/* <div className={styles.cellInput}>
-                </div> */}
                 <div className={styles.newPlaylist}>
                     {active &&
                         <AddPlaylistMain  onDelete={() => setActive(false) }/>

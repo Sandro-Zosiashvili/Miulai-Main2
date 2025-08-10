@@ -185,6 +185,9 @@ const IndexPage: React.FC = () => {
 
 
     // @ts-ignore
+    // @ts-ignore
+    // @ts-ignore
+    // @ts-ignore
     return (
         <div className={style.main} onClick={handleAlbumArtClick}>
             <SliderMobile
