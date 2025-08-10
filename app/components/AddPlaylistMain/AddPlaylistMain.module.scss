@@ -14,16 +14,14 @@
 
 .error {
   position: absolute;
-
   color: #918d8d;
   font-size: 12px;
-  left: 0px;
+  left: 0;
   bottom: 48px;
   width: 100%;
 }
 
 .header {
-  // display: flex;
   display: flex;
   align-items: center;
   gap: 32px;
@@ -31,6 +29,7 @@
   margin-bottom: 10px;
   cursor: pointer;
 }
+
 .headerFlex {
   display: flex;
   align-items: center;
