@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState } from 'react';
+import {useEffect, useState} from 'react';
 // import Button from '../components/Button/Button';
 // import Input from '../components/Input/Input';
 // import UserPlaylist from '../components/UserPlaylist/UserPlaylist';
@@ -11,7 +11,7 @@ import Input from '@/app/components/Input/Input';
 import Button from '@/app/components/Button/Button';
 import CreatePlaylist from '@/app/components/Playlist/CreatePlaylist/CreatePlaylist';
 import UserPlaylist from '@/app/components/UserPlaylist/UserPlaylist';
-import { useRouter } from 'next/navigation';
+import {useRouter} from 'next/navigation';
 import ReusableHeader from '@/app/components/ReusableHeader/ReusableHeader';
 import AddPlaylistMain from '@/app/components/AddPlaylistMain/AddPlaylistMain';
 // import Table from '../components/Table/Table';
@@ -27,14 +27,12 @@ const Playlists = () => {
 
     const router = useRouter()
 
-    
-
 
     return (
         <div className={styles.container}>
             <div className={styles.miniContainer}>
                 <div className={styles.cellheader}>
-                    <ReusableHeader />
+                    <ReusableHeader/>
                 </div>
                 <div className={styles.cellFont}>
                     <div className={styles.mobileGap}>
@@ -44,13 +42,13 @@ const Playlists = () => {
                         <div>
                             <div className={styles.mobileButton}>
                                 <Button title={''}
-                                    mode={'reusable button'}
-                                    imageSrc='plus.svg'
-                                    imageHeight={20}
-                                    imageWidth={20}
-                                    padding='4px'
-                                    borderRadius='4px'
-                                    onClick={() => setActive(!active)} />
+                                        mode={'reusable button'}
+                                        imageSrc='plus.svg'
+                                        imageHeight={20}
+                                        imageWidth={20}
+                                        padding='4px'
+                                        borderRadius='4px'
+                                        onClick={() => setActive(!active)}/>
                             </div>
                             <div className={styles.screenButton}>
                                 <Button
@@ -72,12 +70,15 @@ const Playlists = () => {
                 </div>
                 <div className={styles.newPlaylist}>
                     {active &&
-                        <AddPlaylistMain  onDelete={() => setActive(false) }/>
+                        <div>
+                            <AddPlaylistMain onDelete={() => setActive(false)}/>
+
+                        </div>
                     }
                 </div>
             </div>
             <div className={styles.cellPlaylist}>
-                <UserPlaylist />
+                <UserPlaylist/>
             </div>
         </div>
     );

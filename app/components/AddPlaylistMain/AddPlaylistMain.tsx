@@ -3,15 +3,12 @@ import Icon from '../Icon/Icon';
 import PlaylistBox from '../PlaylistBox/PlaylistBox';
 import styles from './AddPlaylistMain.module.scss';
 import Image from 'next/image';
-import { useForm, SubmitHandler } from "react-hook-form"
-import { useEffect, useState } from 'react'
+import {useForm, SubmitHandler} from "react-hook-form"
+import {useEffect, useState} from 'react'
 import axios from 'axios';
 import Cookies from 'js-cookie'
-import { useRecoilState } from 'recoil';
-import { clickFetchState } from '@/app/state';
-
-
-
+import {useRecoilState} from 'recoil';
+import {clickFetchState} from '@/app/state';
 
 
 type Props = {
@@ -24,14 +21,12 @@ type Form = {
 }
 
 
-const AddPlaylistMain = ( props: Props) => {
-    const { register, handleSubmit, watch, formState: { errors }, } = useForm<Form>()
+const AddPlaylistMain = (props: Props) => {
+    const {register, handleSubmit, watch, formState: {errors},} = useForm<Form>()
     const [userId, setUserId] = useState()
     const token = Cookies.get('token');
     const [clickFetch, setClickFetch] = useRecoilState(clickFetchState);
     const [isPopupVisible, setIsPopupVisible] = useState(true);
-
-
 
 
     useEffect(() => {
@@ -39,10 +34,9 @@ const AddPlaylistMain = ( props: Props) => {
             headers: {
                 Authorization: `Bearer ${token}`,
             }
-        }).
-            then((r) => {
-                setUserId(r.data.id)
-            })
+        }).then((r) => {
+            setUserId(r.data.id)
+        })
     }, [])
 
     const onSubmit = async (values: any) => {
@@ -110,14 +104,16 @@ const AddPlaylistMain = ( props: Props) => {
     return isPopupVisible ? (
         <PlaylistBox className={styles.container}>
             <div className={styles.header}>
-                <div className={styles.title}>Create New Playlist</div>
-                <Icon
-                    name={"X_delete"}
-                    alt="image"
-                    width={20}
-                    height={20}
-                    onClick={props.onDelete}
-                />
+                <div className={styles.headerFlex}>
+                    <div className={styles.title}>Create New Playlist</div>
+                    <Icon
+                        name={"X_delete"}
+                        alt="image"
+                        width={20}
+                        height={20}
+                        onClick={props.onDelete}
+                    />
+                </div>
             </div>
             <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
                 <input
@@ -146,8 +142,8 @@ const AddPlaylistMain = ( props: Props) => {
                     type="submit" // Make sure this button submits the form
                 /> */}
                 <input className={styles.save}
-                    value={"Save"}
-                    type="submit" 
+                       value={"Save"}
+                       type="submit"
                 />
             </form>
         </PlaylistBox>
