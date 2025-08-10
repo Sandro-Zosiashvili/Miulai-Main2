@@ -28,7 +28,7 @@ export default function Home() {
     const API_BASE_URL = process.env.REACT_APP_BACKEND_URL;
 
     useEffect(() => {
-    axios.get(`https://backend.miulai.ge/user/me`, {
+    axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/me`, {
       headers: {
         Authorization: `Bearer ${token}`
       }

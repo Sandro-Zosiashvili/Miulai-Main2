@@ -35,7 +35,7 @@ const AddPlaylistMain = ( props: Props) => {
 
 
     useEffect(() => {
-        axios.get(`https://backend.miulai.ge/user/me`, {
+        axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/me`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             }
@@ -47,7 +47,7 @@ const AddPlaylistMain = ( props: Props) => {
 
     const onSubmit = async (values: any) => {
         try {
-            const response = await axios.post('https://backend.miulai.ge/playlist', {
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/playlist`, {
                 'name': String(values.name),
                 'userId': String(userId)
             }, {
@@ -60,6 +60,7 @@ const AddPlaylistMain = ( props: Props) => {
             setClickFetch(!clickFetch)
             setIsPopupVisible(false);
         } catch (error) {
+            return error.response.data.message;
         }
     };
 

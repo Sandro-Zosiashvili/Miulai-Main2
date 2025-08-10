@@ -31,7 +31,7 @@ const AddPlaylist = ({ onForward, onBackward }: Props) => {
 
   useEffect(() => {
     axios
-      .get(`https://backend.miulai.ge/user/me`, {
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/me`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -44,7 +44,7 @@ const AddPlaylist = ({ onForward, onBackward }: Props) => {
   const onSubmit = (value: any) => {
     axios
       .post(
-          `https://backend.miulai.ge  /playlist/${playlsID}/${globalMusic}`,{
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/playlist/${playlsID}/${globalMusic}`,{
         },
         {
           headers: {

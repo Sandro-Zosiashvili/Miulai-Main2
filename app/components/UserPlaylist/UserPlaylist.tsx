@@ -67,7 +67,7 @@ const UserPlaylist = () => {
 
     const onDeleteClick = (id: number) => {
         axios
-            .delete(`https://backend.miulai.ge/playlist/${id}`, {
+            .delete(`${process.env.NEXT_PUBLIC_BACKEND_URL}/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
