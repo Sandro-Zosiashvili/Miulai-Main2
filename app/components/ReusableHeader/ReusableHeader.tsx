@@ -17,7 +17,7 @@ const ReusableHeader = () => {
   return (
     <div className={styles.container}>
       <div className={styles.imagesec}></div>
-      <div onClick={() => router.push("/")} className={styles.img}>
+      <div onClick={() => router.back()} className={styles.img}>
         <Image
           src={"/icon/arrow-left.svg"}
           alt={"image"}

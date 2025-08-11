@@ -1,18 +1,21 @@
 "use client"; // Add this line to mark the component as a Client Component
 import styles from './page.module.scss';
-import { useParams, useRouter } from 'next/navigation';
+import {useParams, useRouter} from 'next/navigation';
 import Header from '@/app/components/Header/Header';
 import Card from '@/app/components/Card/Card';
-import { useEffect, useState } from 'react';
+import {useEffect, useState} from 'react';
 import axios from 'axios';
-import { useRecoilState } from 'recoil';
-import { albumidState } from '@/app/state';
+import {useRecoilState} from 'recoil';
+import {albumidState} from '@/app/state';
+import {getCookies} from "undici-types";
+import Cookies from "js-cookie";
 
 const Album = () => {
     const [albumId, setAlbumId] = useRecoilState(albumidState);
     const [reusableID, setReusableId] = useState()
     const router = useRouter();
     const param = useParams();
+    const token = Cookies.get("token");
 
 
     const handleCardClick = (id: number) => {
@@ -22,7 +25,9 @@ const Album = () => {
     const [artists, setArtists] = useState([]);
 
     useEffect(() => {
-        axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/album`)
+        axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/album`, {
+            headers: {Authorization: `Bearer ${token}`}
+        })
             .then((r) => {
                 setArtists(r.data);
             })
@@ -32,7 +37,7 @@ const Album = () => {
 
     return (
         <div className={styles.container}>
-            <Header />
+            <Header/>
             <div className={styles.container2}>
                 <h2 className={styles.h2}>Trending Now</h2>
                 <div className={styles.wrapper}>

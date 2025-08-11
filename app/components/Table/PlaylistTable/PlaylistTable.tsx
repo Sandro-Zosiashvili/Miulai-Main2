@@ -51,10 +51,10 @@ const PlaylistTable = (props: Props) => {
             width: '30%',
             render: (text: any, item: any) => (
                 <div className={styles.cellSongname}>
-                    <Image src={item.albumCover} width={48} height={48} alt={text} />
+                    <Image className={styles.borderRadius} src={item.album.albumImage} width={48} height={48} alt={text} />
                     <div className={styles.fontGap}>
                         <div className={styles.songTitle}>{item.name}</div>
-                        <div className={styles.songArtist}>{item.authorName}</div>
+                        <div className={styles.songArtist}>{item.artistName}</div>
                     </div>
                 </div>
             ),
@@ -66,7 +66,7 @@ const PlaylistTable = (props: Props) => {
             width: '25%',
             render: (text: any, item: any) => (
                 <div className={styles.cellAlbumName}>
-                    {item.albumName}
+                    {item.album.albumName}
                 </div>
             )
         } : {

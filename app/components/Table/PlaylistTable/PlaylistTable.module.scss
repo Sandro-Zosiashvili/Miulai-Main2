@@ -16,6 +16,9 @@
 .wrapper :global .ant-table-cell-row-hover {
     background-color: $dynamicBlack !important;
 }
+.borderRadius {
+    border-radius: 8px;
+}
 
 .wrapper :global .ant-table-cell:first-child {
     border-left: 4px solid #050506 !important;

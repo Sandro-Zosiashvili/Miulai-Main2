@@ -35,16 +35,16 @@ const CreatePlaylist = ({onClick, setRoute}: Props) => {
 
     const onSubmit = async (values: any) => {
         try {
-            const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/playlist`, {
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/playlists`, {
                 'name': String(values.name),
-                'userId': String(userId)
+                'userId': userId
             }, {
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`
                 }
             }).then(() => {
-                setRoute(null)
+                setRoute(1)
             });
             setClickFetch(!clickFetch)
 
@@ -83,7 +83,7 @@ const CreatePlaylist = ({onClick, setRoute}: Props) => {
                     borderRadius='8px'
                     width={"290px"}
                     height="100px"
-                    onClick={() => console.log('')}
+                    onClick={() => console.log('button clicked!')}
                 />
             </form>
         </PlaylistBox>

@@ -30,7 +30,7 @@ const Id = () => {
     
 
     useEffect(() => {
-        axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/playlist/${param.id}`, {
+        axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/playlists/${param.id}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -49,7 +49,7 @@ const Id = () => {
             </div>
             <div>
                 <Image onClick={() => router.back()} className={styles.tabletCursor} src={'../icon/isari.svg'} width={32} height={32} alt='image' />
-                <News title={`${newName}`} image={'/icon/albumicon5.svg'} />
+                <News artistPage={true} title={newName || "Loading..."} image={'/icon/albumicon5.svg'} />
             </div>
             <div className={styles.input}>
                 {/* <Input /> */}

@@ -44,7 +44,7 @@ const AddPlaylist = ({ onForward, onBackward }: Props) => {
   const onSubmit = (value: any) => {
     axios
       .post(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/playlist/${playlsID}/${globalMusic}`,{
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/playlists/${playlsID}/music/${globalMusic}`,{
         },
         {
           headers: {
@@ -54,6 +54,7 @@ const AddPlaylist = ({ onForward, onBackward }: Props) => {
       )
       .then((r) => {
         setIsPopupVisible(false)
+        console.log(globalMusic, '======>>>>')
       });
   };
 
@@ -118,7 +119,6 @@ const AddPlaylist = ({ onForward, onBackward }: Props) => {
             register={register}
           />
         ))}
-  
         <button className={styles.button}>save</button>
       </form>
     </PlaylistBox>

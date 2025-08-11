@@ -9,6 +9,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie'
 import {useRecoilState} from 'recoil';
 import {clickFetchState} from '@/app/state';
+import {Spin} from "antd";
 
 
 type Props = {
@@ -27,6 +28,7 @@ const AddPlaylistMain = (props: Props) => {
     const token = Cookies.get('token');
     const [clickFetch, setClickFetch] = useRecoilState(clickFetchState);
     const [isPopupVisible, setIsPopupVisible] = useState(true);
+    const [loading, setLoading] = useState(false);
 
 
     useEffect(() => {
@@ -40,67 +42,26 @@ const AddPlaylistMain = (props: Props) => {
     }, [])
 
     const onSubmit = async (values: any) => {
+        setLoading(true);
         try {
-            const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/playlist`, {
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/playlists`, {
                 'name': String(values.name),
-                'userId': String(userId)
+                'userId': userId
             }, {
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`
-                    // Ensure JSON content type
                 }
             });
             setClickFetch(!clickFetch)
             setIsPopupVisible(false);
+            setLoading(false);
         } catch (error) {
+            setLoading(false);
             return error.response.data.message;
         }
     };
 
-
-    // return (
-    //     <PlaylistBox className={styles.container}>
-    //         <div className={styles.header}>
-    //             <div className={styles.title}>Create New Playlist</div>
-    //             <Icon
-    //                 name={"X_delete"}
-    //                 alt="image"
-    //                 width={20}
-    //                 height={20}
-    //                 onClick={props.onDelete}
-    //             />
-
-    //         </div>
-    //         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-    //             <input
-    //                 type="text"
-    //                 placeholder="Playlist name"
-    //                 className={styles.inp}
-    //                 {...register("name", {
-    //                     required: {
-    //                         value: true,
-    //                         message: 'Name is required'
-    //                     },
-    //                     minLength: {
-    //                         value: 2,
-    //                         message: "Name must be at least 2 characters"
-    //                     }
-    //                 })}
-    //             />
-    //               {errors.name && <span className={styles.error}>{errors.name.message}</span>}
-    //             <Button
-    //                 title={"Save"}
-    //                 mode={"reusable button"}
-    //                 padding='10px'
-    //                 borderRadius='8px'
-    //                 width={"220px"}
-    //                 height="100px"
-    //                 onClick={props.onClick}
-    //             />
-    //         </form>
-    //     </PlaylistBox>
-    // );
     return isPopupVisible ? (
         <PlaylistBox className={styles.container}>
             <div className={styles.header}>
@@ -132,19 +93,17 @@ const AddPlaylistMain = (props: Props) => {
                     })}
                 />
                 {errors.name && <span className={styles.error}>{errors.name.message}</span>}
-                {/* <Button
-                    title={"Save"}
-                    mode={"reusable button"}
-                    padding='10px'
-                    borderRadius='8px'
-                    width={"220px"}
-                    height="100px"
-                    type="submit" // Make sure this button submits the form
-                /> */}
-                <input className={styles.save}
-                       value={"Save"}
-                       type="submit"
-                />
+                {loading ? (
+                    <div className={styles.loading}>
+                        <Spin tip="Submitting..." size="default"/>
+                    </div>
+                ) : (
+                    <input className={styles.save}
+                           value={"Save"}
+                           type="submit"
+                    />
+                )}
+
             </form>
         </PlaylistBox>
     ) : null;

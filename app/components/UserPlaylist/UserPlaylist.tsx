@@ -51,6 +51,8 @@ const UserPlaylist = () => {
             .then((r) => {
                 setPlaylistData(r.data.playlists);
                 setOpenModal(false)
+                console.log(token, 'es')
+
             })
             .catch((error) => {
                 console.error("Error fetching playlists:", error);
@@ -67,7 +69,7 @@ const UserPlaylist = () => {
 
     const onDeleteClick = (id: number) => {
         axios
-            .delete(`${process.env.NEXT_PUBLIC_BACKEND_URL}/${id}`, {
+            .delete(`${process.env.NEXT_PUBLIC_BACKEND_URL}/playlists/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -99,7 +101,7 @@ const UserPlaylist = () => {
                     <div className={styles.hoveredImage}>
                         <Image
                             className={styles.cellImage}
-                            src={item.files?.url || "/icon/albumicon3.svg"}
+                            src={"/icon/albumicon3.svg"}
                             width={234}
                             height={251}
                             alt="playlist cover"
