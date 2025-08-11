@@ -62,15 +62,13 @@ const Header: React.FC<InputTpo> = (props) => {
                 .then((r) => {
                     const data = r.data;
                     setSearchItems(data.authors || []);
-                    setSearchAlbum(data.album || []);
+                    setSearchAlbum(data.albums || []);
                     setMusicData(data.music || []);
 
                     // Show dropdown only if there are results
-                    setShowDropdown(
-                        (data.authors && data.authors.length > 0) ||
-                        (data.album && data.album.length > 0) ||
-                        (data.music && data.music.length > 0)
-                    );
+                    if (isFocused) {
+                        setShowDropdown(true);
+                    }
                 })
                 .catch((error) => {
                     console.error("Error fetching search results:", error);
@@ -105,31 +103,14 @@ const Header: React.FC<InputTpo> = (props) => {
 
 
     const handleAuthorClick = (author: any) => {
-        router.push(`/artistlist/${albumId}`);
-        setAlbumId(author.id); // Assuming you use the same state for albums and authors
+        router.push(`/artistlist/${author}`);
+        setAlbumId(author); // Assuming you use the same state for albums and authors
         setClickFetch(!clickFetch);
         setInputValue(""); // Reset input field after selection
     };
 
-    const handleAlbumClick = async (album: any) => {
-        setMusicArrayTwo([]);
-        try {
-            const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/album/${album.id}`);
-            setMusicArrayTwo(response.data.musics);
-
-
-            // Set states
-            setAlbumId(album.id);
-            setAlbumIDData(album.id);
-            setClickFetch(!clickFetch);
-            setInputValue(""); // Reset input field after selection
-
-            // Now navigate after data is set
-            router.push(`/album/${album.id}`);
-        } catch (error) {
-            console.error("Error fetching album music:", error);
-            // Handle error if needed, e.g., show a notification to the user
-        }
+    const handleAlbumClick = (album: any) => {
+        router.push(`/album/${album.id}`);
     };
 
     return (
@@ -150,18 +131,18 @@ const Header: React.FC<InputTpo> = (props) => {
                                     // key={`author-${index}`}
                                     key={index}
                                     className={styles.searchItem}
-                                    onClick={() => handleAuthorClick(author)}
+                                    onClick={() => handleAuthorClick(author.id)}
                                 >
-                                    {author.files && author.files[0]?.url ? (
+                                    {author.artistPhoto ? (
                                         <Image
                                             className={styles.img}
-                                            src={author.files[0].url}
+                                            src={author.artistPhoto}
                                             width={72}
                                             height={72}
-                                            alt={author.firstName || "Author Image"}
+                                            alt={author.artistName || "Author Image"}
                                         />
                                     ) : null}
-                                    <div className={styles.white}>{author.firstName}</div>
+                                    <div className={styles.white}>{author.artistName}</div>
                                     <div className={styles.musicSelection}>Artist</div>
                                 </div>
                             ))}
@@ -172,10 +153,10 @@ const Header: React.FC<InputTpo> = (props) => {
                                     className={styles.searchItem}
                                     onClick={() => handleAlbumClick(album)}
                                 >
-                                    {album.file && album.file.url ? (
+                                    {album.albumImage ? (
                                         <Image
                                             className={styles.albuImage}
-                                            src={album.file.url}
+                                            src={album.albumImage}
                                             width={72}
                                             height={72}
                                             alt={album.albumName || "Album Image"}
@@ -195,7 +176,7 @@ const Header: React.FC<InputTpo> = (props) => {
                                     className={styles.searchItem}
                                 >
                                     <Image
-                                        src={item.albumCover}
+                                        src={item.album.albumImage}
                                         width={72}
                                         height={72}
                                         alt="musiccover"
