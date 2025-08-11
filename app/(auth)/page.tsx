@@ -25,7 +25,6 @@ export default function Home() {
   const [musicID, setMusicId] = useRecoilState(mudicIDState)
   const [userID, setUserId] = useRecoilState(userIDState)
   const token = Cookies.get("token");
-    const API_BASE_URL = process.env.REACT_APP_BACKEND_URL;
 
     useEffect(() => {
     axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/me`, {

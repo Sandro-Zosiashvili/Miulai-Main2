@@ -7,25 +7,22 @@ import News from "@/app/components/News/News";
 import TabbedNav from "@/app/components/TabbedNav/TabbedNav";
 import styles from "./page.module.scss";
 import axios from 'axios';
-import {useRecoilState} from 'recoil';
-import {albumidState, formusicFetchState, oneArrayMusicState} from '@/app/state';
+import Cookies from "js-cookie";
 
 const Artist = () => {
     const router = useRouter();
-    // const param = useParams(); 
     const {id} = useParams();
-
-    const [albumId, setAlbumId] = useRecoilState(albumidState);
-    const [viewArtist, setViewArtist] = useRecoilState(formusicFetchState)
-
     const [artistPhoto, setArtistPhoto] = useState('');
     const [artistName, setArtistName] = useState('');
+    const token = Cookies.get('token');
 
 
 
     useEffect(() => {
 
-        axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/author/${id}`)
+        axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/author/${id}`, {
+            headers: {'Authorization': `Bearer ${token}`},
+        })
             .then((r) => {
                 const artistData = r.data;
                 setArtistPhoto(artistData?.artistCover || '');

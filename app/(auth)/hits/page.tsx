@@ -8,14 +8,18 @@ import Table from '../../components/Table/Table';
 import styles from './page.module.scss';
 import {useEffect, useState} from 'react';
 import axios from 'axios';
+import Cookies from "js-cookie";
 
 
 const Hits = () => {
     const [topHit, setTopHIt] = useState<any>()
 
+    const token = Cookies.get('token');
+
     useEffect(() => {
-        axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/music`
-        )
+        axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/music`, {
+            headers: {'Authorization': `Bearer ${token}`},
+        })
             .then((r) => {
                 setTopHIt(r.data[0])
             });

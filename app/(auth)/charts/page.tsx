@@ -10,18 +10,19 @@ import axios from 'axios';
 import ChartTable from '../../components/ChartTable/ChartTable';
 import {useRecoilState} from "recoil";
 import {oneArrayMusicState} from "@/app/state";
+import Cookies from "js-cookie";
 
 
 const Charts = () => {
     const [musicArrayTwo, setMusicArrayTwo] = useRecoilState<any>(oneArrayMusicState);
+    const token = Cookies.get('token');
 
 
     const [topHit, setTopHIt] = useState<any>()
     useEffect(() => {
-        axios
-            .get(
-                `${process.env.NEXT_PUBLIC_BACKEND_URL}/music`
-            )
+        axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/music`, {
+            headers: {Authorization: `Bearer ${token}`}
+        })
             .then(async (r) => {
                 setTopHIt(r.data[0])
                 setMusicArrayTwo(r.data)

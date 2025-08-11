@@ -1,26 +1,20 @@
 "use client"; // Add this line to mark the component as a Client Component
 
 import styles from './page.module.scss';
-import { useParams, useRouter } from 'next/navigation';
+import {useParams, useRouter} from 'next/navigation';
 import Header from '@/app/components/Header/Header';
 import Card from '@/app/components/Card/Card';
-import { useEffect, useState } from 'react';
+import {useEffect, useState} from 'react';
 import axios from 'axios';
-import { useRecoilState } from 'recoil';
-import { albumidState } from '@/app/state';
+import {useRecoilState} from 'recoil';
+import {albumidState} from '@/app/state';
+import Cookies from "js-cookie";
 
 const ArtistsList = () => {
     const [albumId, setAlbumId] = useRecoilState(albumidState);
     const [reusableID, setReusableId] = useState()
     const router = useRouter();
-    const param = useParams(); 
-
-
-
-    // useEffect(() => {
-    //         router.push(`/artistlist`);
-    // }, [router]);
-
+    const token = Cookies.get('token');
 
 
     const handleCardClick = (id: number) => {
@@ -30,7 +24,9 @@ const ArtistsList = () => {
     const [artists, setArtists] = useState([]);
 
     useEffect(() => {
-        axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/author`)
+        axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/author`, {
+            headers: {'Authorization': `Bearer ${token}`},
+        })
             .then((r) => {
                 setArtists(r.data);
             })
@@ -40,7 +36,7 @@ const ArtistsList = () => {
 
     return (
         <div className={styles.container}>
-            <Header />
+            <Header/>
             <div className={styles.container2}>
                 <h2 className={styles.h2}>Trending Now</h2>
                 <div className={styles.wrapper}>
@@ -52,7 +48,7 @@ const ArtistsList = () => {
                                     setReusableId(item.id)
                                     setAlbumId(item.id);
                                     handleCardClick(item.id);
-                                }} 
+                                }}
                             >
                                 <Card
                                     image={item?.artistPhoto}
