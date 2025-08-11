@@ -13,9 +13,12 @@ const ArtistSection = () => {
     const [atrist, setArtist] = useState([]);
     const [clickFetch, setClickFetch] = useRecoilState(clickFetchState);
     const router = useRouter();
+    const token = Cookies.get("token");
 
     useEffect(() => {
-        axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/author`).then((r) => {
+        axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/author`, {
+            headers: {Authorization: `Bearer ${token}`}
+        }).then((r) => {
             setArtist(r.data);
         });
     }, [clickFetch]);
