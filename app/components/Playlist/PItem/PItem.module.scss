@@ -6,6 +6,7 @@
     gap: 4px;
     cursor: pointer;
     padding: 4px;
+    z-index: 10000;
 }
 
 .container:active {
@@ -13,10 +14,13 @@
     border-radius: 8px;
     width: 180px;
     padding: 4px;
+
 }
 
 .title {
     color: $white;
     font-size: 16px;
     font-weight: 500;
+    z-index: 10000;
+
 }
