@@ -17,6 +17,7 @@ import {
 import ArtistTable from "../Table/ArtistTable/ArtistTable";
 import {useParams, useRouter} from "next/navigation";
 import ArtistCard from "../ArtistCard/ArtistCard";
+import Cookies from "js-cookie";
 
 type Props = {
     biographyText: string;
@@ -30,19 +31,12 @@ const TabbedNav = (props: Props) => {
     const [albumData, setAlbumData] = useState<any[]>([]);
     const [music, setMusic] = useState<any[]>([]);
     const router = useRouter();
-
     const [artistPhoto, setArtistPhoto] = useRecoilState(newsImageState);
-
-    const [musicArray, setMusicArray] = useRecoilState(musicState);
-    const [globalalbum, setGlobalAlbum] = useRecoilState(globalAlbumDataState);
     const [artistName, setArtistName] = useRecoilState(artistNameState);
     const [clickFetch, setClickFetch] = useRecoilState(clickFetchState)
     const [musicArrayTwo, setMusicArrayTwo] = useRecoilState(oneArrayMusicState)
-
     const param = useParams();
-
-
-    const [albumCover, setAlbumcover] = useRecoilState<any>(albumCoverState)
+    const token = Cookies.get("token");
 
 
     const onTabClick = (tab: string) => {
@@ -53,7 +47,11 @@ const TabbedNav = (props: Props) => {
 
     useEffect(() => {
         axios
-            .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/author/${param.id}`)
+            .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/author/${param.id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
             .then((r: any) => {
                 setBiography(r.data.artistBiography);
                 setImage(r.data?.artistPhoto);

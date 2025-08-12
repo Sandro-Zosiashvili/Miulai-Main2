@@ -13,12 +13,11 @@ import Cookies from "js-cookie";
 
 const Hits = () => {
     const [topHit, setTopHIt] = useState<any>()
-
-    const token = Cookies.get('token');
+    const token = Cookies.get("token");
 
     useEffect(() => {
         axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/music`, {
-            headers: {'Authorization': `Bearer ${token}`},
+            headers: {Authorization: `Bearer ${token}`},
         })
             .then((r) => {
                 setTopHIt(r.data[0])

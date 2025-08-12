@@ -72,7 +72,6 @@ const Playlists = () => {
                     {active &&
                         <div>
                             <AddPlaylistMain onDelete={() => setActive(false)}/>
-
                         </div>
                     }
                 </div>

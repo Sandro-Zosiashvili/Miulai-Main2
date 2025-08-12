@@ -1,7 +1,7 @@
 import styles from './Card.module.scss';
 import Image from 'next/image';
 import ItemsUnion from '../CardItems/ItemsUnion/ItemsUnion';
-import { useState } from 'react';
+import {useState} from 'react';
 
 interface Props {
     header?: string;
@@ -17,18 +17,22 @@ const Card = (props: Props) => {
     if (props.imageStyle === 'normal') radius.push(styles.imageNormal)
 
 
-
-
     return (
         <div className={styles.wrapper}>
             <h3 className={styles.heading}>{props.header}</h3>
             <div className={styles.container}>
-                <Image src={props.image} alt='image' width={210} height={195} className={radius.join(' ').trim()} />
+                <Image
+                    className={radius.join(' ').trim()}
+                    src={props.image}
+                    alt='image' width={210}
+                    height={195}
+                    priority
+                />
 
                 <div className={styles.union}>
-                    <ItemsUnion />
+                    <ItemsUnion/>
                 </div>
-                
+
                 <span className={styles.subtitle}>{props.subtitle}</span>
                 <h4 className={styles.h4}>{props.title}</h4>
             </div>

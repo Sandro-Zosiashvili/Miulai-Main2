@@ -18,6 +18,7 @@ import {
 } from "@/app/state";
 import {useEffect, useState} from "react";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 
 type Props = {
@@ -29,9 +30,12 @@ const ArtistTable = (props: Props) => {
     const [musicID, setMusicId] = useRecoilState(mudicIDState)
     const [musicData, setMusicData] = useState<any[]>([])
     const [musicArrayTwo, setMusicArrayTwo] = useRecoilState<any>(oneArrayMusicState);
+    const token = Cookies.get("token");
 
     useEffect(() => {
-        axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/author/${props.authorID}/top-songs`)
+        axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/author/${props.authorID}/top-songs`, {
+            headers: {Authorization: `Bearer ${token}`},
+        })
             .then((r) => {
                 setMusicArray(r.data)
                 setMusicData(r.data)

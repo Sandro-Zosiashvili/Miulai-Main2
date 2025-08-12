@@ -3,7 +3,7 @@ import Image from 'next/image'
 import styles from './Menu.module.scss'
 import MenuItem from '../MenuItem/MenuItem'
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import {useRouter} from 'next/navigation';
 
 const Menu = () => {
 
@@ -13,9 +13,9 @@ const Menu = () => {
         <div className={styles.container}>
             <div className={styles.container_menu}>
                 <div className={styles.cursorLogo} onClick={() => router.push('/')}>
-                    <Image src={'./icon/miulailogo.svg'} alt='logo' width={98} height={83} />
+                    <Image src={'/icon/miulailogo.svg'} alt='logo' width={98} height={83} priority/>
                 </div>
-                <MenuItem />
+                <MenuItem/>
             </div>
         </div>
     )

@@ -51,8 +51,6 @@ const UserPlaylist = () => {
             .then((r) => {
                 setPlaylistData(r.data.playlists);
                 setOpenModal(false)
-                console.log(token, 'es')
-
             })
             .catch((error) => {
                 console.error("Error fetching playlists:", error);
@@ -105,6 +103,7 @@ const UserPlaylist = () => {
                             width={234}
                             height={251}
                             alt="playlist cover"
+                            priority
                         />
 
                         <div className={styles.buttons}>

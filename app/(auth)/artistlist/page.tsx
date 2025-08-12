@@ -25,7 +25,7 @@ const ArtistsList = () => {
 
     useEffect(() => {
         axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/author`, {
-            headers: {'Authorization': `Bearer ${token}`},
+            headers: {Authorization: `Bearer ${token}`},
         })
             .then((r) => {
                 setArtists(r.data);
