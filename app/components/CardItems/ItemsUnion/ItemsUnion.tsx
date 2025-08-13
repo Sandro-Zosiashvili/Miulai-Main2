@@ -9,7 +9,7 @@ const ItemsUnion = () => {
 
 
     const changeOnDotsClick = (e) => {
-        e.stopPropagation();
+        // e.stopPropagation();
         setIsPlaylistVisible(prev => !prev);
     };
 
