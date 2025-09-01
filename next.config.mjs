@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+    output: 'export',  
     images: {
         remotePatterns: [
             {
@@ -34,14 +35,14 @@ const nextConfig = {
     },
 
     // Webpack კონფიგი - ყველა ერორის იგნორირება
-    webpack: (config, { isServer }) => {
+    webpack: (config, {isServer}) => {
         config.stats = 'none';
         config.performance = {
             hints: false,
             maxEntrypointSize: 512000,
             maxAssetSize: 512000
         };
-        config.ignoreWarnings = [{ module: /./ }];
+        config.ignoreWarnings = [{module: /./}];
 
         return config;
     },
