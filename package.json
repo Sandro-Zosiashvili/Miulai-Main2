@@ -7,8 +7,7 @@
     "build": "NODE_OPTIONS='--max-old-space-size=1024' next build",
     "start": "next start",
     "lint": "echo 'lint skipped'",
-    "postinstall": "echo 'Skipping postinstall build'",
-    "export": "next export"
+    "postinstall": "echo 'Skipping postinstall build'"
   },
   "dependencies": {
     "@mui/icons-material": "^5.16.0",
