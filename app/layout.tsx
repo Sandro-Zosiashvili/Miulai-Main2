@@ -20,10 +20,12 @@ const PlusJakartaSans = Plus_Jakarta_Sans({
 
 
 export const metadata: Metadata = {
-    title: "Miulai",
+    title: "Miulai Admin",
     description: "Music App",
+    icons: {
+        icon: '/icon/tab-icon.svg',
+    },
 };
-
 
 export default function RootLayout({
                                        children,
