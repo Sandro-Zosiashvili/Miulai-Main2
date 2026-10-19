@@ -8,6 +8,12 @@ const nextConfig = {
                 pathname: '/**',
             },
             {
+                // Neon Object Storage (S3-compatible) — artist photos/covers, album covers, track images
+                protocol: 'https',
+                hostname: '**.storage.c-8.eu-central-1.aws.neon.tech',
+                pathname: '/**',
+            },
+            {
                 protocol: 'http',
                 hostname: 'localhost',
                 port: '3004',
