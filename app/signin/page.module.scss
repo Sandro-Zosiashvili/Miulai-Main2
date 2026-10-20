@@ -203,13 +203,15 @@
     width: 100%;
     box-sizing: border-box;
     margin-top: 16px;
-    padding: 10px 14px;
+    margin-bottom: 20px;
+    padding: 12px 16px;
     border-radius: 8px;
     background: rgba(255, 77, 109, 0.12);
     border: 1px solid rgba(255, 107, 129, 0.5);
     color: #FF8A9B;
     font-size: 14px;
     font-weight: 500;
+    line-height: 1.4;
 }
 
 .passwordWrapper {
