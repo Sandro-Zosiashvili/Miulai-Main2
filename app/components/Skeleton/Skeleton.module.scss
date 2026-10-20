@@ -59,6 +59,108 @@
     }
 }
 
+/* ---- Tracklist table skeleton (matches a real 64px track row) ---- */
+.table {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    width: 100%;
+}
+
+.tableRow {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 8px 12px;
+    height: 64px;
+    box-sizing: border-box;
+}
+
+.rowNum {
+    width: 16px;
+    height: 14px;
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+
+.rowThumb {
+    width: 48px;
+    height: 48px;
+    border-radius: 6px;
+    flex-shrink: 0;
+}
+
+.rowText {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+}
+
+.rowLineTitle {
+    width: 42%;
+    height: 14px;
+    border-radius: 6px;
+}
+
+.rowLineSub {
+    width: 26%;
+    height: 12px;
+    border-radius: 6px;
+}
+
+.rowAlbum {
+    width: 18%;
+    height: 13px;
+    border-radius: 6px;
+}
+
+.rowTime {
+    width: 36px;
+    height: 13px;
+    border-radius: 6px;
+    flex-shrink: 0;
+}
+
+@media screen and (max-width: 767px) {
+    .rowAlbum,
+    .rowTime {
+        display: none;
+    }
+}
+
+/* ---- Album hero skeleton (matches the album banner cover + title) ---- */
+.albumCover {
+    width: 200px;
+    height: 200px;
+    border-radius: 12px;
+    flex-shrink: 0;
+}
+
+.albumLabel {
+    width: 70px;
+    height: 18px;
+    border-radius: 6px;
+}
+
+.albumTitle {
+    width: 320px;
+    max-width: 60vw;
+    height: 56px;
+    border-radius: 10px;
+}
+
+@media screen and (max-width: 744px) {
+    .albumCover {
+        width: 140px;
+        height: 140px;
+    }
+    .albumTitle {
+        height: 32px;
+    }
+}
+
 /* Smooth fade/slide-in for the real content once it has loaded. */
 .fadeIn {
     animation: skeletonFadeIn 0.45s ease both;

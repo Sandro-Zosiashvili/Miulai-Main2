@@ -88,7 +88,7 @@ const News = (props: Props) => {
         backgroundPosition: "center",
     };
 
-    if (props.loading && !props.album && !props.artistPage) {
+    if (props.loading && !props.album) {
         return (
             <div className={`${styles.container} ${styles.skeletonHero}`}>
                 <div className={styles.container_news}>
@@ -98,6 +98,20 @@ const News = (props: Props) => {
                         <div className={`${styles.skelPlays} ${skeleton.shimmer}`}/>
                     </div>
                     <div className={`${styles.skelButton} ${skeleton.shimmer}`}/>
+                </div>
+            </div>
+        );
+    }
+
+    if (props.loading && props.album) {
+        return (
+            <div className={`${styles.albumNews} ${styles.albumSkeleton}`}>
+                <div className={styles.albumNewsContent}>
+                    <div className={`${skeleton.albumCover} ${skeleton.shimmer}`}/>
+                    <div className={styles.flexColumn}>
+                        <div className={`${skeleton.albumLabel} ${skeleton.shimmer}`}/>
+                        <div className={`${skeleton.albumTitle} ${skeleton.shimmer}`}/>
+                    </div>
                 </div>
             </div>
         );

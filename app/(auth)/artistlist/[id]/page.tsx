@@ -15,6 +15,7 @@ const Artist = () => {
     const {id} = useParams();
     const [artistPhoto, setArtistPhoto] = useState('');
     const [artistName, setArtistName] = useState('');
+    const [loading, setLoading] = useState<boolean>(true);
     const token = Cookies.get('token');
 
 
@@ -28,9 +29,10 @@ const Artist = () => {
                 const artistData = r.data;
                 setArtistPhoto(artistData?.artistCover || '');
                 setArtistName(artistData.artistName);
-
+                setLoading(false);
             })
             .catch((error) => {
+                setLoading(false);
             });
 
 
@@ -39,7 +41,7 @@ const Artist = () => {
     return (
         <div className={styles.container}>
             <Header/>
-            <News artistPage={true} title={artistName} image={`${artistPhoto}`}/>
+            <News artistPage={true} loading={loading} title={artistName} image={`${artistPhoto}`}/>
             <TabbedNav biographyText={""}/>
         </div>
     );

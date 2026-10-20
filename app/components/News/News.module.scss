@@ -197,7 +197,7 @@
   width: 100%;
   display: flex;
   align-items: flex-end;
-  border-radius: 8px;
+  border-radius: 16px;
   position: relative;
   overflow: hidden;
 
@@ -205,6 +205,12 @@
   padding: 40px;
   padding-top: 75px;
   padding-bottom: 45px;
+}
+
+.albumSkeleton {
+  background: #0d0d0f;
+  min-height: 280px;
+  align-items: flex-end;
 }
 
 .albumNewsContent {
@@ -220,7 +226,9 @@
 }
 
 .imageBorder {
-  border-radius: 8px;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.5);
 }
 
 /* Loading skeleton for the hero banner.

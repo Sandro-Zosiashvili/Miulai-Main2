@@ -1,6 +1,7 @@
 "use client";
 import { Table } from "antd";
 import { cachedGet } from "@/app/lib/apiCache";
+import TableSkeleton from "@/app/components/Skeleton/TableSkeleton";
 import HeartShapeBtn from "../heatShapeIcon/HeartShapeIcn";
 import type { DividerClassKey } from "@mui/material";
 import styles from "./ChartTable.module.scss";
@@ -26,6 +27,7 @@ const ChartTable = () => {
     const [albumData, setAlbumData] = useState()
     const [musicData, setMusicData] = useState<any>()
     const [musicCover, setMusicCover] = useState<any>()
+    const [loading, setLoading] = useState<boolean>(true)
 
     useEffect(() => {
         cachedGet(`${process.env.NEXT_PUBLIC_BACKEND_URL}/music?limit=${5}`, {
@@ -35,8 +37,9 @@ const ChartTable = () => {
         })
             .then((r) => {
                 setMusicCover(r.data)
-
-            });
+                setLoading(false)
+            })
+            .catch(() => setLoading(false));
     }, []);
     const formatDuration = (seconds: number) => {
         const minutes = Math.floor(seconds / 60);
@@ -119,6 +122,14 @@ const ChartTable = () => {
         //     ),
         // },
     ];
+
+    if (loading) {
+        return (
+            <div className={styles.wrapper}>
+                <TableSkeleton rows={5}/>
+            </div>
+        );
+    }
 
     return (
         <div className={styles.wrapper}>

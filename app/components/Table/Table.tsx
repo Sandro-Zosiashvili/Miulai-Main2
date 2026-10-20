@@ -5,6 +5,7 @@ import Image from "next/image";
 import {useWindowSize} from "react-use";
 import {useRecoilState} from "recoil";
 import {albumMusicFromArtistState, mudicIDState, musicState, oneArrayMusicState} from "@/app/state";
+import TableSkeleton from "@/app/components/Skeleton/TableSkeleton";
 
 
 interface Music {
@@ -17,6 +18,7 @@ type albumData = {
     albumName: string;
     albumImage: string;
     musics: Music[];
+    loading?: boolean;
 }
 
 const Tables = (props: albumData) => {
@@ -113,19 +115,23 @@ const Tables = (props: albumData) => {
 
     return (
         <div className={styles.wrapper}>
-            <Table
-                className={styles.container}
-                dataSource={props.musics}
-                columns={columns}
-                pagination={false}
-                onRow={(record: any) => ({
-                    onClick: () => {
-                        setMusicId(record.id);
-                    },
-                })}
-                rowClassName={styles.row111111}
+            {props.loading ? (
+                <TableSkeleton rows={6}/>
+            ) : (
+                <Table
+                    className={styles.container}
+                    dataSource={props.musics}
+                    columns={columns}
+                    pagination={false}
+                    onRow={(record: any) => ({
+                        onClick: () => {
+                            setMusicId(record.id);
+                        },
+                    })}
+                    rowClassName={styles.row111111}
 
-            />
+                />
+            )}
         </div>
 
     )

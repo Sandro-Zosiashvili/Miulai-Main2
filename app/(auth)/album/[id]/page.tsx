@@ -17,6 +17,7 @@ import {useParams} from 'next/navigation'
 const AlbumID = () => {
     const [albumCover, setAlbumCover] = useState<string>('')
     const [albumName, setAlbumName] = useState<string>('')
+    const [loading, setLoading] = useState<boolean>(true)
     const [albumPage, setAlbumPage] = useRecoilState(albumMusicFromArtistState)
     const [musicArrayTwo, setMusicArrayTwo] = useRecoilState(oneArrayMusicState)
     const token = Cookies.get("token");
@@ -36,9 +37,10 @@ const AlbumID = () => {
                 setAlbumCover(r.data.albumImage)
                 setAlbumName(r.data.albumName)
                 setMusicArrayTwo(r.data.musics)
-
+                setLoading(false)
             })
             .catch(error => {
+                setLoading(false)
             })
     }, [id, setAlbumPage, setMusicArrayTwo, token])
 
@@ -47,8 +49,9 @@ const AlbumID = () => {
             <div className={styles.headerContainer}>
                 <Header/>
                 <div className={styles.bodyContainer}>
-                    <News  album={true} title={albumName || 'Loading...'} image={`${albumCover}`}/>
+                    <News  album={true} loading={loading} title={albumName || 'Loading...'} image={`${albumCover}`}/>
                     <Table
+                        loading={loading}
                         albumName={albumName || ''}
                         albumImage={albumCover || ''}
                         musics={musicArrayTwo || []}/>

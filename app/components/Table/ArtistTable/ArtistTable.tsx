@@ -1,6 +1,7 @@
 "use client";
 import {Table} from "antd";
 import { cachedGet } from "@/app/lib/apiCache";
+import TableSkeleton from "@/app/components/Skeleton/TableSkeleton";
 import HeartShapeBtn from "../../heatShapeIcon/HeartShapeIcn";
 import type {DividerClassKey} from "@mui/material";
 import styles from "./ArtistTable.module.scss";
@@ -31,6 +32,7 @@ const ArtistTable = (props: Props) => {
     const [musicID, setMusicId] = useRecoilState(mudicIDState)
     const [musicData, setMusicData] = useState<any[]>([])
     const [musicArrayTwo, setMusicArrayTwo] = useRecoilState<any>(oneArrayMusicState);
+    const [loading, setLoading] = useState<boolean>(true)
     const token = Cookies.get("token");
 
     useEffect(() => {
@@ -41,7 +43,9 @@ const ArtistTable = (props: Props) => {
                 setMusicArray(r.data)
                 setMusicData(r.data)
                 setMusicArrayTwo(r.data)
+                setLoading(false)
             })
+            .catch(() => setLoading(false))
     }, []);
 
 
@@ -122,6 +126,14 @@ const ArtistTable = (props: Props) => {
             ),
         },
     ];
+
+    if (loading) {
+        return (
+            <div className={styles.wrapper}>
+                <TableSkeleton rows={5}/>
+            </div>
+        );
+    }
 
     return (
         <div className={styles.wrapper}>

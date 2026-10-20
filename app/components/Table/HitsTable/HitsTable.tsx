@@ -13,11 +13,13 @@ import {globalAlbumDataState, mudicIDState, musicState, oneArrayMusicState} from
 import {useEffect, useState} from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
+import TableSkeleton from "@/app/components/Skeleton/TableSkeleton";
 
 const HitsTable = () => {
     const [musicID, setMusicId] = useRecoilState(mudicIDState)
     const [musicArrayTwo, setMusicArrayTwo] = useRecoilState<any>(oneArrayMusicState);
     const [musicCover, setMusicCover] = useState<any>()
+    const [loading, setLoading] = useState<boolean>(true)
     const token = Cookies.get("token");
 
     useEffect(() => {
@@ -26,8 +28,9 @@ const HitsTable = () => {
         })
             .then((r) => {
                 setMusicCover(r.data)
-
-            });
+                setLoading(false)
+            })
+            .catch(() => setLoading(false));
     }, []);
     const formatDuration = (seconds: number) => {
         const minutes = Math.floor(seconds / 60);
@@ -109,6 +112,14 @@ const HitsTable = () => {
         //   ),
         // },
     ];
+
+    if (loading) {
+        return (
+            <div className={styles.wrapper}>
+                <TableSkeleton rows={5}/>
+            </div>
+        );
+    }
 
     return (
         <div className={styles.wrapper}>
