@@ -1,16 +1,28 @@
 .modalContainer {
     position: fixed;
-    top: 0;
-    left: 0;
+    inset: 0;
     width: 100%;
     height: 100%;
-    background:#000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 999;
+    background: linear-gradient(180deg, #1a1030 0%, #0a0a0a 62%);
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 24px;
+    overflow-y: auto;
+    animation: modalSlideUp 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .modal {
@@ -35,11 +47,23 @@
 
 .closeButton {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    background: none;
+    top: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.08);
     border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
+    transition: background 0.2s ease;
+    z-index: 2;
+}
+
+.closeButton:hover {
+    background: rgba(255, 255, 255, 0.16);
 }
 
 .closeButton svg {

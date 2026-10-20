@@ -63,6 +63,18 @@ const IndexPage: React.FC = () => {
         }
     }, [volume, isLooping]);
 
+    // Lock the background page scroll while the full-screen modal is open.
+    useEffect(() => {
+        if (isModalOpen) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "";
+        }
+        return () => {
+            document.body.style.overflow = "";
+        };
+    }, [isModalOpen]);
+
     // Shuffle logic
     const shuffleArray = (array: any[]) => {
         return array

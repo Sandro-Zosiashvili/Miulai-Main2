@@ -1,4 +1,6 @@
-import React from 'react';
+'use client';
+import React, {useEffect, useState} from 'react';
+import {createPortal} from 'react-dom';
 import style from './modalPlayer.module.scss';
 import Controls from './Contorls';
 import TrackDisplay from './TrackDisplay';
@@ -33,7 +35,16 @@ const ModalPlayer: React.FC<ModalPlayerProps> = ({
   duration,
   volume,
 }) => {
-  return (
+  // Render into document.body so the full-screen modal escapes any parent
+  // stacking context and reliably covers the header / hero sections.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted || typeof document === 'undefined') return null;
+
+  return createPortal(
     <div className={style.modalContainer}>
       <button className={style.closeButton} onClick={onClose}>
         <Icon name="close" alt="Close" width={24} height={24} />
@@ -56,7 +67,8 @@ const ModalPlayer: React.FC<ModalPlayerProps> = ({
               isShuffling={false}
               onToggleShuffle={() => { } }
               backgroundImage={''} name={undefined} isActive={undefined}      />
-    </div>
+    </div>,
+    document.body
   );
 };
 
