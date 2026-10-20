@@ -4,9 +4,10 @@ import styles from '../components/Button/Button.module.scss'
 import { useEffect, useState, type JSX } from "react";
 
 
-export interface ButtonProps { 
+export interface ButtonProps {
     title: string;
     disabled?: boolean;
+    loading?: boolean;
     mode: 'without icon' | 'long with icon' | 'short with icon' | 'reusable button';
     icon?: boolean;
     onClick?: () => void;

@@ -183,6 +183,35 @@
     cursor: pointer;
 }
 
+.inputError {
+    border: 1px solid #FF6B81 !important;
+    box-shadow: 0 0 0 1px rgba(255, 107, 129, 0.35);
+}
+
+.input:focus {
+    box-shadow: 0 0 0 2px rgba(249, 3, 208, 0.45);
+    transition: box-shadow 0.15s ease;
+}
+
+.passwordWrapper:focus-within {
+    box-shadow: 0 0 0 2px rgba(249, 3, 208, 0.45);
+    transition: box-shadow 0.15s ease;
+}
+
+.apiError {
+    max-width: 340px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 16px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    background: rgba(255, 77, 109, 0.12);
+    border: 1px solid rgba(255, 107, 129, 0.5);
+    color: #FF8A9B;
+    font-size: 14px;
+    font-weight: 500;
+}
+
 .passwordWrapper {
     display: flex;
     align-items: center;

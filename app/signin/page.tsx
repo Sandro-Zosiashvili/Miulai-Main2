@@ -10,7 +10,6 @@ import {useRouter} from "next/navigation";
 import {setCookie} from "../cookies";
 import {useState, useEffect} from "react";
 import {useRecoilState} from "recoil";
-import {Spin} from "antd";
 import {userIDState} from "../state";
 
 type SignIn = {
@@ -20,10 +19,11 @@ type SignIn = {
 };
 
 const Signup = () => {
-    const [useID, setUserID] = useRecoilState(userIDState)
+    const [, setUserID] = useRecoilState(userIDState);
     const [rememberMe, setRememberMe] = useState(false);
     const router = useRouter();
     const [loading, setLoading] = useState<boolean>(false);
+    const [apiError, setApiError] = useState<string>("");
     const {
         register,
         handleSubmit,
@@ -47,7 +47,8 @@ const Signup = () => {
     }, [setValue]);
 
     const onLogin = (values: SignIn) => {
-        setLoading(true)
+        setLoading(true);
+        setApiError("");
         axios
             .post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/login`, values)
             .then((r) => {
@@ -61,10 +62,19 @@ const Signup = () => {
                     localStorage.removeItem("password");
                 }
                 router.push("/");
-                window.location.reload()
-            }).catch(() => {
-            setLoading(false)
-        });
+                window.location.reload();
+            })
+            .catch((error) => {
+                setLoading(false);
+                const status = error?.response?.status;
+                if (status === 401 || status === 403) {
+                    setApiError("Incorrect email or password.");
+                } else if (status === 400) {
+                    setApiError("Please check your details and try again.");
+                } else {
+                    setApiError("Something went wrong. Please try again.");
+                }
+            });
     };
 
     const togglePasswordVisibility = () => {
@@ -100,20 +110,21 @@ const Signup = () => {
                     <form
                         onSubmit={handleSubmit(onLogin)}
                         className={styles.formsWrapper}
+                        noValidate
                     >
                         <div className={styles.inputWrapper}>
                             <input
                                 type="email"
                                 placeholder="Email"
-                                className={styles.input}
+                                className={`${styles.input} ${errors.email ? styles.inputError : ""}`}
                                 {...register("email", {
                                     required: {
                                         value: true,
-                                        message: "email is required",
+                                        message: "Email is required",
                                     },
                                     pattern: {
                                         value: /\S+@\S+\.\S+/,
-                                        message: "Entered value does not match email format",
+                                        message: "Enter a valid email address",
                                     },
                                 })}
                             />
@@ -121,7 +132,7 @@ const Signup = () => {
                                 <ErrorMessage>{errors.email.message}</ErrorMessage>
                             )}
 
-                            <div className={styles.passwordWrapper}>
+                            <div className={`${styles.passwordWrapper} ${errors.password ? styles.inputError : ""}`}>
                                 <input
                                     type={showPassword ? "text" : "password"}
                                     placeholder="Password"
@@ -129,11 +140,11 @@ const Signup = () => {
                                     {...register("password", {
                                         required: {
                                             value: true,
-                                            message: "password is required",
+                                            message: "Password is required",
                                         },
                                         minLength: {
                                             value: 8,
-                                            message: "min length of password should be 8 character",
+                                            message: "Password must be at least 8 characters",
                                         },
                                     })}
                                 />
@@ -168,21 +179,19 @@ const Signup = () => {
                                 Forgot your password?
                             </Link>
                         </div>
-                        {loading ? (
-                            <div className={styles.loading}>
-                                <Spin tip="Submitting..." size="large"/>
-                            </div>
-                        ) : (
-                            <Button
-                                title={"SIGN IN"}
-                                mode={"reusable button"}
-                                onClick={() => console.log("button clicked")}
-                                width="340px"
-                                padding="12px"
-                                borderRadius="8px"
-                                fontSize="16px"
-                            />
-                        )}
+
+                        {apiError && <div className={styles.apiError}>{apiError}</div>}
+
+                        <Button
+                            title={"SIGN IN"}
+                            mode={"reusable button"}
+                            loading={loading}
+                            onClick={() => {}}
+                            width="340px"
+                            padding="12px"
+                            borderRadius="8px"
+                            fontSize="16px"
+                        />
 
                     </form>
                     <div className={styles.signup}>

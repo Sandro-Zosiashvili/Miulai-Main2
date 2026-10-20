@@ -111,11 +111,37 @@
 
 
 .errorMassage {
-    // color: rgb(245, 51, 51);
-    color: #B1B1B1;
-    font-size: 12px;
+    color: #FF8A9B;
+    font-size: 13px;
     font-weight: 500;
     margin-top: -5px;
+}
+
+.inputError {
+    border: 1px solid #FF6B81 !important;
+}
+
+.apiError {
+    max-width: 350px;
+    width: 100%;
+    margin-top: 2px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    background: rgba(255, 77, 109, 0.12);
+    border: 1px solid rgba(255, 107, 129, 0.5);
+    color: #FF8A9B;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.input:focus {
+    box-shadow: 0 0 0 2px rgba(249, 3, 208, 0.45);
+    transition: box-shadow 0.15s ease;
+}
+
+.passwordInput:focus-within {
+    box-shadow: 0 0 0 2px rgba(249, 3, 208, 0.45);
+    transition: box-shadow 0.15s ease;
 }
 
 .passwordInput {

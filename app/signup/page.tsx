@@ -4,9 +4,8 @@ import Button from '../components/Button/Button'
 import styles from './page.module.scss'
 import Image from 'next/image'
 import {useForm} from "react-hook-form";
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import {useRouter} from 'next/navigation';
-import {Spin} from "antd";
 
 
 interface RegisterForm {
@@ -22,23 +21,27 @@ const Registracion = () => {
     const [passwordHide, setPasswordHide] = useState<string>('password')
     const {register, handleSubmit, watch, formState: {errors}} = useForm<RegisterForm>();
     const [loading, setLoading] = useState<boolean>(false);
+    const [apiError, setApiError] = useState<string>("");
 
 
     const onSubmit = (values: RegisterForm) => {
         setLoading(true);
-        const password = watch('password')
-        const currentpassword = watch('RepeatPassword')
-        if (password === currentpassword) {
-            axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user`, values).then(r => {
-                router.push('/signin')
-                setLoading(false);
-            }).catch(() => {
-                setLoading(false);
-
+        setApiError("");
+        axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user`, values)
+            .then(() => {
+                router.push('/signin');
             })
-
-        }
-
+            .catch((error) => {
+                setLoading(false);
+                const status = error?.response?.status;
+                if (status === 409) {
+                    setApiError("This email is already registered.");
+                } else if (status === 400 || status === 401) {
+                    setApiError("Please check your details and try again.");
+                } else {
+                    setApiError("Registration failed. Please try again.");
+                }
+            });
     }
 
 
@@ -62,20 +65,20 @@ const Registracion = () => {
                     <div className={styles.thirdFont}>The Future Of Music Streaming</div>
                 </div>
                 <div className={styles.tabletFont}>Sign up</div>
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <form onSubmit={handleSubmit(onSubmit)} noValidate>
                     <div className={styles.registracion}>
                         <input
-                            className={styles.input}
+                            className={`${styles.input} ${errors.name ? styles.inputError : ''}`}
                             type='text'
-                            placeholder='name'
+                            placeholder='Name'
                             {...register('name', {
                                 required: {
                                     value: true,
-                                    message: 'Enter your name'
+                                    message: 'Name is required'
                                 },
                                 minLength: {
                                     value: 2,
-                                    message: 'MinLength is 2'
+                                    message: 'Name must be at least 2 characters'
                                 },
                             })}
                         />
@@ -83,7 +86,7 @@ const Registracion = () => {
                             errors.name && <div className={styles.errorMassage}>{errors.name.message}</div>
                         }
 
-                        <input className={styles.input}
+                        <input className={`${styles.input} ${errors.email ? styles.inputError : ''}`}
                                type='email'
                                placeholder='Email'
                                {...register('email', {
@@ -93,7 +96,7 @@ const Registracion = () => {
                                    },
                                    pattern: {
                                        value: /\S+@\S+\.\S+/,
-                                       message: "Enter correct Email"
+                                       message: "Enter a valid email address"
                                    }
                                })}
                         />
@@ -102,15 +105,20 @@ const Registracion = () => {
                             <div className={styles.errorMassage}>{errors.email.message}</div>
                         }
 
-                        <div className={styles.passwordInput}>
+                        <div className={`${styles.passwordInput} ${errors.password ? styles.inputError : ''}`}>
                             <input
                                 className={styles.inputPassword}
                                 type={passwordHide}
                                 placeholder='Password'
                                 {...register('password', {
-                                    required: true,
-                                    minLength: 8,
-
+                                    required: {
+                                        value: true,
+                                        message: 'Password is required'
+                                    },
+                                    minLength: {
+                                        value: 8,
+                                        message: 'Password must be at least 8 characters'
+                                    },
                                 })}
                             />
 
@@ -120,6 +128,10 @@ const Registracion = () => {
                             </div>
 
                         </div>
+                        {
+                            errors.password &&
+                            <div className={styles.errorMassage}>{errors.password.message}</div>
+                        }
 
 
                         <div className={styles.registrationErors}>
@@ -127,16 +139,17 @@ const Registracion = () => {
                             <div>*8 or more Characters</div>
                         </div>
 
-                        <div className={styles.passwordInput}>
+                        <div className={`${styles.passwordInput} ${errors.RepeatPassword ? styles.inputError : ''}`}>
                             <input className={styles.inputPassword}
                                    type={passwordHide}
-                                   placeholder='current Password'
+                                   placeholder='Confirm Password'
                                    {...register('RepeatPassword', {
                                        required: {
                                            value: true,
-                                           message: 'Current Password is required'
+                                           message: 'Please confirm your password'
                                        },
-
+                                       validate: (value) =>
+                                           value === watch('password') || "Passwords don't match",
                                    })}
                             />
                             <div className={styles.cursor}
@@ -149,22 +162,20 @@ const Registracion = () => {
                             errors.RepeatPassword &&
                             <span className={styles.errorMassage}>{errors.RepeatPassword.message}</span>
                         }
+
+                        {apiError && <div className={styles.apiError}>{apiError}</div>}
+
                         <div className={styles.button}>
-                            {loading ? (
-                                <div className={styles.loading}>
-                                    <Spin tip="Submitting..." size="large"/>
-                                </div>
-                            ) : (
-                                <Button
-                                    title={"SIGN IN"}
-                                    mode={"reusable button"}
-                                    onClick={() => console.log("button clicked")}
-                                    width="340px"
-                                    padding="12px"
-                                    borderRadius="8px"
-                                    fontSize="16px"
-                                />
-                            )}
+                            <Button
+                                title={"SIGN UP"}
+                                mode={"reusable button"}
+                                loading={loading}
+                                onClick={() => {}}
+                                width="340px"
+                                padding="12px"
+                                borderRadius="8px"
+                                fontSize="16px"
+                            />
                         </div>
                         <div className={styles.haveAnAccount}>
                             <div>Already have an account?</div>
