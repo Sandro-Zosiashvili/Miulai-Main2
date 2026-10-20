@@ -210,3 +210,63 @@
 .imageBorder {
   border-radius: 8px;
 }
+
+/* Loading skeleton for the hero banner.
+   Reuses .container + .container_news so its height and margins match the
+   real "Top Hit Of The Week" banner at every breakpoint (content-driven,
+   no fixed height). Only the inner block sizes mirror the real title / plays
+   / button, and they scale down on the same responsive breakpoints. */
+.skeletonHero {
+  background: #0d0d0f;
+}
+
+.skelTitle {
+  width: 440px;
+  max-width: 72%;
+  height: 60px;
+  border-radius: 10px;
+}
+
+.skelTitleSmall {
+  width: 300px;
+  max-width: 50%;
+  height: 60px;
+  border-radius: 10px;
+}
+
+.skelPlays {
+  width: 170px;
+  height: 24px;
+  border-radius: 8px;
+  margin-top: 6px;
+}
+
+.skelButton {
+  width: 153px;
+  height: 48px;
+  border-radius: 8px;
+}
+
+@media screen and (min-width: 375px) and (max-width: 744px) {
+  .skelTitle,
+  .skelTitleSmall {
+    height: 44px;
+  }
+  .skelPlays {
+    height: 20px;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .skelTitle,
+  .skelTitleSmall {
+    height: 28px;
+  }
+  .skelPlays {
+    height: 16px;
+  }
+  .skelButton {
+    width: 114px;
+    height: 40px;
+  }
+}

@@ -55,9 +55,14 @@ export default function Home() {
         }
       )
       .then(async (r) => {
-        // setSearchItems(r.data.authors);
-        setTopHIt(r.data[0])
-        // setMusicId(r.data[0].id)
+        // Top Hit Of The Week = the track with the highest play count.
+        const list = Array.isArray(r.data) ? r.data : [];
+        const top = list.reduce(
+          (max: any, m: any) =>
+            (m?.playCount ?? 0) > (max?.playCount ?? 0) ? m : max,
+          list[0]
+        );
+        setTopHIt(top)
       });
   }, []);
 
@@ -65,7 +70,7 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <Header />
-       <News title={'Top Hit Of The Week'} image={topHit?.author?.artistCover} plays={topHit?.playCount || "Loading..."} />
+       <News title={'Top Hit Of The Week'} image={topHit?.author?.artistCover} plays={topHit ? String(topHit.playCount ?? 0) : "Loading..."} loading={!topHit} />
       <CardsHeader  title={'Top Hits'} subtitle={'See all'} addRoute='hits' />
       <HitsSection />
       <CardsHeader  title={'Top Charts'} subtitle={'See all'} addRoute='charts' />

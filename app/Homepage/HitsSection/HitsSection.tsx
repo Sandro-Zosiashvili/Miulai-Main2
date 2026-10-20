@@ -1,4 +1,6 @@
 import Card from '@/app/components/Card/Card';
+import SkeletonCard from '@/app/components/Skeleton/SkeletonCard';
+import skeleton from '@/app/components/Skeleton/Skeleton.module.scss';
 import styles from './HitsSection.module.scss';
 import {useEffect, useState} from 'react';
 import axios from 'axios';
@@ -19,6 +21,7 @@ import {useRouter} from "next/navigation";
 
 const HitsSection = () => {
     const [musics, setMusics] = useState<any>([])
+    const [loading, setLoading] = useState<boolean>(true)
     const token = Cookies.get('token')
     const router = useRouter();
     const [albumRouter, setAlbumRouter] = useRecoilState<any>(albumRouterState)
@@ -42,7 +45,9 @@ const HitsSection = () => {
         })
             .then((r) => {
                 setMusics(r.data)
+                setLoading(false)
             })
+            .catch(() => setLoading(false))
     }, [clickFetch])
 
     const forAlbumId = (id: Number) => {
@@ -53,9 +58,14 @@ const HitsSection = () => {
     return (
         <div className={styles.container}>
             <div className={styles.hits}>
-                {
-                    musics.slice(0, 5).map((item: any) => (
-                        <div className={styles.box} key={item.id} onClick={() => {
+                {loading
+                    ? [...Array(5)].map((_, i) => (
+                        <div className={styles.box} key={`sk-${i}`}>
+                            <SkeletonCard/>
+                        </div>
+                    ))
+                    : musics.slice(0, 5).map((item: any) => (
+                        <div className={`${styles.box} ${skeleton.fadeIn}`} key={item.id} onClick={() => {
                             setAlbumIDData(item.albumId)
                             setAlbumId(item.authorId)
                             setMusicId(item.id)

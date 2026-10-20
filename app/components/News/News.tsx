@@ -7,6 +7,7 @@ import axios from "axios";
 import ColorThief from "colorthief";
 import Cookies from "js-cookie";
 import Head from "next/head";
+import skeleton from "../Skeleton/Skeleton.module.scss";
 
 
 interface Props {
@@ -15,6 +16,7 @@ interface Props {
     plays?: string;
     album?: boolean;
     artistPage?: boolean | false;
+    loading?: boolean;
 }
 
 const News = (props: Props) => {
@@ -67,7 +69,14 @@ const News = (props: Props) => {
         axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/music`, {
             headers: {Authorization: `Bearer ${token}`},
         }).then((r) => {
-            setForMusic(r.data[0]?.id);
+            // Listen Now plays the Top Hit = the track with the highest play count.
+            const list = Array.isArray(r.data) ? r.data : [];
+            const top = list.reduce(
+                (max: any, m: any) =>
+                    (m?.playCount ?? 0) > (max?.playCount ?? 0) ? m : max,
+                list[0]
+            );
+            setForMusic(top?.id);
         });
     }, []);
 
@@ -77,6 +86,21 @@ const News = (props: Props) => {
         backgroundSize: "cover",
         backgroundPosition: "center",
     };
+
+    if (props.loading && !props.album && !props.artistPage) {
+        return (
+            <div className={`${styles.container} ${styles.skeletonHero}`}>
+                <div className={styles.container_news}>
+                    <div className={styles.container_title}>
+                        <div className={`${styles.skelTitle} ${skeleton.shimmer}`}/>
+                        <div className={`${styles.skelTitleSmall} ${skeleton.shimmer}`}/>
+                        <div className={`${styles.skelPlays} ${skeleton.shimmer}`}/>
+                    </div>
+                    <div className={`${styles.skelButton} ${skeleton.shimmer}`}/>
+                </div>
+            </div>
+        );
+    }
 
     if (props.album) {
         return (
