@@ -1,5 +1,6 @@
 "use client";
 import {Table} from "antd";
+import { cachedGet } from "@/app/lib/apiCache";
 import HeartShapeBtn from "../../heatShapeIcon/HeartShapeIcn";
 import type {DividerClassKey} from "@mui/material";
 import styles from "./HitsTable.module.scss";
@@ -20,7 +21,7 @@ const HitsTable = () => {
     const token = Cookies.get("token");
 
     useEffect(() => {
-        axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/music/top-songs?limit=${5}`, {
+        cachedGet(`${process.env.NEXT_PUBLIC_BACKEND_URL}/music/top-songs?limit=${5}`, {
             headers: {Authorization: `Bearer ${token}`},
         })
             .then((r) => {

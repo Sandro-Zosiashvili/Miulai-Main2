@@ -1,4 +1,5 @@
 import {useEffect, useState} from 'react';
+import { cachedGet } from "@/app/lib/apiCache";
 import HeartShapeBtn from '../heatShapeIcon/HeartShapeIcn';
 import Icon from '../Icon/Icon';
 import Image from 'next/image';
@@ -39,7 +40,7 @@ const MusicCard = () => {
 
     // Fetching all music data
     useEffect(() => {
-        axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/music`, {
+        cachedGet(`${process.env.NEXT_PUBLIC_BACKEND_URL}/music`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

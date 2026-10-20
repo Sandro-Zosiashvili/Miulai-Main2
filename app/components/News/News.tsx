@@ -8,6 +8,7 @@ import ColorThief from "colorthief";
 import Cookies from "js-cookie";
 import Head from "next/head";
 import skeleton from "../Skeleton/Skeleton.module.scss";
+import {cachedGet} from "@/app/lib/apiCache";
 
 
 interface Props {
@@ -66,7 +67,7 @@ const News = (props: Props) => {
 
 
     useEffect(() => {
-        axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/music`, {
+        cachedGet(`${process.env.NEXT_PUBLIC_BACKEND_URL}/music`, {
             headers: {Authorization: `Bearer ${token}`},
         }).then((r) => {
             // Listen Now plays the Top Hit = the track with the highest play count.

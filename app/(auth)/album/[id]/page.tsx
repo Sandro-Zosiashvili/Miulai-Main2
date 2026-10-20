@@ -1,5 +1,6 @@
 'use client'
 import {useEffect, useState} from 'react'
+import { cachedGet } from "@/app/lib/apiCache";
 import Header from '../../../components/Header/Header'
 import Input from '../../../components/Input/Input'
 import News from '../../../components/News/News'
@@ -25,7 +26,7 @@ const AlbumID = () => {
 
 
     useEffect(() => {
-        axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/album/${id}`, {
+        cachedGet(`${process.env.NEXT_PUBLIC_BACKEND_URL}/album/${id}`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },

@@ -1,5 +1,6 @@
 'use client';
 import ReusableHeader from '@/app/components/ReusableHeader/ReusableHeader';
+import { cachedGet } from "@/app/lib/apiCache";
 import styles from './page.module.scss';
 import News from '@/app/components/News/News';
 import Input from '@/app/components/Input/Input';
@@ -20,7 +21,7 @@ const Charts = () => {
 
     const [topHit, setTopHIt] = useState<any>()
     useEffect(() => {
-        axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/music`, {
+        cachedGet(`${process.env.NEXT_PUBLIC_BACKEND_URL}/music`, {
             headers: {Authorization: `Bearer ${token}`}
         })
             .then(async (r) => {

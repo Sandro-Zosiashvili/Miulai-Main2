@@ -1,5 +1,6 @@
 "use client";
 import {Table} from "antd";
+import { cachedGet } from "@/app/lib/apiCache";
 import HeartShapeBtn from "../../heatShapeIcon/HeartShapeIcn";
 import type {DividerClassKey} from "@mui/material";
 import styles from "./ArtistTable.module.scss";
@@ -33,7 +34,7 @@ const ArtistTable = (props: Props) => {
     const token = Cookies.get("token");
 
     useEffect(() => {
-        axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/author/${props.authorID}/top-songs`, {
+        cachedGet(`${process.env.NEXT_PUBLIC_BACKEND_URL}/author/${props.authorID}/top-songs`, {
             headers: {Authorization: `Bearer ${token}`},
         })
             .then((r) => {

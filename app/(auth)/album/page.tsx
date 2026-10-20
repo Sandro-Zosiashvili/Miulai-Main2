@@ -1,5 +1,6 @@
 "use client"; // Add this line to mark the component as a Client Component
 import styles from './page.module.scss';
+import { cachedGet } from "@/app/lib/apiCache";
 import {useParams, useRouter} from 'next/navigation';
 import Header from '@/app/components/Header/Header';
 import Card from '@/app/components/Card/Card';
@@ -25,7 +26,7 @@ const Album = () => {
     const [artists, setArtists] = useState([]);
 
     useEffect(() => {
-        axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/album`, {
+        cachedGet(`${process.env.NEXT_PUBLIC_BACKEND_URL}/album`, {
             headers: {Authorization: `Bearer ${token}`}
         })
             .then((r) => {

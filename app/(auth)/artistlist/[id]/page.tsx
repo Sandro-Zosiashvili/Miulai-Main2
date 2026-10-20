@@ -1,5 +1,6 @@
 "use client"; // Mark the component as a Client Component
 import {useEffect, useState} from 'react';
+import { cachedGet } from "@/app/lib/apiCache";
 import {useRouter} from 'next/navigation';
 import {useParams} from 'next/navigation'; // For Next.js 13 (App Router)
 import Header from "@/app/components/Header/Header";
@@ -20,7 +21,7 @@ const Artist = () => {
 
     useEffect(() => {
 
-        axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/author/${id}`, {
+        cachedGet(`${process.env.NEXT_PUBLIC_BACKEND_URL}/author/${id}`, {
             headers: {'Authorization': `Bearer ${token}`},
         })
             .then((r) => {

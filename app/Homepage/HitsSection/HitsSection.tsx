@@ -1,4 +1,5 @@
 import Card from '@/app/components/Card/Card';
+import {cachedGet} from '@/app/lib/apiCache';
 import SkeletonCard from '@/app/components/Skeleton/SkeletonCard';
 import skeleton from '@/app/components/Skeleton/Skeleton.module.scss';
 import styles from './HitsSection.module.scss';
@@ -38,7 +39,7 @@ const HitsSection = () => {
 
 
     useEffect(() => {
-        axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/music`, {
+        cachedGet(`${process.env.NEXT_PUBLIC_BACKEND_URL}/music`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

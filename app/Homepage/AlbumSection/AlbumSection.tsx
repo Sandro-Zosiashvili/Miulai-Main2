@@ -8,6 +8,7 @@ import {useRouter} from "next/navigation";
 import ArtistCard from "../../components/ArtistCard/ArtistCard";
 import SkeletonCard from "@/app/components/Skeleton/SkeletonCard";
 import skeleton from "@/app/components/Skeleton/Skeleton.module.scss";
+import {cachedGet} from "@/app/lib/apiCache";
 import Cookies from "js-cookie";
 
 
@@ -20,7 +21,7 @@ const AlbumSection = () => {
     const token = Cookies.get("token");
 
     useEffect(() => {
-        axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/album`, {
+        cachedGet(`${process.env.NEXT_PUBLIC_BACKEND_URL}/album`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

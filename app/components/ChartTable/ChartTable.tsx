@@ -1,5 +1,6 @@
 "use client";
 import { Table } from "antd";
+import { cachedGet } from "@/app/lib/apiCache";
 import HeartShapeBtn from "../heatShapeIcon/HeartShapeIcn";
 import type { DividerClassKey } from "@mui/material";
 import styles from "./ChartTable.module.scss";
@@ -27,7 +28,7 @@ const ChartTable = () => {
     const [musicCover, setMusicCover] = useState<any>()
 
     useEffect(() => {
-        axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/music?limit=${5}`, {
+        cachedGet(`${process.env.NEXT_PUBLIC_BACKEND_URL}/music?limit=${5}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

@@ -9,6 +9,7 @@ import {useRouter} from "next/navigation";
 import ArtistCard from "../../components/ArtistCard/ArtistCard";
 import SkeletonCard from "@/app/components/Skeleton/SkeletonCard";
 import skeleton from "@/app/components/Skeleton/Skeleton.module.scss";
+import {cachedGet} from "@/app/lib/apiCache";
 
 
 const ArtistSection = () => {
@@ -19,7 +20,7 @@ const ArtistSection = () => {
     const token = Cookies.get("token");
 
     useEffect(() => {
-        axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/author`, {
+        cachedGet(`${process.env.NEXT_PUBLIC_BACKEND_URL}/author`, {
             headers: {Authorization: `Bearer ${token}`}
         }).then((r) => {
             setArtist(r.data);

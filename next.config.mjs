@@ -27,9 +27,9 @@ const nextConfig = {
     },
 
     // ძირითადი კონფიგურაციები
-    reactStrictMode: false, // გამორთულია strict mode
-    swcMinify: false, // გამორთულია SWC minify
-    compress: false, // გამორთულია კომპრესია
+    reactStrictMode: false, // strict mode off (avoids double-render)
+    swcMinify: true, // minify JS for smaller, faster bundles
+    compress: true, // gzip responses
 
     // ყველა ერორის იგნორირება
     eslint: {

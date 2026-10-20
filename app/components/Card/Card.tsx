@@ -26,7 +26,8 @@ const Card = (props: Props) => {
                     src={props.image}
                     alt='image' width={210}
                     height={195}
-                    priority
+                    loading="lazy"
+                    sizes="210px"
                 />
 
                 <div className={styles.union}>

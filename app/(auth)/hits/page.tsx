@@ -1,6 +1,7 @@
 'use client';
 
 import HitsTable from '../../components/Table/HitsTable/HitsTable'
+import { cachedGet } from "@/app/lib/apiCache";
 import Input from '../../components/Input/Input';
 import News from '../../components/News/News';
 import ReusableHeader from '../../components/ReusableHeader/ReusableHeader';
@@ -16,7 +17,7 @@ const Hits = () => {
     const token = Cookies.get("token");
 
     useEffect(() => {
-        axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/music`, {
+        cachedGet(`${process.env.NEXT_PUBLIC_BACKEND_URL}/music`, {
             headers: {Authorization: `Bearer ${token}`},
         })
             .then((r) => {

@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { cachedGet } from "../lib/apiCache";
 import CardsHeader from '../components/CardsHeader/CardsHeader';
 import Header from '../components/Header/Header';
 import News from '../components/News/News';
@@ -46,8 +47,7 @@ export default function Home() {
 
   const [topHit, setTopHIt] = useState<any>()
   useEffect(() => {
-    axios
-      .get(
+    cachedGet(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/music`,{
           headers: {
             Authorization: `Bearer ${token}`,
