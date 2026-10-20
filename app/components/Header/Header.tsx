@@ -124,70 +124,105 @@ const Header: React.FC<InputTpo> = (props) => {
                         value={inputValue}
                         className={styles.input}
                     />
-                    {showDropdown && (
+                    {showDropdown && inputValue && (
                         <div className={styles.searchDropdown}>
-                            {searchItems.map((author: any, index) => (
-                                <div
-                                    // key={`author-${index}`}
-                                    key={index}
-                                    className={styles.searchItem}
-                                    onClick={() => handleAuthorClick(author.id)}
-                                >
-                                    {author.artistPhoto ? (
-                                        <Image
-                                            className={styles.img}
-                                            src={author.artistPhoto}
-                                            width={72}
-                                            height={72}
-                                            alt={author.artistName || "Author Image"}
-                                        />
-                                    ) : null}
-                                    <div className={styles.white}>{author.artistName}</div>
-                                    <div className={styles.musicSelection}>Artist</div>
+                            {!searchItems.length && !albumSearch.length && !musicData.length ? (
+                                <div className={styles.noResults}>
+                                    No results for “{inputValue}”
                                 </div>
-                            ))}
+                            ) : (
+                                <>
+                                    {searchItems.length > 0 && (
+                                        <div className={styles.section}>
+                                            <div className={styles.sectionHeader}>Artists</div>
+                                            {searchItems.map((author: any, index) => (
+                                                <div
+                                                    key={`author-${index}`}
+                                                    className={styles.searchItem}
+                                                    onClick={() => handleAuthorClick(author.id)}
+                                                >
+                                                    {author.artistPhoto ? (
+                                                        <Image
+                                                            className={styles.imgRound}
+                                                            src={author.artistPhoto}
+                                                            width={48}
+                                                            height={48}
+                                                            alt={author.artistName || "Artist"}
+                                                        />
+                                                    ) : (
+                                                        <div className={`${styles.imgRound} ${styles.placeholder}`}/>
+                                                    )}
+                                                    <div className={styles.meta}>
+                                                        <div className={styles.title}>{author.artistName}</div>
+                                                        <div className={styles.subtitle}>Artist</div>
+                                                    </div>
+                                                    <span className={styles.typePill}>Artist</span>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
 
-                            {albumSearch.map((album: any, index) => (
-                                <div
-                                    key={`album-${index}`}
-                                    className={styles.searchItem}
-                                    onClick={() => handleAlbumClick(album)}
-                                >
-                                    {album.albumImage ? (
-                                        <Image
-                                            className={styles.albuImage}
-                                            src={album.albumImage}
-                                            width={72}
-                                            height={72}
-                                            alt={album.albumName || "Album Image"}
-                                        />
-                                    ) : null}
-                                    <div className={styles.white}>
-                                        <div>{album.albumName}</div>
-                                        <div className={styles.grayFont}>{album.artistName}</div>
-                                    </div>
-                                    <div className={styles.musicSelection}>Album</div>
-                                </div>
-                            ))}
-                            {musicData.map((item: any, index) => (
-                                <div
-                                    key={`music-${index}`}
-                                    onClick={() => setMusicId(item.id)}
-                                    className={styles.searchItem}
-                                >
-                                    <Image
-                                        src={item.album.albumImage}
-                                        width={72}
-                                        height={72}
-                                        alt="musiccover"
-                                    />
-                                    <div className={styles.white}>
-                                        <div>{item.name}</div>
-                                        <div className={styles.grayFont}>{item.artistName}</div>
-                                    </div>
-                                    <div className={styles.musicSelection}>Music</div>
-                                </div>
-                            ))}
+                                    {albumSearch.length > 0 && (
+                                        <div className={styles.section}>
+                                            <div className={styles.sectionHeader}>Albums</div>
+                                            {albumSearch.map((album: any, index) => (
+                                                <div
+                                                    key={`album-${index}`}
+                                                    className={styles.searchItem}
+                                                    onClick={() => handleAlbumClick(album)}
+                                                >
+                                                    {album.albumImage ? (
+                                                        <Image
+                                                            className={styles.imgSquare}
+                                                            src={album.albumImage}
+                                                            width={48}
+                                                            height={48}
+                                                            alt={album.albumName || "Album"}
+                                                        />
+                                                    ) : (
+                                                        <div className={`${styles.imgSquare} ${styles.placeholder}`}/>
+                                                    )}
+                                                    <div className={styles.meta}>
+                                                        <div className={styles.title}>{album.albumName}</div>
+                                                        <div className={styles.subtitle}>{album.artistName}</div>
+                                                    </div>
+                                                    <span className={styles.typePill}>Album</span>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+
+                                    {musicData.length > 0 && (
+                                        <div className={styles.section}>
+                                            <div className={styles.sectionHeader}>Tracks</div>
+                                            {musicData.map((item: any, index) => (
+                                                <div
+                                                    key={`music-${index}`}
+                                                    onClick={() => setMusicId(item.id)}
+                                                    className={styles.searchItem}
+                                                >
+                                                    {item.album?.albumImage ? (
+                                                        <Image
+                                                            className={styles.imgSquare}
+                                                            src={item.album.albumImage}
+                                                            width={48}
+                                                            height={48}
+                                                            alt={item.name || "Track"}
+                                                        />
+                                                    ) : (
+                                                        <div className={`${styles.imgSquare} ${styles.placeholder}`}/>
+                                                    )}
+                                                    <div className={styles.meta}>
+                                                        <div className={styles.title}>{item.name}</div>
+                                                        <div className={styles.subtitle}>{item.artistName}</div>
+                                                    </div>
+                                                    <span className={styles.typePill}>Track</span>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+                                </>
+                            )}
                         </div>
                     )}
                 </div>
