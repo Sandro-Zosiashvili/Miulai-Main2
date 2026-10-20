@@ -73,14 +73,19 @@ const MusicCard = () => {
 
                 >
                     <div className={styles.container_author}>
-                        <div>
+                        <div className={styles.thumb}>
                             <Image
                                 className={styles.img}
                                 src={item.album.albumImage}
                                 alt={"album cover"}
-                                width={72}
-                                height={72}
+                                width={56}
+                                height={56}
                             />
+                            <div className={styles.playOverlay}>
+                                <svg viewBox="0 0 24 24" width={22} height={22} aria-hidden="true">
+                                    <path d="M8 5v14l11-7z" fill="#fff"/>
+                                </svg>
+                            </div>
                         </div>
                         <div className={styles.container_name}>
                             <div className={styles.music_name_font_style}>{item.name}</div>
@@ -109,8 +114,8 @@ const MusicCard = () => {
                                 <Image
                                     src={"./Dots.svg"}
                                     alt="Dots button"
-                                    width={24}
-                                    height={24}
+                                    width={20}
+                                    height={20}
                                 />
                             </div>
                             <div className={styles.cellPlaylist}>

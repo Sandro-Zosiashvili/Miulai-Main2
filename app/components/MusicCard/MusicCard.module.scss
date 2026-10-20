@@ -1,102 +1,182 @@
 @import '../colors/colors.scss';
 
-
-//contaienr styles
-
+/* ---- Responsive grid: 3 cols desktop -> 2 tablet -> 1 mobile ---- */
 .mainContainer {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 20px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    width: 100%;
 }
 
+@media screen and (max-width: 1100px) {
+    .mainContainer {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
 
+@media screen and (max-width: 680px) {
+    .mainContainer {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
 
+/* ---- Track row ---- */
 .container {
-    // max-width: 548px;
-    // width: 100%;
-    height: 104px;
-    padding: 16px;
-    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+    padding: 10px 14px;
+    border-radius: 12px;
     background: $darkVoid;
     color: white;
-    display: flex;
-    justify-content: space-between;
-    flex: 1;
     cursor: pointer;
+    position: relative;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+    transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+.container:hover {
+    background: #1e1e22;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
+}
+
+.container:active {
+    transform: translateY(0) scale(0.995);
+}
+
+/* Left cluster (thumb + text) grows and is allowed to shrink for ellipsis. */
 .container_author {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 12px;
+    flex: 1 1 auto;
+    min-width: 0;
 }
 
+/* ---- Thumbnail with hover Play overlay ---- */
+.thumb {
+    position: relative;
+    width: 56px;
+    height: 56px;
+    border-radius: 8px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.playOverlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    opacity: 0;
+    transform: scale(1.04);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.container:hover .playOverlay {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.playOverlay svg {
+    filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.6));
+}
+
+/* ---- Title + artist (truncated) ---- */
 .container_name {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-
+    gap: 4px;
+    min-width: 0;
+    flex: 1 1 auto;
 }
 
+.music_name_font_style {
+    font-size: 15px;
+    font-weight: 600;
+    color: white;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.music_author_font_style {
+    color: $shadyLady;
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@media screen and (max-width: 1450px) {
+    .music_name_font_style {
+        font-size: 14px;
+    }
+
+    .music_author_font_style {
+        font-size: 12px;
+    }
+}
+
+/* ---- Right cluster: duration + actions (never shrinks) ---- */
 .container_detals {
     display: flex;
     align-items: center;
-    gap: 56px;
+    gap: 14px;
+    flex-shrink: 0;
+}
+
+.time_font_style {
+    color: $shadyLady;
+    font-size: 13px;
+    font-variant-numeric: tabular-nums;
+    flex-shrink: 0;
 }
 
 .container_like_point {
     display: flex;
     align-items: center;
-    gap: 8px;
-}
-
-
-
-//font styles
-.music_name_font_style {
-    font-size: 14px;
-    font-weight: 500;
-    font-size: 16px;
-    color: white;
-}
-
-@media screen and (max-width: 1450px) {
-    .music_author_font_style {
-        font-size: 11px;
-    }
-
-    .music_name_font_style {
-        font-size: 12px;
-    }
-}
-
-.music_author_font_style {
-    color: $shadyLady;
-    font-size: 14px;
-    font-weight: 500;
-}
-
-.time_font_style {
-    color: $shadyLady;
-    font-size: 14px;
-}
-
-.cellPlaylist {
-    position: relative;
-    bottom: 223px;
-    right: 249px;
-}
-
-.playlist {
-    position: absolute;
-    z-index: 1;
-    box-shadow: 2px 2px 16px 0px rgba(0, 0, 0, 0.50);
+    gap: 6px;
 }
 
 .cursor {
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    transition: background 0.15s ease;
 }
-.img {
-    border-radius: 8px;
+
+.cursor:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* ---- Playlist dropdown (anchored under the dots) ---- */
+.cellPlaylist {
+    position: relative;
+}
+
+.playlist {
+    position: absolute;
+    top: 8px;
+    right: 0;
+    z-index: 10;
+    box-shadow: 2px 2px 16px 0px rgba(0, 0, 0, 0.50);
 }
