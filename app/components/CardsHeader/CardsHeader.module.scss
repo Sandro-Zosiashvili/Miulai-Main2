@@ -12,15 +12,26 @@
 
 .firstChild {
     color: #fff;
-    font-size: 20px;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
 }
 
 .seeAll {
-    color: #818385;
-    font-size: 15px;
+    color: #b3b3b3;
+    font-size: 13px;
     font-family: var('--font-Plus-Jakarta-sans');
     border: none;
     background: none;
-    font-weight: 500;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
     cursor: pointer;
+    padding: 6px 4px;
+    transition: color 0.2s ease;
+}
+
+.seeAll:hover {
+    color: #fff;
+    text-decoration: underline;
 }

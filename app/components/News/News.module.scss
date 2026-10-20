@@ -4,14 +4,26 @@
   width: 100%;
   display: flex;
   align-items: flex-end;
-  border-radius: 8px;
+  border-radius: 16px;
   position: relative;
   overflow: hidden;
+}
 
+.container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(10, 8, 14, 0.88) 0%, rgba(10, 8, 14, 0.45) 45%, rgba(10, 8, 14, 0.05) 100%),
+    linear-gradient(to top, rgba(10, 8, 14, 0.7), transparent 55%);
+  pointer-events: none;
+  z-index: 0;
 }
 
 
 .container_news {
+  position: relative;
+  z-index: 1;
   max-width: 617px;
   margin-top: 181px;
   margin-left: 32px;

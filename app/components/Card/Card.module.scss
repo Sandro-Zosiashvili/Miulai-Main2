@@ -16,23 +16,29 @@
 .container {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 8px;
     padding: 16px;
     background-color: $darkVoid;
-    border-radius: 8px;
+    border-radius: 12px;
     position: relative;
     cursor: pointer;
-    // max-height: 100%;
-    // max-width: 100%;
     height: 280px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+}
+
+.container img {
+    transition: transform 0.3s ease;
 }
 
 .container:hover {
-    background-color: #323232;
+    background-color: #1e1e22;
+    transform: translateY(-6px);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(249, 3, 208, 0.15);
 }
 
-.container:hover .image {
-    opacity: 0.8;
+.container:hover img {
+    transform: scale(1.04);
 }
 
 .container span:only-of-type {
@@ -72,7 +78,8 @@
     border-radius: 50%;
 }
 .imageNormal {
-    border-radius: 8px;
+    border-radius: 10px;
+    object-fit: cover;
     box-shadow:
             0 5px 25px rgba(0, 0, 0, 0.4),
             0 0 15px rgba(0, 0, 0, 0.2);
@@ -83,14 +90,19 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
-    height: 100%;
-    left: 0;
-    top: 0;
-    content-visibility: hidden;
-    padding-top: 75px;
+    width: calc(100% - 32px);
+    height: 195px;
+    left: 16px;
+    top: 16px;
+    border-radius: 10px;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.05));
+    pointer-events: none;
 }
 
-.union:hover {
-    content-visibility: visible;
+.container:hover .union {
+    opacity: 1;
+    transform: translateY(0);
 }

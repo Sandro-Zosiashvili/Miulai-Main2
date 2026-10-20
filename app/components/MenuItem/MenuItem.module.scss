@@ -9,6 +9,11 @@
     border-radius: 8px;
     cursor: pointer;
     text-decoration: none;
+    transition: background-color 0.18s ease;
+}
+
+.container:hover {
+    background: rgba(255, 255, 255, 0.06);
 }
 
 .main_container {
@@ -18,14 +23,15 @@
 }
 
 .menu_header {
-    color: $white;
+    color: #9E9A9F;
     width: 240px;
     display: flex;
     align-items: center;
     padding-left: 16px;
-    margin-top: 28px;
-    font-size: 16px;
-    font-weight: 400;
+    margin-top: 24px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
     text-transform: uppercase;
 }
 
@@ -40,7 +46,7 @@
     color: $white;
     text-decoration: none;
     font-size: 16px;
-    font-weight: 400;
+    font-weight: 600;
 }
 
 .clicked_container {
@@ -50,8 +56,21 @@
     display: flex;
     align-items: center;
     cursor: pointer;
-    border-radius: 8px;  
+    border-radius: 8px;
     background: $dynamicBlack;
     text-decoration: none;
+    position: relative;
+    transition: background-color 0.18s ease;
+}
+
+.clicked_container::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 10px;
+    bottom: 10px;
+    width: 3px;
+    border-radius: 0 3px 3px 0;
+    background: linear-gradient(180deg, #F903D0 0%, #9A16F2 100%);
 }
 
