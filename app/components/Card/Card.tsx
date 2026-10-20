@@ -21,17 +21,19 @@ const Card = (props: Props) => {
         <div className={styles.wrapper}>
             <h3 className={styles.heading}>{props.header}</h3>
             <div className={styles.container}>
-                <Image
-                    className={radius.join(' ').trim()}
-                    src={props.image}
-                    alt='image' width={210}
-                    height={195}
-                    loading="lazy"
-                    sizes="210px"
-                />
+                <div className={`${styles.media} ${props.imageStyle === 'round' ? styles.mediaRound : ''}`.trim()}>
+                    <Image
+                        className={radius.join(' ').trim()}
+                        src={props.image}
+                        alt='image' width={210}
+                        height={195}
+                        loading="lazy"
+                        sizes="210px"
+                    />
 
-                <div className={styles.union}>
-                    <ItemsUnion/>
+                    <div className={styles.union}>
+                        <ItemsUnion/>
+                    </div>
                 </div>
 
                 <span className={styles.subtitle}>{props.subtitle}</span>
