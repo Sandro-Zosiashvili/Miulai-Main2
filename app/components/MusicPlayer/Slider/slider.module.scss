@@ -14,7 +14,7 @@
   height: 10px;
   border-radius: 5px;
   outline: none;
-  background-color: #2E3133;
+  background-color: rgba(255, 255, 255, 0.16);
   cursor: pointer;
   position: relative;
   bottom: 56px;
@@ -26,7 +26,7 @@
   appearance: none;
   height: 1px;
   width: 1px;
-  background: var(--Gradient-apolo, linear-gradient(90deg, #F903D0 0%, #9A16F2 100%));
+  background: transparent;
   border-radius: 12px;
 
 }
@@ -46,10 +46,11 @@
 .progressDiv {
   position: relative;
   height: 10px;
-  background: aqua;
   bottom: 70px;
   border-radius: 12px;
+  pointer-events: none;
   background: var(--Gradient-apolo, linear-gradient(90deg, #F903D0 0%, #9A16F2 100%));
+  box-shadow: 0 0 8px rgba(154, 22, 242, 0.5);
   right: 9px;
 }
 

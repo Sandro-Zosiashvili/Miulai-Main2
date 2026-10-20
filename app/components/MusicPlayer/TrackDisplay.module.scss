@@ -38,6 +38,60 @@
 }
 
 
+/* ---- Loading skeleton (album art + title + artist) ---- */
+.skelImg {
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.skelTitle {
+  width: 140px;
+  height: 16px;
+  border-radius: 6px;
+}
+
+.skelArtist {
+  width: 90px;
+  height: 13px;
+  border-radius: 6px;
+}
+
+.shimmer {
+  background: linear-gradient(
+    100deg,
+    #1a1a1f 28%,
+    #2b2140 48%,
+    #3a1f4d 52%,
+    #1a1a1f 72%
+  );
+  background-size: 220% 100%;
+  animation: trackShimmer 1.5s ease-in-out infinite;
+}
+
+@keyframes trackShimmer {
+  0% {
+    background-position: 220% 0;
+  }
+  100% {
+    background-position: -220% 0;
+  }
+}
+
+.fadeIn {
+  animation: trackFadeIn 0.4s ease both;
+}
+
+@keyframes trackFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 @media screen and (min-width: 0px) and (max-width: 767px) {
   .container {
     max-width: 150px;
@@ -70,5 +124,20 @@
   .img {
     width: 48px;
     height: 48px;
+  }
+
+  .skelImg {
+    width: 48px;
+    height: 48px;
+  }
+
+  .skelTitle {
+    width: 90px;
+    height: 12px;
+  }
+
+  .skelArtist {
+    width: 60px;
+    height: 10px;
   }
 }

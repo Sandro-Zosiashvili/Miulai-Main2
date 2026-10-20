@@ -16,11 +16,17 @@ interface TrackDisplayProps {
 const TrackDisplay: React.FC<TrackDisplayProps> = ({ currentTrack}) => {
     const [playerDisplay, setPlayerDisplay] = useRecoilState<any>(playerDisplayState)
 
-    if (!currentTrack) {
-        // Return a default placeholder or nothing if no currentTrack is provided
+    // Show a shimmer skeleton until the track metadata has loaded.
+    const loading = !currentTrack || !playerDisplay || !playerDisplay.name;
+
+    if (loading) {
         return (
             <div className={style.container}>
-                <p>No track selected</p>
+                <div className={`${style.skelImg} ${style.shimmer}`} />
+                <div className={style.text}>
+                    <div className={`${style.skelTitle} ${style.shimmer}`} />
+                    <div className={`${style.skelArtist} ${style.shimmer}`} />
+                </div>
             </div>
         );
     }
@@ -29,11 +35,11 @@ const TrackDisplay: React.FC<TrackDisplayProps> = ({ currentTrack}) => {
         <div className={style.container}>
             <div className={style.albumArt} >
                 <img
-                    src={playerDisplay?.album?.albumImage || 'Loading...'} // Fallback if albumArt is missing
+                    src={playerDisplay?.album?.albumImage || '/defaultAlbumArt.jpg'} // Fallback if albumArt is missing
                     alt="AlbumArt"
                     width={80}
                     height={80}
-                    className={style.img}
+                    className={`${style.img} ${style.fadeIn}`}
                 />
             </div>
             <div className={style.like}>

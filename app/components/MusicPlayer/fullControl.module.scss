@@ -25,10 +25,10 @@
   -webkit-appearance: none;
   appearance: none;
   min-width: 248px;
-  height: 8px;
-  border-radius: 5px;
+  height: 6px;
+  border-radius: 3px;
   outline: none;
-  background-color: #2E3133;
+  background-color: rgba(255, 255, 255, 0.16);
   cursor: pointer;
 }
 
@@ -37,7 +37,7 @@
   appearance: none;
   height: 1px;
   width: 1px;
-  background: var(--Gradient-apolo, linear-gradient(90deg, #F903D0 0%, #9A16F2 100%));
+  background: transparent;
   border-radius: 12px;
 }
 
@@ -65,15 +65,25 @@
   transform: scale(1.1);
 }
 
-// .circle {
-//   width: 48px;
-//   height: 48px;
-//   border-radius: 50%;
-//   background;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-// }
+.circle {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
+  transition: transform 0.15s ease, background 0.2s ease;
+}
+
+.circle:active {
+  transform: scale(0.94);
+  background: rgba(255, 255, 255, 0.18);
+}
 
 .volume {
   display: flex;
@@ -90,15 +100,34 @@
 
 .progressMain {
   position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .progressDiv {
-  position: relative;
-  height: 10px;
-  background: aqua;
-  bottom: 14px;
-  border-radius: 12px;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 6px;
+  border-radius: 3px;
+  pointer-events: none;
   background: var(--Gradient-apolo, linear-gradient(90deg, #F903D0 0%, #9A16F2 100%));
+  box-shadow: 0 0 8px rgba(154, 22, 242, 0.5);
+}
+
+/* Touch screen: thumb cap stays visible at the end of the fill. */
+.progressDiv::after {
+  content: "";
+  position: absolute;
+  right: -7px;
+  top: 50%;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 10px rgba(249, 3, 208, 0.75);
+  transform: translateY(-50%);
 }
 
 // @media  screen and (min-width:320px) and (max-width:480px) {
