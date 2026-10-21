@@ -22,6 +22,12 @@ interface ModalPlayerProps {
   currentTime: number;
   duration: number;
   volume: number;
+  onTimeChange: (newTime: number) => void;
+  onVolumeChange?: (newVolume: number) => void;
+  isLooping?: boolean;
+  onToggleLoop?: () => void;
+  isShuffling?: boolean;
+  onToggleShuffle?: () => void;
 }
 
 const ModalPlayer: React.FC<ModalPlayerProps> = ({
@@ -34,6 +40,12 @@ const ModalPlayer: React.FC<ModalPlayerProps> = ({
   currentTime,
   duration,
   volume,
+  onTimeChange,
+  onVolumeChange,
+  isLooping = false,
+  onToggleLoop,
+  isShuffling = false,
+  onToggleShuffle,
 }) => {
   // Render into document.body so the full-screen modal escapes any parent
   // stacking context and reliably covers the header / hero sections.
@@ -59,13 +71,13 @@ const ModalPlayer: React.FC<ModalPlayerProps> = ({
               onPrevious={onPrevious}
               currentTime={currentTime}
               duration={duration}
-              onTimeChange={() => { } }
+              onTimeChange={onTimeChange}
               volume={volume}
-              onVolumeChange={() => { } }
-              isLooping={false}
-              onToggleLoop={() => { } }
-              isShuffling={false}
-              onToggleShuffle={() => { } }
+              onVolumeChange={onVolumeChange ?? (() => { })}
+              isLooping={isLooping}
+              onToggleLoop={onToggleLoop ?? (() => { })}
+              isShuffling={isShuffling}
+              onToggleShuffle={onToggleShuffle ?? (() => { })}
               backgroundImage={''} name={undefined} isActive={undefined}      />
     </div>,
     document.body

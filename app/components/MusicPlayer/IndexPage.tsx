@@ -265,6 +265,12 @@ const IndexPage: React.FC = () => {
                     currentTime={currentTime}
                     duration={duration}
                     volume={volume}
+                    onTimeChange={handleTimeChange}
+                    onVolumeChange={handleVolumeChange}
+                    isLooping={isLooping}
+                    onToggleLoop={toggleLoop}
+                    isShuffling={isShuffling}
+                    onToggleShuffle={toggleShuffle}
                 />
             )}
         </div>
