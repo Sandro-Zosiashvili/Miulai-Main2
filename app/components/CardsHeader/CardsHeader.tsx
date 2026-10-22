@@ -17,9 +17,11 @@ const CardsHeader = ({ title, subtitle, addRoute }: Props) => {
     <div className={styles.container}>
       <h3 className={styles.firstChild}>{title}</h3>
 
-      <button className={styles.seeAll} onClick={() => router?.push(`${addRoute}`)}>
-        {subtitle}
-      </button>
+      {subtitle && (
+        <button className={styles.seeAll} onClick={() => router?.push(`${addRoute}`)}>
+          {subtitle}
+        </button>
+      )}
     </div>
   );
 };

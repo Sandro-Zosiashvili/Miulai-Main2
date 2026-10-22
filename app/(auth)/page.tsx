@@ -77,7 +77,7 @@ export default function Home() {
       <ChartsSection />
       <CardsHeader title={'Popular Artists'} subtitle={'See All'} addRoute='artistlist' />
       <ArtistSection />
-      <CardsHeader title='Popular Albums' />
+      <CardsHeader title='Popular Albums' subtitle={'See All'} addRoute='album' />
       <AlbumSection /> 
     </main>
   );
