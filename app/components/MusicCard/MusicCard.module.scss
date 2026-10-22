@@ -220,12 +220,12 @@
 /* ---- Playlist dropdown (anchored under the dots) ---- */
 .cellPlaylist {
     position: relative;
+    z-index: 1000;
 }
 
 .playlist {
     position: absolute;
-    top: 8px;
+    top: 10px;
     right: 0;
-    z-index: 10;
-    box-shadow: 2px 2px 16px 0px rgba(0, 0, 0, 0.50);
+    z-index: 1000;
 }
