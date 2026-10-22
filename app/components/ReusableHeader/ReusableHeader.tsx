@@ -26,20 +26,6 @@ const ReusableHeader = () => {
         />
       </div>
 
-      <div className={styles.userIconWrapper} onClick={togglePopup}>
-        <Image
-          src={"/icon/userHeaderIcon.svg"}
-          alt="User Icon"
-          width={32}
-          height={32}
-          className={styles.image}
-        />
-      </div>
-      {showPopup && (
-        <div className={styles.popupWrapper}>
-          <UserPopup />
-        </div>
-      )}
     </div>
   );
 };

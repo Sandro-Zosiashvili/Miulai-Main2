@@ -1,0 +1,125 @@
+/* Fixed, always-on-top account button (persists across all pages). */
+.root {
+    position: fixed;
+    top: 20px;
+    right: 24px;
+    z-index: 70;
+}
+
+.iconBtn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+    transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.iconBtn:hover {
+    background: rgba(255, 255, 255, 0.16);
+    transform: translateY(-1px);
+}
+
+/* Glassmorphic account dropdown. */
+.popup {
+    position: absolute;
+    top: 54px;
+    right: 0;
+    width: 268px;
+    padding: 14px;
+    border-radius: 16px;
+    background: rgba(20, 20, 24, 0.9);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    animation: popIn 0.16s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes popIn {
+    from { opacity: 0; transform: translateY(-8px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.avatar {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #a21caf 0%, #f903d0 100%);
+    box-shadow: 0 4px 14px rgba(154, 22, 242, 0.45);
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.name {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.email {
+    color: #9ca3af;
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.logout {
+    margin-top: 12px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 11px 12px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    color: #ff6b81;
+    background: rgba(255, 107, 129, 0.1);
+    transition: background 0.18s ease;
+}
+
+.logout:hover {
+    background: rgba(255, 107, 129, 0.2);
+}
+
+@media screen and (max-width: 767px) {
+    .root {
+        top: 14px;
+        right: 16px;
+    }
+}

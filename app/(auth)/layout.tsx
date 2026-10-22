@@ -8,6 +8,7 @@ import Mobilemenu from "../components/Mobilemenu/mobilemenu";
 import RecoilWrapper from "../components/RecoilWrapper/RecoilWrapper";
 import PlayerHide from "@app/components/MusicPlayer/playerHide";
 import {Toaster} from "react-hot-toast";
+import ProfileButton from "../components/ProfileButton/ProfileButton";
 
 export default function RootLayout(
     {
@@ -35,6 +36,7 @@ export default function RootLayout(
                     success: {iconTheme: {primary: "#f903d0", secondary: "#fff"}},
                 }}
             />
+            <ProfileButton/>
             <div className={styles.container}>
                 <div className={styles.container}>
                     <div className={styles.ordynaryMenu}>
