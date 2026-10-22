@@ -250,6 +250,8 @@
 }
 
 .artistNews {
+  position: relative;
+  z-index: 2;
   max-width: 617px;
   margin-top: 250px;
   margin-left: 32px;

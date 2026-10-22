@@ -26,7 +26,8 @@
     border-radius: 14px;
     position: relative;
     cursor: pointer;
-    height: 280px;
+    height: auto;
+    min-height: 280px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
     transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease, border-color 0.25s ease;
 }
@@ -104,8 +105,11 @@
     border-radius: 10px;
 }
 
-/* Round artwork -> the whole media box (image + overlay) is a circle. */
+/* Round artwork -> a perfect square box (so the circle is uniform, never
+   an ellipse) clipped to a circle. */
 .mediaRound {
+    height: auto;
+    aspect-ratio: 1 / 1;
     border-radius: 50%;
 }
 
