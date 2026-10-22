@@ -46,6 +46,55 @@
     transform: translateY(0) scale(0.995);
 }
 
+/* ---- Currently-playing track: neon glow + gradient highlight ---- */
+.playing {
+    background: linear-gradient(92deg, rgba(249, 3, 208, 0.16) 0%, rgba(154, 22, 242, 0.14) 100%);
+    border: 1px solid rgba(249, 3, 208, 0.45);
+    box-shadow: 0 0 0 1px rgba(249, 3, 208, 0.25), 0 8px 26px rgba(154, 22, 242, 0.35);
+}
+
+.playing:hover {
+    background: linear-gradient(92deg, rgba(249, 3, 208, 0.22) 0%, rgba(154, 22, 242, 0.2) 100%);
+}
+
+/* Keep the play affordance visible on the active row's thumbnail. */
+.playing .playOverlay {
+    opacity: 1;
+    transform: scale(1);
+    background: rgba(0, 0, 0, 0.35);
+}
+
+/* Animated equalizer shown next to the duration while a track is active. */
+.eqMini {
+    display: inline-flex;
+    align-items: flex-end;
+    gap: 2px;
+    height: 14px;
+}
+
+.eqMini i {
+    width: 3px;
+    height: 100%;
+    border-radius: 2px;
+    background: linear-gradient(180deg, #f903d0, #9a16f2);
+    transform-origin: bottom;
+    animation: eqMiniBar 0.9s ease-in-out infinite;
+}
+
+.eqMini i:nth-child(1) { animation-delay: 0s; }
+.eqMini i:nth-child(2) { animation-delay: 0.18s; }
+.eqMini i:nth-child(3) { animation-delay: 0.36s; }
+.eqMini i:nth-child(4) { animation-delay: 0.54s; }
+
+@keyframes eqMiniBar {
+    0%, 100% { transform: scaleY(0.35); }
+    50% { transform: scaleY(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .eqMini i { animation: none; transform: scaleY(0.7); }
+}
+
 /* Left cluster (thumb + text) grows and is allowed to shrink for ellipsis. */
 .container_author {
     display: flex;

@@ -59,7 +59,7 @@ const MusicCard = () => {
         <div className={styles.mainContainer}>
             {cardData.slice(0, 6).map((item: any, index: any) => (
                 <div
-                    className={styles.container}
+                    className={`${styles.container} ${item.id === musicID ? styles.playing : ""}`.trim()}
                     key={item.id}
                     onClick={() => {
                         setMusicArrayTwo(cardData)
@@ -95,6 +95,11 @@ const MusicCard = () => {
                         </div>
                     </div>
                     <div className={styles.container_detals}>
+                        {item.id === musicID && (
+                            <span className={styles.eqMini} aria-hidden="true">
+                                <i/><i/><i/><i/>
+                            </span>
+                        )}
                         <div className={styles.time_font_style}>{formatDuration(item.duration)}</div>
                         <div className={styles.container_like_point}>
                             <HeartShapeBtn
