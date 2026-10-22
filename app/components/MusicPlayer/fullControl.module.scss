@@ -58,11 +58,29 @@
   background: none;
   border: none;
   cursor: pointer;
-  transition: transform 0.2s ease-in-out;
+  color: #e9e6ee;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border-radius: 50%;
+  transition: transform 0.2s ease-in-out, color 0.2s ease, background 0.2s ease;
 }
 
 .btn:hover {
   transform: scale(1.1);
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Toggled Shuffle / Repeat: neon accent + glow. */
+.active {
+  color: #c77dff;
+  filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.85));
+}
+
+.active:hover {
+  color: #d8a7ff;
 }
 
 .circle {
@@ -72,30 +90,78 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
-  transition: transform 0.15s ease, background 0.2s ease;
+  color: #fff;
+  background: linear-gradient(135deg, #a21caf 0%, #f903d0 100%);
+  border: none;
+  box-shadow: 0 8px 28px rgba(249, 3, 208, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.circle:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 34px rgba(249, 3, 208, 0.7);
 }
 
 .circle:active {
-  transform: scale(0.94);
-  background: rgba(255, 255, 255, 0.18);
+  transform: scale(0.95);
 }
 
 .volume {
   display: flex;
   align-items: center;
+  gap: 10px;
+  margin-top: 6px;
 }
 
-.volimg {
-  display: none;
+.volBtn {
+  background: none;
+  border: none;
+  color: #cfcbd6;
+  cursor: pointer;
+  display: inline-flex;
+  padding: 6px;
+  border-radius: 50%;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+.volBtn:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .volSetting {
-  display: none;
+  -webkit-appearance: none;
+  appearance: none;
+  width: 140px;
+  height: 5px;
+  border-radius: 5px;
+  outline: none;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.volSetting::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 6px rgba(249, 3, 208, 0.6);
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.volSetting:hover::-webkit-slider-thumb {
+  transform: scale(1.2);
+}
+
+.volSetting::-moz-range-thumb {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #fff;
+  border: none;
 }
 
 .progressMain {

@@ -1,9 +1,9 @@
+'use client';
 import React from 'react';
-import Image from 'next/image';
 import style from './fullControl.module.scss'
 import formatTime from './helperProp/formatTime';
 import propsinterFace from './helperProp/prop';
-import Icon from '../Icon/Icon';
+import {Shuffle, SkipBack, SkipForward, Play, Pause, Repeat, Repeat1, Volume2, VolumeX} from 'lucide-react';
 
 const FullControls = (props: propsinterFace) => {
     const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,10 +20,8 @@ const FullControls = (props: propsinterFace) => {
 
     return (
         <>
-
             <div className={style.container}>
-                <div className={style.time} >
-
+                <div className={style.time}>
                     <span className={style.timing}>{formatTime(props.currentTime)}</span>
 
                     <div className={style.progressMain}>
@@ -35,51 +33,66 @@ const FullControls = (props: propsinterFace) => {
                             onChange={handleTimeChange}
                             className={style.load}
                         />
-                        <div style={{ width: `${currentTimeInPrcnt}%` }} className={style.progressDiv}>
-                        </div>
+                        <div style={{width: `${currentTimeInPrcnt}%`}} className={style.progressDiv}/>
                     </div>
 
                     <span className={style.timing}>{formatTime(props.duration)}</span>
                 </div>
+
                 <div className={style.buttons}>
-                    <button onClick={props.onToggleShuffle} className={style.btn}>
-                        <Icon name={props.isShuffling ? 'shuffle' : 'shuffleA'} alt="Shuffle" width={24} height={24} />
+                    <button
+                        onClick={props.onToggleShuffle}
+                        className={`${style.btn} ${props.isShuffling ? style.active : ''}`.trim()}
+                        aria-label="Shuffle"
+                        aria-pressed={props.isShuffling}
+                    >
+                        <Shuffle size={22}/>
                     </button>
-                    <button onClick={props.onPrevious} className={style.btn}>
-                        <Icon name="previous" alt="Previous" width={24} height={24} />
+                    <button onClick={props.onPrevious} className={style.btn} aria-label="Previous">
+                        <SkipBack size={24} fill="currentColor"/>
                     </button>
                     <div className={style.likeplaybtn}>
-                        <div className={style.likeSet}>
-                        </div>
-                        <button onClick={props.onPlayPause} className={`${style.btn} ${style.circle}`}>
-                            <Icon name={props.isPlaying ? "pause" : "/play"} alt={props.isPlaying ? "Pause" : "Play"} width={48} height={48} />
+                        <button
+                            onClick={props.onPlayPause}
+                            className={`${style.btn} ${style.circle}`}
+                            aria-label={props.isPlaying ? 'Pause' : 'Play'}
+                        >
+                            {props.isPlaying
+                                ? <Pause size={28} fill="currentColor"/>
+                                : <Play size={28} fill="currentColor"/>}
                         </button>
                     </div>
-                    <button onClick={props.onNext} className={style.btn}>
-                        <Icon name="previus-next" alt="Next" width={24} height={24} />
+                    <button onClick={props.onNext} className={style.btn} aria-label="Next">
+                        <SkipForward size={24} fill="currentColor"/>
                     </button>
-                    <button onClick={props.onToggleLoop} className={style.btn}>
-                        <Icon name={props.isLooping ? "/repeat-one.png" : "repeat"} alt="Loop" width={24} height={24} />
+                    <button
+                        onClick={props.onToggleLoop}
+                        className={`${style.btn} ${props.isLooping ? style.active : ''}`.trim()}
+                        aria-label="Repeat"
+                        aria-pressed={props.isLooping}
+                    >
+                        {props.isLooping ? <Repeat1 size={22}/> : <Repeat size={22}/>}
                     </button>
                 </div>
 
-
-
-            </div>
-
-
-            <div className={style.volume}>
-                <Image src="/volume-loud.png" alt="Volume" className={style.volimg} width={24} height={24} />
-                <input
-                    type="range"
-                    min="0"
-                    max="100"
-                    value={props.volume}
-                    onChange={handleVolumeChange}
-                    aria-label="Volume"
-                    className={style.volSetting}
-                />
-
+                <div className={style.volume}>
+                    <button
+                        className={style.volBtn}
+                        onClick={() => props.onVolumeChange(props.volume > 0 ? 0 : 50)}
+                        aria-label={props.volume > 0 ? 'Mute' : 'Unmute'}
+                    >
+                        {props.volume > 0 ? <Volume2 size={20}/> : <VolumeX size={20}/>}
+                    </button>
+                    <input
+                        type="range"
+                        min="0"
+                        max="100"
+                        value={props.volume}
+                        onChange={handleVolumeChange}
+                        aria-label="Volume"
+                        className={style.volSetting}
+                    />
+                </div>
             </div>
         </>
     );

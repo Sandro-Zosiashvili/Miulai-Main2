@@ -59,11 +59,29 @@
   background: none;
   border: none;
   cursor: pointer;
-  transition: transform 0.2s ease-in-out;
+  color: #e9e6ee;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: 50%;
+  transition: transform 0.2s ease-in-out, color 0.2s ease, background 0.2s ease;
 }
 
 .btn:hover {
   transform: scale(1.1);
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Toggled Shuffle / Repeat: neon accent + glow. */
+.active {
+  color: #c77dff;
+  filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.85));
+}
+
+.active:hover {
+  color: #d8a7ff;
 }
 
 .circle {
@@ -73,18 +91,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-  transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+  color: #fff;
+  background: linear-gradient(135deg, #a21caf 0%, #f903d0 100%);
+  border: none;
+  box-shadow: 0 6px 22px rgba(249, 3, 208, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .circle:hover {
   transform: scale(1.06);
-  background: rgba(255, 255, 255, 0.16);
-  box-shadow: 0 6px 28px rgba(154, 22, 242, 0.4);
+  color: #fff;
+  background: linear-gradient(135deg, #a21caf 0%, #f903d0 100%);
+  box-shadow: 0 8px 30px rgba(249, 3, 208, 0.7);
 }
 
 .volume {

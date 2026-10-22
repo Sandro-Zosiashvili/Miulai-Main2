@@ -1,10 +1,10 @@
+'use client';
 import React, { useState } from 'react';
-import Image from 'next/image';
 import style from './Contorls.module.scss';
 import formatTime from './helperProp/formatTime';
 import propsinterFace from './helperProp/prop';
-import Icon from '../Icon/Icon';
 import HeartShapeBtn from '../heatShapeIcon/HeartShapeIcn';
+import {Shuffle, SkipBack, SkipForward, Play, Pause, Repeat, Repeat1, Volume2, VolumeX} from 'lucide-react';
 
 
 
@@ -63,41 +63,49 @@ const Controls = (props: propsinterFace) => {
                 </div>
 
                 <div className={style.buttons}>
-                    <button onClick={props.onToggleShuffle} className={style.btn}>
-                        <Icon name={props.isShuffling ? 'shuffleA' : 'shuffle'} alt="Shuffle" width={24} height={24} />
+                    <button
+                        onClick={props.onToggleShuffle}
+                        className={`${style.btn} ${props.isShuffling ? style.active : ''}`.trim()}
+                        aria-label="Shuffle"
+                        aria-pressed={props.isShuffling}
+                    >
+                        <Shuffle size={22}/>
                     </button>
-                    <button onClick={props.onPrevious} className={style.btn}>
-                        <Icon name="previous" alt="Previous" width={24} height={24} />
+                    <button onClick={props.onPrevious} className={style.btn} aria-label="Previous">
+                        <SkipBack size={22} fill="currentColor"/>
                     </button>
 
                     <div className={style.likeplaybtn}>
                         <div className={style.likeSet} onClick={favoriteClick}>
                             <HeartShapeBtn isActive={true} isDisabled={false} onClick={() => console.log('Button clicked!')} />
                         </div>
-                        <button onClick={props.onPlayPause} className={`${style.btn} ${style.circle}`}>
-                            <Icon name={props.isPlaying ? "pause" : "play"} alt={props.isPlaying ? "Pause" : "Play"} width={48} height={48} />
+                        <button
+                            onClick={props.onPlayPause}
+                            className={`${style.btn} ${style.circle}`}
+                            aria-label={props.isPlaying ? 'Pause' : 'Play'}
+                        >
+                            {props.isPlaying ? <Pause size={26} fill="currentColor"/> : <Play size={26} fill="currentColor"/>}
                         </button>
                     </div>
 
-                    <button onClick={props.onNext} className={style.btn}>
-                        <Icon name="previus-next" alt="Next" width={24} height={24} />
+                    <button onClick={props.onNext} className={style.btn} aria-label="Next">
+                        <SkipForward size={22} fill="currentColor"/>
                     </button>
-                    <button onClick={props.onToggleLoop} className={style.btn}>
-                        <Icon name={props.isLooping ? "loop" : "repeat"} alt="Loop" width={24} height={24} />
+                    <button
+                        onClick={props.onToggleLoop}
+                        className={`${style.btn} ${props.isLooping ? style.active : ''}`.trim()}
+                        aria-label="Repeat"
+                        aria-pressed={props.isLooping}
+                    >
+                        {props.isLooping ? <Repeat1 size={22}/> : <Repeat size={22}/>}
                     </button>
                 </div>
             </div>
 
             <div className={style.volume}>
-                {isMuted ? (
-                    <button onClick={handleMuteToggle} className={style.btn}>
-                        <Icon name="mute" alt="Mute" width={24} height={24} />
-                    </button>
-                ) : (
-                    <button onClick={handleMuteToggle} className={style.btn}>
-                        <Image src="/volume-loud.png" alt="Volume" width={24} height={24} />
-                    </button>
-                )}
+                <button onClick={handleMuteToggle} className={style.btn} aria-label={isMuted ? 'Unmute' : 'Mute'}>
+                    {isMuted ? <VolumeX size={22}/> : <Volume2 size={22}/>}
+                </button>
                 <input
                     type="range"
                     min="0"
