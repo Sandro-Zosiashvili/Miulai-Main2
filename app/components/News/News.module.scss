@@ -316,24 +316,6 @@
 
 
 @media screen and (min-width: 375px) and (max-width: 744px) {
-  .albumNewsContent {
-    gap: 5px !important;
-  }
-  .flexColumn {
-    width: 100%;
-  }
-  .albumNews {
-    padding: 20px !important;
-    padding-top: 25px !important;
-  }
-
-  .albumNewsContent {
-    flex-direction: column;
-  }
-
-  .fontForTitle {
-    font-size: 20px;
-  }
   .font_style_news {
     font-size: 44px;
   }
@@ -360,25 +342,6 @@
 }
 
 @media screen and (max-width: 430px) {
-  .albumNewsContent {
-    gap: 5px !important;
-  }
-  .flexColumn {
-    width: 100%;
-  }
-  .albumNews {
-    padding: 20px !important;
-    padding-top: 25px !important;
-  }
-
-  .albumNewsContent {
-    flex-direction: column;
-
-  }
-  .fontForTitle {
-    font-size: 18px;
-
-  }
   .artistNews {
     margin-top: 100px;
   }
@@ -428,28 +391,205 @@
 
 .albumNews {
   width: 100%;
+  min-height: 320px;
   display: flex;
   align-items: flex-end;
   border-radius: 16px;
   position: relative;
   overflow: hidden;
-
-
+  isolation: isolate;
   padding: 40px;
   padding-top: 75px;
-  padding-bottom: 45px;
+  padding-bottom: 40px;
+}
+
+/* Dynamic blurred album-cover background. */
+.albumBg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-size: cover;
+  background-position: center;
+  filter: blur(40px) brightness(0.55);
+  transform: scale(1.15);
+  pointer-events: none;
+}
+
+/* Readability overlay so metadata stays crisp over any cover. */
+.albumOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(8, 6, 12, 0.92) 0%, rgba(8, 6, 12, 0.55) 55%, rgba(8, 6, 12, 0.35) 100%),
+    linear-gradient(to top, rgba(8, 6, 12, 0.85), transparent 70%);
 }
 
 .albumSkeleton {
   background: #0d0d0f;
-  min-height: 280px;
+  min-height: 300px;
   align-items: flex-end;
 }
 
 .albumNewsContent {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  gap: 28px;
+}
+
+/* High-res cover: rounded, soft shadow. */
+.albumCover {
+  flex-shrink: 0;
+}
+
+.albumCover img {
+  width: 210px;
+  height: 210px;
+  object-fit: cover;
+  border-radius: 14px;
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.6);
+}
+
+.albumInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+}
+
+.albumBadge {
+  align-self: flex-start;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(10px);
+}
+
+.albumTitle {
+  margin: 0;
+  color: #fff;
+  font-size: 56px;
+  line-height: 1.04;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.albumMeta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.metaArtist {
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.metaArtist:hover {
+  text-decoration: underline;
+  color: #f3ddff;
+}
+
+.metaItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dot {
+  opacity: 0.6;
+}
+
+/* ---- Action buttons ---- */
+.albumActions {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.playAll {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(92deg, #f903d0 0%, #9a16f2 100%);
+  box-shadow: 0 8px 22px rgba(154, 22, 242, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  transition: box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.playAll:hover {
+  box-shadow: 0 12px 30px rgba(249, 3, 208, 0.6);
+  filter: brightness(1.05);
+}
+
+.shuffleBtn {
+  padding: 12px 22px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(12px);
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.shuffleBtn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  transform: translateY(-1px);
+}
+
+.iconBtn {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(12px);
+  transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+}
+
+.iconBtn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  transform: translateY(-1px);
+}
+
+.iconBtn.saved {
+  color: #f903d0;
+  border-color: rgba(249, 3, 208, 0.55);
+  background: rgba(249, 3, 208, 0.14);
+  box-shadow: 0 0 16px rgba(249, 3, 208, 0.4);
 }
 
 .flexColumn {
@@ -462,6 +602,34 @@
   border-radius: 12px;
   object-fit: cover;
   box-shadow: 0 8px 28px rgba(0, 0, 0, 0.5);
+}
+
+/* ---- Responsive: stack cover above details on small screens ---- */
+@media screen and (max-width: 744px) {
+  .albumNews {
+    min-height: auto;
+    padding: 28px 20px;
+    padding-top: 40px;
+  }
+
+  .albumNewsContent {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+  }
+
+  .albumCover img {
+    width: 150px;
+    height: 150px;
+  }
+
+  .albumTitle {
+    font-size: 34px;
+  }
+
+  .albumActions {
+    flex-wrap: wrap;
+  }
 }
 
 /* Loading skeleton for the hero banner.

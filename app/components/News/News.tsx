@@ -12,6 +12,7 @@ import Cookies from "js-cookie";
 import Head from "next/head";
 import skeleton from "../Skeleton/Skeleton.module.scss";
 import {cachedGet} from "@/app/lib/apiCache";
+import {useRouter} from "next/navigation";
 
 
 interface Props {
@@ -21,6 +22,14 @@ interface Props {
     album?: boolean;
     artistPage?: boolean | false;
     loading?: boolean;
+    /* Album hero metadata + actions. */
+    artist?: string;
+    artistId?: number | string;
+    year?: string | number;
+    trackCount?: number;
+    totalDuration?: number;
+    onPlayAll?: () => void;
+    onShuffle?: () => void;
 }
 
 const News = (props: Props) => {
@@ -34,6 +43,7 @@ const News = (props: Props) => {
         c2: "#f903d0",
     });
     const [saved, setSaved] = useState(false);
+    const router = useRouter();
     const token = Cookies.get("token");
 
 
@@ -129,35 +139,88 @@ const News = (props: Props) => {
     }
 
     if (props.album) {
+        const fmtTotal = (secs?: number) => {
+            if (!secs || secs <= 0) return "";
+            const h = Math.floor(secs / 3600);
+            const m = Math.round((secs % 3600) / 60);
+            return h > 0 ? `${h} hr ${m} min` : `${m} min`;
+        };
+        const meta = [
+            props.year,
+            props.trackCount != null ? `${props.trackCount} ${props.trackCount === 1 ? "track" : "tracks"}` : null,
+            fmtTotal(props.totalDuration) || null,
+        ].filter(Boolean);
+
         return (
-            <div className={styles.albumNews} style={bgStyle}>
-                <Head>
-                    <link rel="preload" as="image" href={props.image} crossOrigin="anonymous"/>
-                </Head>
+            <div className={styles.albumNews}>
                 <img
                     ref={imgRef}
                     src={props.image}
                     crossOrigin="anonymous"
                     style={{display: "none"}}
-                    alt="color source"
+                    alt=""
+                    aria-hidden="true"
                 />
+                {/* Dynamic blurred album-cover background + readability overlay. */}
+                <div
+                    className={styles.albumBg}
+                    style={{backgroundImage: `url(${props.image})`}}
+                    aria-hidden="true"
+                />
+                <div className={styles.albumOverlay} aria-hidden="true"/>
 
                 <div className={styles.albumNewsContent}>
-                    <div className={styles.albumImage}>
-                        <Head>
-                            <link rel="preload" as="image" href={props.image} crossOrigin="anonymous"/>
-                        </Head>
-                        <img
-                            className={styles.imageBorder}
-                            src={props.image}
-                            width={200}
-                            height={200}
-                            alt={props.title}
-                        />
+                    <div className={styles.albumCover}>
+                        <img src={props.image} alt={props.title}/>
                     </div>
-                    <div className={styles.flexColumn}>
-                        <div>Album</div>
-                        <div className={styles.fontForTitle}>{props.title}</div>
+                    <div className={styles.albumInfo}>
+                        <span className={styles.albumBadge}>Album</span>
+                        <h1 className={styles.albumTitle}>{props.title}</h1>
+                        <div className={styles.albumMeta}>
+                            {props.artist && (
+                                <span
+                                    className={styles.metaArtist}
+                                    onClick={() => props.artistId != null && router.push(`/artistlist/${props.artistId}`)}
+                                >
+                                    {props.artist}
+                                </span>
+                            )}
+                            {meta.map((m, i) => (
+                                <span key={i} className={styles.metaItem}>
+                                    <span className={styles.dot}>•</span>{m}
+                                </span>
+                            ))}
+                        </div>
+                        <div className={styles.albumActions}>
+                            <motion.button
+                                className={styles.playAll}
+                                onClick={() => { props.onPlayAll?.(); toast.success(`Playing ${props.title}`); }}
+                                whileHover={{scale: 1.03, y: -2}}
+                                whileTap={{scale: 0.97}}
+                            >
+                                <svg viewBox="0 0 24 24" width={18} height={18} aria-hidden="true">
+                                    <path d="M8 5v14l11-7z" fill="currentColor"/>
+                                </svg>
+                                Play All
+                            </motion.button>
+                            <button className={styles.shuffleBtn} onClick={() => { props.onShuffle?.(); toast("Shuffling album"); }}>
+                                Shuffle
+                            </button>
+                            <button
+                                className={`${styles.iconBtn} ${saved ? styles.saved : ""}`.trim()}
+                                onClick={() => {
+                                    const next = !saved;
+                                    setSaved(next);
+                                    if (next) toast.success("Saved to Your Library");
+                                    else toast("Removed from Your Library");
+                                }}
+                                aria-label="Save album"
+                            >
+                                <svg viewBox="0 0 24 24" width={20} height={20} fill={saved ? "currentColor" : "none"} stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                                    <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
