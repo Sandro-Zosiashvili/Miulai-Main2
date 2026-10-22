@@ -592,6 +592,12 @@
   box-shadow: 0 0 16px rgba(249, 3, 208, 0.4);
 }
 
+.deleteBtn:hover {
+  color: #ff6b81;
+  border-color: rgba(255, 107, 129, 0.55);
+  background: rgba(255, 107, 129, 0.14);
+}
+
 .flexColumn {
   display: flex;
   flex-direction: column;

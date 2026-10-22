@@ -30,6 +30,11 @@ interface Props {
     totalDuration?: number;
     onPlayAll?: () => void;
     onShuffle?: () => void;
+    /* Badge label (defaults to "Album"); playlists pass "Playlist". */
+    badge?: string;
+    /* When provided (playlists), show Edit / Delete instead of Save. */
+    onEdit?: () => void;
+    onDelete?: () => void;
 }
 
 const News = (props: Props) => {
@@ -174,7 +179,7 @@ const News = (props: Props) => {
                         <img src={props.image} alt={props.title}/>
                     </div>
                     <div className={styles.albumInfo}>
-                        <span className={styles.albumBadge}>Album</span>
+                        <span className={styles.albumBadge}>{props.badge || "Album"}</span>
                         <h1 className={styles.albumTitle}>{props.title}</h1>
                         <div className={styles.albumMeta}>
                             {props.artist && (
@@ -203,23 +208,45 @@ const News = (props: Props) => {
                                 </svg>
                                 Play All
                             </motion.button>
-                            <button className={styles.shuffleBtn} onClick={() => { props.onShuffle?.(); toast("Shuffling album"); }}>
+                            <button className={styles.shuffleBtn} onClick={() => { props.onShuffle?.(); toast("Shuffling"); }}>
                                 Shuffle
                             </button>
-                            <button
-                                className={`${styles.iconBtn} ${saved ? styles.saved : ""}`.trim()}
-                                onClick={() => {
-                                    const next = !saved;
-                                    setSaved(next);
-                                    if (next) toast.success("Saved to Your Library");
-                                    else toast("Removed from Your Library");
-                                }}
-                                aria-label="Save album"
-                            >
-                                <svg viewBox="0 0 24 24" width={20} height={20} fill={saved ? "currentColor" : "none"} stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                                    <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
-                                </svg>
-                            </button>
+
+                            {(props.onEdit || props.onDelete) ? (
+                                <>
+                                    {props.onEdit && (
+                                        <button className={styles.shuffleBtn} onClick={props.onEdit}>
+                                            Edit Details
+                                        </button>
+                                    )}
+                                    {props.onDelete && (
+                                        <button
+                                            className={`${styles.iconBtn} ${styles.deleteBtn}`}
+                                            onClick={props.onDelete}
+                                            aria-label="Delete playlist"
+                                        >
+                                            <svg viewBox="0 0 24 24" width={20} height={20} fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                                                <path d="M3 6h18M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2m2 0v14a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V6"/>
+                                            </svg>
+                                        </button>
+                                    )}
+                                </>
+                            ) : (
+                                <button
+                                    className={`${styles.iconBtn} ${saved ? styles.saved : ""}`.trim()}
+                                    onClick={() => {
+                                        const next = !saved;
+                                        setSaved(next);
+                                        if (next) toast.success("Saved to Your Library");
+                                        else toast("Removed from Your Library");
+                                    }}
+                                    aria-label="Save album"
+                                >
+                                    <svg viewBox="0 0 24 24" width={20} height={20} fill={saved ? "currentColor" : "none"} stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                                        <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+                                    </svg>
+                                </button>
+                            )}
                         </div>
                     </div>
                 </div>

@@ -9,7 +9,7 @@ import ReusableHeader from '@/app/components/ReusableHeader/ReusableHeader'
 import axios from 'axios'
 import toast from 'react-hot-toast'
 import { useRecoilState } from 'recoil'
-import { oneArrayMusicState } from '@/app/state'
+import { oneArrayMusicState, mudicIDState } from '@/app/state'
 import PlaylistTable from '../../../components/Table/PlaylistTable/PlaylistTable'
 import Cookies from "js-cookie";
 
@@ -27,10 +27,36 @@ const Id = () => {
     const [query, setQuery] = useState('');
     const [addingId, setAddingId] = useState<number | null>(null);
     const [, setMusicArrayTwo] = useRecoilState<any>(oneArrayMusicState);
+    const [, setMusicId] = useRecoilState(mudicIDState);
     const param = useParams();
     const token = Cookies.get("token");
 
     const auth = { headers: { Authorization: `Bearer ${token}` } };
+
+    const cover = data[0]?.album?.albumImage || '/icon/albumicon5.svg';
+    const totalDuration = data.reduce((sum, m) => sum + (m?.duration || 0), 0);
+
+    const playAll = () => {
+        if (!data.length) return;
+        setMusicArrayTwo(data);
+        setMusicId(data[0].id);
+    };
+    const shuffleAll = () => {
+        if (!data.length) return;
+        const shuffled = [...data].sort(() => Math.random() - 0.5);
+        setMusicArrayTwo(shuffled);
+        setMusicId(shuffled[0].id);
+    };
+    const deletePlaylist = async () => {
+        if (!confirm('Delete this playlist? This cannot be undone.')) return;
+        try {
+            await axios.delete(`${process.env.NEXT_PUBLIC_BACKEND_URL}/playlists/${param.id}`, auth);
+            toast.success('Playlist deleted');
+            router.push('/playlists');
+        } catch {
+            toast.error('Could not delete the playlist');
+        }
+    };
 
     const loadPlaylist = () => {
         axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/playlists/${param.id}`, auth)
@@ -91,7 +117,18 @@ const Id = () => {
             </div>
             <div>
                 <Image onClick={() => router.back()} className={styles.tabletCursor} src={'../icon/isari.svg'} width={32} height={32} alt='image' />
-                <News artistPage={true} title={newName || "Loading..."} image={'/icon/albumicon5.svg'} />
+                <News
+                    album={true}
+                    badge="Playlist"
+                    title={newName || "Loading..."}
+                    image={cover}
+                    trackCount={data.length}
+                    totalDuration={totalDuration}
+                    onPlayAll={playAll}
+                    onShuffle={shuffleAll}
+                    onEdit={() => toast('Edit details — coming soon')}
+                    onDelete={deletePlaylist}
+                />
             </div>
 
             {/* ---- Search & quick-add tracks to this playlist ---- */}
