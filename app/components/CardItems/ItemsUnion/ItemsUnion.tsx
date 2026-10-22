@@ -9,12 +9,14 @@ const ItemsUnion = () => {
 
 
     const changeOnDotsClick = (e) => {
-        // e.stopPropagation();
+        // Prevent the click from bubbling to the card's navigate handler.
+        e?.stopPropagation?.();
+        e?.nativeEvent?.stopImmediatePropagation?.();
         setIsPlaylistVisible(prev => !prev);
     };
 
     return (
-        <div className={styles.container}>
+        <div className={styles.container} onClick={(e) => e.stopPropagation()}>
             <div className={styles.wrapper}>
                 <Dots onClick={changeOnDotsClick}/>
             </div>
