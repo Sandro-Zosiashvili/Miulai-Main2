@@ -20,6 +20,180 @@
 
 }
 
+/* ---- Search & quick-add tracks ---- */
+.addSection {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 720px;
+}
+
+.addTitle {
+    color: #fff;
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.searchWrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.searchIcon {
+    position: absolute;
+    left: 16px;
+    color: #9ca3af;
+    pointer-events: none;
+}
+
+.searchInput {
+    width: 100%;
+    padding: 14px 44px 14px 46px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(10px);
+    color: #fff;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.searchInput::placeholder {
+    color: #8b8790;
+}
+
+.searchInput:focus {
+    border-color: rgba(249, 3, 208, 0.5);
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.clearBtn {
+    position: absolute;
+    right: 12px;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    color: #cfcbd6;
+    background: rgba(255, 255, 255, 0.1);
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s ease;
+}
+
+.clearBtn:hover {
+    background: rgba(255, 255, 255, 0.18);
+    color: #fff;
+}
+
+.results {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    background: rgba(20, 20, 24, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 8px;
+}
+
+.empty {
+    color: #8b8790;
+    font-size: 14px;
+    padding: 14px 10px;
+    text-align: center;
+}
+
+.resultRow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 10px;
+    border-radius: 10px;
+    transition: background 0.15s ease;
+}
+
+.resultRow:hover {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.resultThumb {
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.resultText {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    flex: 1;
+    min-width: 0;
+}
+
+.resultName {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.resultArtist {
+    color: #9ca3af;
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.resultTime {
+    color: #9ca3af;
+    font-size: 13px;
+    font-variant-numeric: tabular-nums;
+    flex-shrink: 0;
+}
+
+.addBtn {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    flex-shrink: 0;
+    color: #fff;
+    font-size: 20px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #a21caf 0%, #f903d0 100%);
+    box-shadow: 0 4px 14px rgba(154, 22, 242, 0.45);
+    transition: transform 0.15s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+.addBtn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 18px rgba(249, 3, 208, 0.6);
+}
+
+.addBtn:active {
+    transform: scale(0.94);
+}
+
+.addBtn:disabled {
+    opacity: 0.6;
+    cursor: default;
+}
+
 .tabletBurgercursos {
     display: none;
 }
