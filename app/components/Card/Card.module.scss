@@ -18,13 +18,23 @@
     flex-direction: column;
     gap: 8px;
     padding: 16px;
-    background-color: $darkVoid;
-    border-radius: 12px;
+    /* Glassmorphic card surface. */
+    background: rgba(255, 255, 255, 0.035);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 14px;
     position: relative;
     cursor: pointer;
     height: 280px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
-    transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+}
+
+/* Currently-playing card: neon accent border + ambient glow. */
+.containerActive {
+    border-color: rgba(249, 3, 208, 0.55);
+    box-shadow: 0 8px 26px rgba(154, 22, 242, 0.4), 0 0 0 1px rgba(249, 3, 208, 0.3);
 }
 
 .container img {
@@ -129,4 +139,81 @@
 /* Re-enable clicks on the action button inside the (non-interactive) veil. */
 .union > * {
     pointer-events: auto;
+}
+
+/* ---- Top Hits: Play overlay + active equalizer ---- */
+.mediaActive {
+    box-shadow: 0 0 0 2px rgba(249, 3, 208, 0.75), 0 0 24px rgba(249, 3, 208, 0.45);
+}
+
+.playVeil {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: inherit;
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.55) 100%);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    pointer-events: none;
+}
+
+.container:hover .playVeil,
+.playVeilActive {
+    opacity: 1;
+}
+
+/* Glowing gradient play button that scales in on hover. */
+.playBtn {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(92deg, #f903d0 0%, #9a16f2 100%);
+    box-shadow: 0 10px 26px rgba(154, 22, 242, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    transform: scale(0.8);
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.container:hover .playBtn {
+    transform: scale(1);
+}
+
+.playBtn svg {
+    margin-left: 2px;
+}
+
+/* Animated equalizer shown on the active (playing) card. */
+.eq {
+    display: inline-flex;
+    align-items: flex-end;
+    gap: 3px;
+    height: 26px;
+}
+
+.eq i {
+    width: 4px;
+    height: 100%;
+    border-radius: 2px;
+    background: linear-gradient(180deg, #f903d0, #9a16f2);
+    transform-origin: bottom;
+    animation: cardEq 0.9s ease-in-out infinite;
+}
+
+.eq i:nth-child(1) { animation-delay: 0s; }
+.eq i:nth-child(2) { animation-delay: 0.18s; }
+.eq i:nth-child(3) { animation-delay: 0.36s; }
+.eq i:nth-child(4) { animation-delay: 0.54s; }
+
+@keyframes cardEq {
+    0%, 100% { transform: scaleY(0.35); }
+    50% { transform: scaleY(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .eq i { animation: none; transform: scaleY(0.7); }
+    .playBtn { transition: none; }
 }

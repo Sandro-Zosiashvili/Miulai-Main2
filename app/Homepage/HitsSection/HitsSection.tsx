@@ -76,7 +76,7 @@ const HitsSection = () => {
                         }}
                         >
                             <Card image={item?.album.albumImage} subtitle={item.artistName} title={item.name}
-                                  imageStyle={'normal'}/>
+                                  imageStyle={'normal'} playable active={item.id === musicID}/>
                         </div>
                     ))
                 }
