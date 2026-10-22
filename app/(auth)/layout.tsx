@@ -7,6 +7,7 @@ import BurgerMenu from "../components/BurgerMenu/BurgerMenu";
 import Mobilemenu from "../components/Mobilemenu/mobilemenu";
 import RecoilWrapper from "../components/RecoilWrapper/RecoilWrapper";
 import PlayerHide from "@app/components/MusicPlayer/playerHide";
+import {Toaster} from "react-hot-toast";
 
 export default function RootLayout(
     {
@@ -18,6 +19,22 @@ export default function RootLayout(
 
     return (
         <RecoilWrapper>
+            <Toaster
+                position="top-center"
+                toastOptions={{
+                    duration: 2600,
+                    style: {
+                        background: "rgba(20, 20, 24, 0.92)",
+                        color: "#fff",
+                        border: "1px solid rgba(255, 255, 255, 0.12)",
+                        borderRadius: "12px",
+                        backdropFilter: "blur(14px)",
+                        fontSize: "14px",
+                        fontWeight: 500,
+                    },
+                    success: {iconTheme: {primary: "#f903d0", secondary: "#fff"}},
+                }}
+            />
             <div className={styles.container}>
                 <div className={styles.container}>
                     <div className={styles.ordynaryMenu}>

@@ -1,5 +1,8 @@
+'use client';
 import styles from "./News.module.scss";
 import Button from "../Button/Button";
+import {motion} from "framer-motion";
+import toast from "react-hot-toast";
 import {useRecoilState} from "recoil";
 import {mudicIDState} from "@/app/state";
 import {useEffect, useRef, useState} from "react";
@@ -207,23 +210,37 @@ const News = (props: Props) => {
 
                 {!props.artistPage && (
                     <div className={styles.actions}>
-                        <button
+                        <motion.button
                             type="button"
                             className={styles.ctaPrimary}
-                            onClick={() => setMusicId(forMusic)}
+                            onClick={() => {
+                                setMusicId(forMusic);
+                                toast.success("Playing Top Hit Of The Week");
+                            }}
+                            whileHover={{scale: 1.03, y: -2}}
+                            whileTap={{scale: 0.97}}
+                            transition={{type: "spring", stiffness: 400, damping: 20}}
                         >
                             <svg viewBox="0 0 24 24" width={20} height={20} aria-hidden="true">
                                 <path d="M8 5v14l11-7z" fill="currentColor"/>
                             </svg>
                             Listen Now
-                        </button>
+                        </motion.button>
 
-                        <button
+                        <motion.button
                             type="button"
                             className={`${styles.ctaSecondary} ${saved ? styles.saved : ""}`}
-                            onClick={() => setSaved((s) => !s)}
+                            onClick={() => {
+                                const next = !saved;
+                                setSaved(next);
+                                if (next) toast.success("Added to Your Library");
+                                else toast("Removed from Your Library");
+                            }}
                             aria-pressed={saved}
                             aria-label={saved ? "Saved to library" : "Save to library"}
+                            whileHover={{scale: 1.08, y: -2}}
+                            whileTap={{scale: 0.9}}
+                            transition={{type: "spring", stiffness: 400, damping: 18}}
                         >
                             {/* Lucide "Heart" — clean, symmetric vector. */}
                             <svg
@@ -240,7 +257,7 @@ const News = (props: Props) => {
                                 <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
                             </svg>
                             <span className={styles.tooltip}>{saved ? "Saved" : "Save to Library"}</span>
-                        </button>
+                        </motion.button>
                     </div>
                 )}
             </div>

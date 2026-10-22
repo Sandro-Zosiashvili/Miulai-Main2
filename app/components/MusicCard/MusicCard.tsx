@@ -1,4 +1,7 @@
+'use client';
 import {useEffect, useState} from 'react';
+import {motion} from "framer-motion";
+import toast from "react-hot-toast";
 import { cachedGet } from "@/app/lib/apiCache";
 import HeartShapeBtn from '../heatShapeIcon/HeartShapeIcn';
 import Icon from '../Icon/Icon';
@@ -58,16 +61,20 @@ const MusicCard = () => {
     return (
         <div className={styles.mainContainer}>
             {cardData.slice(0, 6).map((item: any, index: any) => (
-                <div
+                <motion.div
                     className={`${styles.container} ${item.id === musicID ? styles.playing : ""}`.trim()}
                     key={item.id}
+                    initial={{opacity: 0, y: 14}}
+                    animate={{opacity: 1, y: 0}}
+                    transition={{delay: index * 0.05, duration: 0.4, ease: [0.16, 1, 0.3, 1]}}
+                    whileHover={{y: -3}}
                     onClick={() => {
                         setMusicArrayTwo(cardData)
                         setMusicId(item.id)
                         setGlobalMusic(item.id)
                         setAlbumId(item.author.id)
                         setAlbumRouter(item.album.id)
-
+                        toast.success(`Playing ${item.name}`)
                     }}
 
 
@@ -132,7 +139,7 @@ const MusicCard = () => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </motion.div>
             ))}
         </div>
     );
