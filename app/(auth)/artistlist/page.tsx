@@ -55,6 +55,7 @@ const ArtistsList = () => {
                                     image={item?.artistPhoto}
                                     title={item.artistName}
                                     imageStyle={'round'}
+                                    hideMenu
                                 />
                             </div>
                         ))

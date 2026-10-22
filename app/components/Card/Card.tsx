@@ -13,6 +13,8 @@ interface Props {
     playable?: boolean;
     /** This card's track is the one currently playing. */
     active?: boolean;
+    /** Hide the three-dots context menu (e.g. artist cards). */
+    hideMenu?: boolean;
 }
 
 const Card = (props: Props) => {
@@ -49,7 +51,7 @@ const Card = (props: Props) => {
                                 </span>
                             )}
                         </div>
-                    ) : (
+                    ) : props.hideMenu ? null : (
                         <div className={styles.union}>
                             <ItemsUnion/>
                         </div>
