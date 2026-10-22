@@ -23,8 +23,11 @@
   display: none;
 }
 
+/* Reserves the column the fixed sidebar overlays, so content sits beside it. */
 .ordynaryMenu {
   display: flex;
+  width: 277px;
+  flex-shrink: 0;
 }
 
 @media screen and (max-width: 767px) {

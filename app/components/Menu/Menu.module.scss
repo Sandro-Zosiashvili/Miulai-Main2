@@ -1,23 +1,66 @@
 @import '../colors/colors.scss';
 
+/* Fixed sidebar: stays pinned while the main content scrolls independently.
+   The .ordynaryMenu wrapper reserves an equal-width spacer in the flex row. */
 .container {
-    max-width: 277px;
-    min-height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 277px;
+    height: 100vh;
+    z-index: 50;
+    overflow-y: auto;
+    overflow-x: hidden;
     background-color: $reversedGrey;
     display: flex;
     justify-content: center;
-    padding: 40px 20px;
+    box-sizing: border-box;
+    /* bottom padding clears the fixed player bar */
+    padding: 36px 20px 150px;
+
+    /* Thin, unobtrusive scrollbar. */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.16) transparent;
+}
+
+.container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.container::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.container::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.14);
+    border-radius: 3px;
+}
+
+.container::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.28);
 }
 
 .container_menu {
-    width: 240px;
-    height: 100%;
-    background-color: $reversedGrey;
+    width: 100%;
+    max-width: 240px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 56px;
+    gap: 44px;
 }
+
+/* Logo: interactive link home with a subtle glow on hover. */
 .cursorLogo {
     cursor: pointer;
+    transition: transform 0.25s ease, filter 0.25s ease;
+    filter: drop-shadow(0 2px 10px rgba(154, 22, 242, 0));
+}
+
+.cursorLogo:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 6px 20px rgba(154, 22, 242, 0.5));
+}
+
+.cursorLogo:active {
+    transform: scale(1.0);
 }
