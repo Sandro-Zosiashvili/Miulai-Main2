@@ -25,6 +25,12 @@ const News = (props: Props) => {
     const [forMusic, setForMusic] = useState();
     const imgRef = useRef<HTMLImageElement | null>(null);
     const [bgStyle, setBgStyle] = useState({});
+    // Accent colors sampled from the featured art -> dynamic mesh glow + CTA.
+    const [accent, setAccent] = useState<{ c1: string; c2: string }>({
+        c1: "#7a1fd0",
+        c2: "#f903d0",
+    });
+    const [saved, setSaved] = useState(false);
     const token = Cookies.get("token");
 
 
@@ -41,6 +47,8 @@ const News = (props: Props) => {
                 const rgb1 = `rgb(${color1[0]}, ${color1[1]}, ${color1[2]})`;
                 const rgb2 = `rgb(${color2[0]}, ${color2[1]}, ${color2[2]})`;
                 const gradient = `linear-gradient(to bottom, ${rgb1} 0%, ${rgb2} 100%)`;
+
+                setAccent({c1: rgb1, c2: rgb2});
 
                 setBgStyle({
                     background: gradient,
@@ -154,67 +162,90 @@ const News = (props: Props) => {
     }
 
     return (
-        <div className={styles.container} style={backImage}>
+        <div
+            className={styles.container}
+            style={{...backImage, ["--accent1" as any]: accent.c1, ["--accent2" as any]: accent.c2}}
+        >
             <Head>
                 <link rel="preload" as="image" href={props.image} crossOrigin="anonymous"/>
             </Head>
+
+            {/* Hidden source image so ColorThief can sample the accent colors. */}
+            {!props.artistPage && (
+                <img
+                    ref={imgRef}
+                    src={props.image}
+                    crossOrigin="anonymous"
+                    style={{display: "none"}}
+                    alt=""
+                    aria-hidden="true"
+                />
+            )}
+
+            {/* Animated colored mesh glow that adapts to the featured art. */}
+            <div className={styles.mesh} aria-hidden="true"/>
+
             <div className={!props.artistPage ? styles.container_news : styles.artistNews}>
+                {!props.artistPage && (
+                    <div className={styles.badges}>
+                        <span className={`${styles.badge} ${styles.badgeHot}`}>
+                            <span className={styles.eq} aria-hidden="true">
+                                <i/><i/><i/>
+                            </span>
+                            Trending #1
+                        </span>
+                        {props.plays && (
+                            <span className={styles.badge}>{props.plays} Plays</span>
+                        )}
+                        <span className={styles.badge}>Hit Of The Week</span>
+                    </div>
+                )}
+
                 <div className={styles.container_title}>
                     <div className={styles.font_style_news}>{props.title}</div>
-                    <div className={styles.font_style_plays}>
-                        {
-                            !props.artistPage &&
-                            <>
-                                <div>Plays</div>
-                                <div>{props.plays}</div>
-                            </>
-                        }
-                    </div>
                 </div>
 
-                {
-                    !props.artistPage &&
-                    <div className={styles.mainButton}>
-                        <Button
-                            title={"Listen Now"}
-                            mode={"reusable button"}
-                            padding="12px 24px 12px 20px"
-                            borderRadius="8px"
-                            gap="4px"
-                            width="153px"
-                            fontSize="16px"
-                            fontWeight="500"
-                            imageSrc="clip.svg"
-                            imageWidth={20}
-                            imageHeight={20}
+                {!props.artistPage && (
+                    <div className={styles.actions}>
+                        <button
+                            type="button"
+                            className={styles.ctaPrimary}
                             onClick={() => setMusicId(forMusic)}
-                        />
-                    </div>
-                }
+                        >
+                            <svg viewBox="0 0 24 24" width={20} height={20} aria-hidden="true">
+                                <path d="M8 5v14l11-7z" fill="currentColor"/>
+                            </svg>
+                            Listen Now
+                        </button>
 
-                {
-                    !props.artistPage &&
-                    <div className={styles.mobileButton}>
-                        <Button
-                            title={"Listen Now"}
-                            mode={"reusable button"}
-                            padding="8px 12px 8px 8px"
-                            borderRadius="4px"
-                            gap="4px"
-                            width="114px"
-                            fontSize="14px"
-                            fontWeight="500"
-                            imageSrc="clip.svg"
-                            imageWidth={16}
-                            imageHeight={16}
-                            onClick={() => setMusicId(forMusic)}
-                        />
+                        <button
+                            type="button"
+                            className={`${styles.ctaSecondary} ${saved ? styles.saved : ""}`}
+                            onClick={() => setSaved((s) => !s)}
+                            aria-pressed={saved}
+                            aria-label={saved ? "Saved to library" : "Save to library"}
+                        >
+                            {/* Lucide "Heart" — clean, symmetric vector. */}
+                            <svg
+                                viewBox="0 0 24 24"
+                                width={22}
+                                height={22}
+                                fill={saved ? "currentColor" : "none"}
+                                stroke="currentColor"
+                                strokeWidth={2}
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                aria-hidden="true"
+                            >
+                                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+                            </svg>
+                            <span className={styles.tooltip}>{saved ? "Saved" : "Save to Library"}</span>
+                        </button>
                     </div>
-                }
+                )}
             </div>
         </div>
-    )
-        ;
+    );
 };
 
 export default News;
